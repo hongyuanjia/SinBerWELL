@@ -496,9 +496,6 @@ turn_off_air_system <- function(idf) {
 
 # add_natural_ventilation {{{
 add_natural_ventilation <- function(idf, ach = 5, max_oa_temp = 30) {
-    idf$add(Schedule_Constant = list("HybridVentType", "Any Number", 1))
-    idf$add(Schedule_Constant = list("Always 0", "Any Number", 0))
-
     # get conditioned zones
     zones <- idf$to_table(class = "ZoneControl:Thermostat")[
         field == "Zone or ZoneList Name", value]
