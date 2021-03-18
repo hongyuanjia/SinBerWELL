@@ -1,161 +1,517 @@
-# get_aircon_zones {{{
-get_aircon_zones <- function(idf) {
-    # only for office areas
-    zones <- idf$object_name("Zone", simplify = TRUE)
-    grep("Stairs|Toilet|Plenum|Parking", zones, invert = TRUE, value = TRUE)
-}
-# }}}
+# set_thermostat_singlcooling {{{
+set_thermostat_singlecooling <- function(idf, core, perimeter) {
+    checkmate::assert_number(core, lower = 16, upper = 30)
+    checkmate::assert_number(perimeter, lower = 16, upper = 30)
 
-# apply_combined_strategies {{{
-apply_combined_strategies <- function (idf,
-    indoor = 3, coil = 2, evaporator = 2, economizer = 2,
-    sch_frac_occu = 0.4, sch_frac_equip = 0.7, sch_frac_light = 0.4,
-    CO2_ctrl = TRUE, dayl_ctrl = TRUE, LED = TRUE, lowe = TRUE
-)
-{
-    if (indoor > 0) {
-        set_indoor_setpoint(idf, perimeter = 23 + indoor, core = 24 + indoor)
-        add_ceiling_fan(idf)
-    }
-    if (coil > 0) set_coil_setpoint(idf, 12.8 + coil)
-    if (evaporator > 0) set_evaporator_setpoint(idf, 6.7 + coil)
-    if (economizer > 0) add_economizer(idf, 24 + economizer)
+    idf$set("Sch_Zone_Thermostat_Control_Type" = list(field_4 = "2"))
 
-    if (sch_frac_occu < 1.0) set_sch_occupancy(idf, sch_frac_occu)
-    if (sch_frac_equip < 1.0) set_sch_equipment(idf, sch_frac_equip)
-    if (sch_frac_light < 1.0) set_sch_lighting(idf, sch_frac_light)
+    # get conditioned zones
+    zones <- idf$to_table(class = "ZoneControl:Thermostat")[
+        field == "Zone or ZoneList Name", value]
 
-    if (CO2_ctrl) add_CO2_ctrlr(idf, source = 400, setpoint = 1115)
+    without_checking({
+        idf$set("ZoneControl:Thermostat" := list(
+            control_1_object_type = "ThermostatSetpoint:SingleCooling"
+        ))
 
-    if (LED) use_LED(idf)
-    if (lowe) use_lowe_win(idf)
+        nm_sch <- idf$object_name("Schedule:Compact")[[1]]
 
-    if (dayl_ctrl) add_daylight_control(idf)
+        if ("Sch_Zone_Cooling_Setpoint_Wo_Solar" %in% nm_sch) {
+            idf$set("Sch_Zone_Cooling_Setpoint_Wo_Solar" = list(
+                field_4 = as.character(core)
+            ))
+        } else {
+            idf$add(Schedule_Compact = list(
+                "Sch_Zone_Cooling_Setpoint_Wo_Solar",
+                "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+                as.character(core)
+            ))
+        }
+
+        if ("Sch_Zone_Cooling_Setpoint_Solar" %in% nm_sch) {
+            idf$set("Sch_Zone_Cooling_Setpoint_Solar" = list(
+                field_4 = as.character(perimeter)
+            ))
+        } else {
+            idf$add(Schedule_Compact = list(
+                "Sch_Zone_Cooling_Setpoint_Solar",
+                "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+                as.character(perimeter)
+            ))
+        }
+
+        # remove existing
+        idf$ThermostatSetpoint_SingleCooling <- NULL
+        idf$ThermostatSetpoint_SingleHeating <- NULL
+        idf$ThermostatSetpoint_SingleHeatingOrCooling <- NULL
+        idf$ThermostatSetpoint_DualSetpoint <- NULL
+
+        sgl <- idf$to_table(class = rep("ThermostatSetpoint:SingleCooling", length(zones)),
+            init = TRUE, all = TRUE, wide = TRUE)
+
+        sgl[, Name := sprintf("%s_SPSched", zones)]
+
+        sgl[grepl("^Core", Name), `:=`(
+            `Setpoint Temperature Schedule Name` = "Sch_Zone_Cooling_Setpoint_Wo_Solar"
+        )]
+        sgl[!grepl("^Core", Name), `:=`(
+            `Setpoint Temperature Schedule Name` = "Sch_Zone_Cooling_Setpoint_Solar"
+        )]
+
+        idf$load(dt_to_load(sgl))
+    })
 
     idf
 }
 # }}}
 
-# add_hybrid_ventilation {{{
-add_hybrid_ventilation <- function(idf) {
+# set_thermostat_deadband {{{
+set_thermostat_deadband <- function(idf, core, perimeter) {
+    checkmate::assert_double(core, lower = 16, upper = 30, any.missing = FALSE,
+        len = 2, sorted = TRUE, unique = TRUE)
+    checkmate::assert_double(perimeter, lower = 16, upper = 30, any.missing = FALSE,
+        len = 2, sorted = TRUE, unique = TRUE)
+
+    idf$set("Sch_Zone_Thermostat_Control_Type" = list(field_4 = "4"))
+
+    without_checking({
+        idf$set("ZoneControl:Thermostat" := list(
+            control_1_object_type = "ThermostatSetpoint:DualSetpoint"
+        ))
+
+        nm_sch <- idf$object_name("Schedule:Compact")[[1]]
+
+        if ("Sch_Zone_Cooling_Setpoint_Lower_Core" %in% nm_sch) {
+            idf$set("Sch_Zone_Cooling_Setpoint_Lower_Core" = list(
+                field_4 = as.character(core[1])
+            ))
+        } else {
+            idf$add(Schedule_Compact = list(
+                "Sch_Zone_Cooling_Setpoint_Lower_Core",
+                "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+                as.character(core[1])
+            ))
+        }
+
+        if ("Sch_Zone_Cooling_Setpoint_Lower_Perimeter" %in% nm_sch) {
+            idf$set("Sch_Zone_Cooling_Setpoint_Lower_Perimeter" = list(
+                field_4 = as.character(perimeter[1])
+            ))
+        } else {
+            idf$add(Schedule_Compact = list(
+                "Sch_Zone_Cooling_Setpoint_Lower_Perimeter",
+                "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+                as.character(perimeter[1])
+            ))
+        }
+
+        if ("Sch_Zone_Cooling_Setpoint_Upper_Core" %in% nm_sch) {
+            idf$set("Sch_Zone_Cooling_Setpoint_Upper_Core" = list(
+                field_4 = as.character(core[2])
+            ))
+        } else {
+            idf$add(Schedule_Compact = list(
+                "Sch_Zone_Cooling_Setpoint_Upper_Core",
+                "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+                as.character(core[2])
+            ))
+        }
+
+        if ("Sch_Zone_Cooling_Setpoint_Upper_Perimeter" %in% nm_sch) {
+            idf$set("Sch_Zone_Cooling_Setpoint_Upper_Perimeter" = list(
+                field_4 = as.character(perimeter[2])
+            ))
+        } else {
+            idf$add(Schedule_Compact = list(
+                "Sch_Zone_Cooling_Setpoint_Upper_Perimeter",
+                "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+                as.character(perimeter[2])
+            ))
+        }
+
+        # remove existing
+        idf$ThermostatSetpoint_SingleHeating <- NULL
+        idf$ThermostatSetpoint_SingleCooling <- NULL
+        idf$ThermostatSetpoint_SingleHeatingOrCooling <- NULL
+        idf$ThermostatSetpoint_DualSetpoint <- NULL
+
+        dual <- idf$to_table(class = rep("ThermostatSetpoint:DualSetpoint", length(zones)),
+            init = TRUE, all = TRUE, wide = TRUE)
+
+        dual[, Name := sprintf("%s_SPSched", zones)]
+
+        dual[grepl("^Core", Name), `:=`(
+            `Cooling Setpoint Temperature Schedule Name` = "Sch_Zone_Cooling_Setpoint_Upper_Core",
+            `Heating Setpoint Temperature Schedule Name` = "Sch_Zone_Cooling_Setpoint_Lower_Core"
+        )]
+        dual[!grepl("^Core", Name), `:=`(
+            `Cooling Setpoint Temperature Schedule Name` = "Sch_Zone_Cooling_Setpoint_Upper_Perimeter",
+            `Heating Setpoint Temperature Schedule Name` = "Sch_Zone_Cooling_Setpoint_Lower_Perimeter"
+        )]
+
+        idf$load(dt_to_load(dual))
+    })
+
+    idf
+}
+# }}}
+
+# add_radiant_floor {{{
+add_radiant_floor <- function(idf, core, perimeter) {
+    checkmate::assert_double(core, lower = 16, upper = 30, any.missing = FALSE,
+        len = 2, sorted = TRUE, unique = TRUE)
+    checkmate::assert_double(perimeter, lower = 16, upper = 30, any.missing = FALSE,
+        len = 2, sorted = TRUE, unique = TRUE)
+
+    # add control temperature schedules
+    nm_sch <- idf$object_name("Schedule:Compact")[[1]]
+    if ("Sch_Zone_RadiantHeating_Setpoint_Core" %in% nm_sch) {
+        idf$set("Sch_Zone_RadiantHeating_Setpoint_Core" = list(
+            field_4 = as.character(core[1])
+        ))
+    } else {
+        idf$add(Schedule_Compact = list(
+            "Sch_Zone_RadiantHeating_Setpoint_Core",
+            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+            as.character(core[1])
+        ))
+    }
+    if ("Sch_Zone_RadiantHeating_Setpoint_Perimeter" %in% nm_sch) {
+        idf$set("Sch_Zone_RadiantHeating_Setpoint_Perimeter" = list(
+            field_4 = as.character(perimeter[1])
+        ))
+    } else {
+        idf$add(Schedule_Compact = list(
+            "Sch_Zone_RadiantHeating_Setpoint_Perimeter",
+            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+            as.character(perimeter[1])
+        ))
+    }
+    if ("Sch_Zone_RaidantCooling_Setpoint_Core" %in% nm_sch) {
+        idf$set("Sch_Zone_RadiantCooling_Setpoint_Core" = list(
+            field_4 = as.character(core[2])
+        ))
+    } else {
+        idf$add(Schedule_Compact = list(
+            "Sch_Zone_RadiantCooling_Setpoint_Core",
+            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+            as.character(core[2])
+        ))
+    }
+    if ("Sch_Zone_RadiantCooling_Setpoint_Perimeter" %in% nm_sch) {
+        idf$set("Sch_Zone_RadiantCooling_Setpoint_Perimeter" = list(
+            field_4 = as.character(perimeter[2])
+        ))
+    } else {
+        idf$add(Schedule_Compact = list(
+            "Sch_Zone_RadiantCooling_Setpoint_Perimeter",
+            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+            as.character(perimeter[2])
+        ))
+    }
+
+    # get conditioned zones
+    zones <- idf$to_table(class = "ZoneControl:Thermostat")[
+        field == "Zone or ZoneList Name", value]
+
+    # get floors
+    floors <- idf$to_table(class = "BuildingSurface:Detailed", wide = TRUE)[
+        `Surface Type` == "Floor" & `Zone Name` %in% zones,
+        .(id, name, zone = `Zone Name`)]
+
+    # get surface areas in order to calculate flow fraction for each surface
+    floors[, area := idf$geometry()$area(object = floors$name)$area]
+    floors[, fraction := round(area / sum(area), 3), by = "zone"]
+    floors[, area := NULL]
+
+    # update radiant floor construction
+    val <- idf$object("SGP_Floor")$value()
+    val$Name <- "SGP_Floor_Radiant"
+    val$`Source Present After Layer Number` <- 1
+    val$`Temperature Calculation Requested After Layer Number` <- 1
+    val$`Dimensions for The CTF Calculation` <- 1
+    val$`Tube Spacing` <- 0.1524
+    idf$add(Construction_InternalSource = val)
+    idf$set(.(floors$id) := list(Construction_Name = "SGP_Floor_Radiant"))
+
+    # group surfaces by zone to create radiant surface groups
+    rad_flrs <- floors[, by = "zone", {
+        val <- mapply(function(surf, frac) c(surf, frac), name, fraction, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+        val <- c(sprintf("%s_Radiant_Floor", .BY$zone), unlist(val))
+        list(class = "ZoneHVAC:LowTemperatureRadiant:SurfaceGroup", index = seq_along(val), value = val)
+    }]
+    rad_flrs[, `:=`(id = data.table::rleid(zone))]
+    idf$load(rad_flrs)
+
+    # create low temperature radiant
+    rad <- idf$to_table(class = rep("ZoneHVAC:LowTemperatureRadiant:VariableFlow", length(zones)),
+        init = TRUE, wide = TRUE)
+    rad[, `:=`(
+        Name = sprintf("%s_Radiant", zones),
+        `Availability Schedule Name` = "Sch_ACMV",
+        `Zone Name` = zones,
+        `Surface Name or Radiant Surface Group Name` = sprintf("%s_Radiant_Floor", zones),
+        `Heating Design Capacity` = "Autosize",
+        `Heating Water Inlet Node Name` = sprintf("%s_RadiantHeating_Water_Inlet_Node", zones),
+        `Heating Water Outlet Node Name` = sprintf("%s_RadiantHeating_Water_Outlet_Node", zones),
+        `Heating Control Temperature Schedule Name` = sprintf("Sch_Zone_RadiantHeating_Setpoint_%s", ifelse(grepl("^Core", zones), "Core", "Perimeter")),
+        `Cooling Design Capacity` = "Autosize",
+        `Cooling Water Inlet Node Name` = sprintf("%s_RadiantCooling_Water_Inlet_Node", zones),
+        `Cooling Water Outlet Node Name` = sprintf("%s_RadiantCooling_Water_Outlet_Node", zones),
+        `Cooling Control Temperature Schedule Name` = sprintf("Sch_Zone_RadiantCooling_Setpoint_%s", ifelse(grepl("^Core", zones), "Core", "Perimeter")),
+        `Condensation Control Type` = "VariableOff",
+        `Condensation Control Dewpoint Offset` = 1
+    )]
+    idf$load(dt_to_load(rad))
+
+    # update zone equipment list
+    equiplist <- idf$to_table(class = "ZoneHVAC:EquipmentList", wide = TRUE, all = TRUE)[, .SD, .SDcols = 1:17]
+    equiplist <- equiplist[match(zones, gsub("_Equipment", "", name))]
+    # move the vav box to the second cooling option
+    equiplist[, `:=`(
+        `Zone Equipment 2 Object Type` = `Zone Equipment 1 Object Type`,
+        `Zone Equipment 2 Name` = `Zone Equipment 1 Name`,
+        `Zone Equipment 2 Cooling Sequence` = 2,
+        `Zone Equipment 2 Heating or No-Load Sequence` = 2,
+        `Zone Equipment 2 Sequential Cooling Fraction Schedule Name` = `Zone Equipment 1 Sequential Cooling Fraction Schedule Name`,
+        `Zone Equipment 2 Sequential Heating Fraction Schedule Name` = `Zone Equipment 1 Sequential Heating Fraction Schedule Name`
+    )]
+    # add radiant floor to the first cooling option
+    equiplist[, `:=`(
+        `Zone Equipment 1 Object Type` = "ZoneHVAC:LowTemperatureRadiant:VariableFlow",
+        `Zone Equipment 1 Name` = rad$Name,
+        `Zone Equipment 1 Cooling Sequence` = 1,
+        `Zone Equipment 1 Heating or No-Load Sequence` = 1
+    )]
+    idf$update(dt_to_load(equiplist))
+
+    # create one branch for each radiant cooling floor
+    branch_clg <- idf$to_table(class = rep("Branch", length(zones)), wide = TRUE, init = TRUE)
+    branch_htg <- idf$to_table(class = rep("Branch", length(zones)), wide = TRUE, init = TRUE)
+    branch_clg[, `:=`(
+        Name = sprintf("%s_RadiantCooling_Branch", zones),
+        `Component 1 Object Type` = "ZoneHVAC:LowTemperatureRadiant:VariableFlow",
+        `Component 1 Name` = sprintf("%s_Radiant", zones),
+        `Component 1 Inlet Node Name` = sprintf("%s_RadiantCooling_Water_Inlet_Node", zones),
+        `Component 1 Outlet Node Name` = sprintf("%s_RadiantCooling_Water_Outlet_Node", zones)
+    )]
+    branch_htg[, `:=`(
+        Name = sprintf("%s_RadiantHeating_Branch", zones),
+        `Component 1 Object Type` = "ZoneHVAC:LowTemperatureRadiant:VariableFlow",
+        `Component 1 Name` = sprintf("%s_Radiant", zones),
+        `Component 1 Inlet Node Name` = sprintf("%s_RadiantHeating_Water_Inlet_Node", zones),
+        `Component 1 Outlet Node Name` = sprintf("%s_RadiantHeating_Water_Outlet_Node", zones)
+    )]
+    idf$load(dt_to_load(branch_clg), dt_to_load(branch_htg))
+
+    idf$object("CndW_Demand_Mixer")
+    idf$object("CndW_Demand_Splitter")
+
+    # insert radiant cooling branches into the condenser demand branch list
+    idf$set(
+        CndW_Demand_Branches = as.list(c(
+            "CndW_Demand_Branches",
+            "CndW_Demand_Inlet_Branch",
+            branch_clg$Name, "CndW_Demand_Load_Branch_1",
+            "CndW_Demand_Bypass_Branch",
+            "CndW_Demand_Outlet_Branch"
+        )),
+        CndW_Demand_Mixer = as.list(c(
+            "CndW_Demand_Mixer",
+            "CndW_Demand_Outlet_Branch",
+            branch_clg$Name,
+            "CndW_Demand_Load_Branch_1",
+            "CndW_Demand_Bypass_Branch"
+        )),
+        CndW_Demand_Splitter = as.list(c(
+            "CndW_Demand_Splitter",
+            "CndW_Demand_Inlet_Branch",
+            branch_clg$Name, "CndW_Demand_Load_Branch_1",
+            "CndW_Demand_Bypass_Branch"
+        ))
+    )
+
+    # in order to make a full HVAC typology, should add heating loop
+    idf$add(
+        # demand inlet pipe
+        Pipe_Adiabatic = list("HW_Demand_Inlet_Pipe", "HW_Demand_Inlet_Node", "HW_Demand_Inlet_Pipe_Outlet_Node"),
+        Branch = list("HW_Demand_Inlet_Branch", NULL, "Pipe:Adiabatic",
+            "HW_Demand_Inlet_Pipe", "HW_Demand_Inlet_Node", "HW_Demand_Inlet_Pipe_Outlet_Node"
+        ),
+
+        # demand bypass pipe
+        Pipe_Adiabatic = list("HW_Demand_Bypass_Pipe", "HW_Demand_Bypass_Pipe_Inlet_Node", "HW_Demand_Bypass_Pipe_Outlet_Node"),
+        Branch = list("HW_Demand_Bypass_Branch", NULL, "Pipe:Adiabatic",
+            "HW_Demand_Bypass_Pipe", "HW_Demand_Bypass_Pipe_Inlet_Node", "HW_Demand_Bypass_Pipe_Outlet_Node"
+        ),
+
+        # demand outlet pipe
+        Pipe_Adiabatic = list("HW_Demand_Outlet_Pipe", "HW_Demand_Outlet_Pipe_Inlet_Node", "HW_Demand_Outlet_Node"),
+        Branch = list("HW_Demand_Outlet_Branch", NULL, "Pipe:Adiabatic",
+            "HW_Demand_Outlet_Pipe", "HW_Demand_Outlet_Pipe_Inlet_Node", "HW_Demand_Outlet_Node"
+        ),
+
+        # branch list
+        BranchList = as.list(c("HW_Demand_Branches",
+            "HW_Demand_Inlet_Branch",
+            sprintf("%s_RadiantHeating_Branch", zones),
+            "HW_Demand_Bypass_Branch",
+            "HW_Demand_Outlet_Branch"
+        )),
+
+        # splitter and mixer
+        Connector_Splitter = as.list(c("HW_Demand_Splitter",
+            "HW_Demand_Inlet_Branch",
+            sprintf("%s_RadiantHeating_Branch", zones),
+            "HW_Demand_Bypass_Branch"
+        )),
+        Connector_Mixer = as.list(c("HW_Demand_Mixer",
+            "HW_Demand_Outlet_Branch",
+            sprintf("%s_RadiantHeating_Branch", zones),
+            "HW_Demand_Bypass_Branch"
+        )),
+        ConnectorList = list("HW_Demand_Connectors",
+            "Connector:Splitter", "HW_Demand_Splitter",
+            "Connector:Mixer", "HW_Demand_Mixer"
+        ),
+
+        # supply inlet pump
+        Pump_VariableSpeed = list("HW_Pump", "HW_Supply_Inlet_Node", "HW_Pump_Outlet_Node",
+            "Autosize", 2E5, 30000, 0.9, 0, pump_control_type = "Intermittent"
+        ),
+        Branch = list("HW_Supply_Inlet_Branch", NULL, "Pump:VariableSpeed",
+            "HW_Pump", "HW_Supply_Inlet_Node", "HW_Pump_Outlet_Node"
+        ),
+
+        # supply heating equipment
+        DistrictHeating = list("Purchased_Heating", "Purchased_Heating_Inlet_Node", "Purchased_Heating_Outlet_Node", 1E6),
+        Branch = list("HW_Supply_Equipment_Branch", NULL, "DistrictHeating",
+            "Purchased_Heating", "Purchased_Heating_Inlet_Node", "Purchased_Heating_Outlet_Node"
+        ),
+
+        # supply bypass pipe
+        Pipe_Adiabatic = list("HW_Supply_Bypass_Pipe", "HW_Supply_Bypass_Pipe_Inlet_Node", "HW_Supply_Bypass_Pipe_Outlet_Node"),
+        Branch = list("HW_Supply_Bypass_Branch", NULL, "Pipe:Adiabatic",
+            "HW_Supply_Bypass_Pipe", "HW_Supply_Bypass_Pipe_Inlet_Node", "HW_Supply_Bypass_Pipe_Outlet_Node"
+        ),
+
+        # supply outlet pipe
+        Pipe_Adiabatic = list("HW_Supply_Outlet_Pipe", "HW_Supply_Outlet_Pipe_Inlet_Node", "HW_Supply_Outlet_Node"),
+        Branch = list("HW_Supply_Outlet_Branch", NULL, "Pipe:Adiabatic",
+            "HW_Supply_Outlet_Pipe", "HW_Supply_Outlet_Pipe_Inlet_Node", "HW_Supply_Outlet_Node"
+        ),
+
+        # branch list
+        BranchList = list("HW_Supply_Branches",
+            "HW_Supply_Inlet_Branch",
+            "HW_Supply_Equipment_Branch", "HW_Supply_Bypass_Branch",
+            "HW_Supply_Outlet_Branch"
+        ),
+
+        # splitter and mixer
+        Connector_Splitter = list("HW_Supply_Splitter",
+            "HW_Supply_Inlet_Branch",
+            "HW_Supply_Equipment_Branch", "HW_Supply_Bypass_Branch"
+        ),
+        Connector_Mixer = list("HW_Supply_Mixer",
+            "HW_Supply_Outlet_Branch",
+            "HW_Supply_Equipment_Branch", "HW_Supply_Bypass_Branch"
+        ),
+        ConnectorList = list("HW_Supply_Connectors",
+            "Connector:Splitter", "HW_Supply_Splitter",
+            "Connector:Mixer", "HW_Supply_Mixer"
+        ),
+
+        # plant equipment list
+        PlantEquipmentList = list("HW_Equipment_List", "DistrictHeating", "Purchased_Heating"),
+
+        # plant equipment operation
+        PlantEquipmentOperation_HeatingLoad = list("HW_Operation_Scheme", 0, 1E6, "HW_Equipment_List"),
+        PlantEquipmentOperationSchemes = list("HW_Loop_Operation_Scheme_List", "PlantEquipmentOperation:HeatingLoad",
+            "HW_Operation_Scheme", "Sch_Always_On"
+        ),
+
+        # plant loop
+        PlantLoop = list("HW_Loop", "Water", NULL,
+            "HW_Loop_Operation_Scheme_List", "HW_Supply_Outlet_Node",
+            100, 10, "Autosize", 0, "Autocalculate",
+            "HW_Supply_Inlet_Node", "HW_Supply_Outlet_Node",
+            "HW_Supply_Branches", "HW_Supply_Connectors",
+            "HW_Demand_Inlet_Node", "HW_Demand_Outlet_Node",
+            "HW_Demand_Branches", "HW_Demand_Connectors"
+        ),
+
+        # supply outlet setpoint
+        Schedule_Compact = list("Sch_HW_Loop_Temp", "Temperature",
+            "Through: 12/31", "For: AllDays", "Until: 24:00", "30"
+        ),
+        SetpointManager_Scheduled = list("HW_Loop_Setpoint_Manager", "Temperature",
+            "Sch_HW_Loop_Temp", "HW_Supply_Outlet_Node"
+        ),
+
+        # sizing plant
+        Sizing_Plant = list("HW_Loop", "Heating", 30, 5)
+    )
+
+    idf
+}
+# }}}
+
+# turn_off_air_system {{{
+turn_off_air_system <- function(idf) {
+    avail <- sprintf("VAV_%s_Availability", c("Bot", "Mid", "Top"))
+    avail_list <- paste(avail, "List", sep = "_")
+
+    # remove existing
+    valid <- idf$is_valid_name(c(avail, avail_list))
+    if (any(valid)) idf$del(c(avail, avail_list)[valid], .force = TRUE)
+
+    if (!idf$is_valid_name("Sch_Always_Off")) {
+        idf$add(Schedule_Compact = list(
+            "Sch_Always_Off",
+            "On/Off", "Through: 12/31", "For: AllDays",
+            "Until: 24:00", "0"
+        ))
+    }
+
+    idf$add(
+        AvailabilityManager_Scheduled := list(
+            sprintf("VAV_%s_Availability", c("Bot", "Mid", "Top")),
+            "Sch_Always_Off"
+        ),
+        AvailabilityManagerAssignmentList := list(
+            sprintf("VAV_%s_Availability_List", c("Bot", "Mid", "Top")),
+            "AvailabilityManager:Scheduled",
+            sprintf("VAV_%s_Availability", c("Bot", "Mid", "Top"))
+        )
+    )
+
+    idf$set(c(idf$object_id(class = "AirLoopHVAC")[[1]]) := list(
+        `Availability Manager List Name` = avail_list
+    ))
+
+    idf
+}
+# }}}
+
+# add_natural_ventilation {{{
+add_natural_ventilation <- function(idf, ach = 5, max_oa_temp = 30) {
     idf$add(Schedule_Constant = list("HybridVentType", "Any Number", 1))
     idf$add(Schedule_Constant = list("Always 0", "Any Number", 0))
 
-    zones <- c("Core_Bot", "Core_Mid", "Core_Top")
-    loops <- data.table::fcase(
-        grepl("Bot", zones), "VAV_Bot",
-        grepl("Mid", zones), "VAV_Mid",
-        grepl("Top", zones), "VAV_Top"
-    )
+    # get conditioned zones
+    zones <- idf$to_table(class = "ZoneControl:Thermostat")[
+        field == "Zone or ZoneList Name", value]
 
-    idf$add(
-        "ZoneVentilation:DesignFlowRate" := list(
-            sprintf("MechVent_%s", zones),
-            zones,
-            "Sch_Occupancy",
-            "AirChanges/Hour",
-            air_changes_per_hour = 2,
-            ventilation_type = "natural",
-            fan_pressure_rise = 200,
-            fan_total_efficiency = 0.61
-        ),
-
-        "AvailabilityManager:HybridVentilation" := list(
-            sprintf("Hybrid Vent %s", zones),
-            loops,
-            zones, "HybridVentType",
-            use_weather_file_rain_indicators = "no",
-            maximum_wind_speed = 40,
-            minimum_outdoor_temperature = 0,
-            maximum_outdoor_temperature = 29,
-            minimum_outdoor_enthalpy = 20000,
-            maximum_outdoor_enthalpy = 30000,
-            minimum_outdoor_ventilation_air_schedule_name = "Sch_Always_On",
-            simple_airflow_control_type_schedule_name = "Always 0",
-            zoneventilation_object_name = sprintf("MechVent_%s", zones)
-        ),
-
-        "Output:Variable" := list(
-            "*",
-            "Availability Manager Hybrid Ventilation Control Status",
-            "Hourly"
-        )
-    )
-
-    idf
-}
-# }}}
-
-# set_indoor_setpoint {{{
-set_indoor_setpoint <- function (idf, perimeter = 23, core = perimeter + 1,
-                               ddy_perimeter = 23, ddy_core = ddy_perimeter + 1) {
-    sch_peri <- "Sch_Zone_Cooling_Setpoint_Solar"
-    sch_core <- "Sch_Zone_Cooling_Setpoint_Wo_Solar"
-
-    if (ddy_perimeter == perimeter) {
-        idf$object(sch_peri)$set(
-            sch_peri, "Temperature", "Through: 12/31",
-            "For: AllDays", "Until: 24:00", sprintf("%.1f", perimeter)
-        )
-    } else {
-        idf$object(sch_peri)$set(
-            sch_peri, "Temperature", "Through: 12/31",
-            "For: SummerDesignDay", "Until: 24:00", sprintf("%.1f", ddy_perimeter),
-            "For: AllOtherDays", "Until: 24:00", sprintf("%.1f", perimeter)
-        )
-    }
-
-    if (ddy_core == core) {
-        idf$object(sch_core)$set(
-            sch_core, "Temperature", "Through: 12/31",
-            "For: AllDays", "Until: 24:00", sprintf("%.1f", core)
-        )
-    } else {
-        idf$object(sch_core)$set(
-            sch_core, "Temperature", "Through: 12/31",
-            "For: SummerDesignDay", "Until: 24:00", sprintf("%.1f", ddy_core),
-            "For: AllOtherDays", "Until: 24:00", sprintf("%.1f", core)
-        )
-    }
-
-    idf
-}
-# }}}
-
-# set_coil_setpoint {{{
-set_coil_setpoint <- function (idf, setpoint = 12.8, ddy_setpoint = 12.8) {
-    sch_sat <- "Sch_Coil_SAT"
-    idf$object(sch_sat)$set(
-        sch_sat, "Temperature", "Through: 12/31",
-        "For: SummerDesignDay", "Until: 24:00", sprintf("%.1f", ddy_setpoint),
-        "For: AllOtherDays", "Until: 24:00", sprintf("%.1f", setpoint)
-    )
-
-    idf
-}
-# }}}
-
-# set_evaporator_setpoint {{{
-set_evaporator_setpoint <- function (idf, setpoint = 6.7 + 3, ddy_setpoint = 6.7) {
-    sch_chilled <- "Sch_ChW_Loop_Temp"
-    idf$object(sch_chilled)$set(
-        sch_chilled, "Temperature", "Through: 12/31",
-        "For: SummerDesignDay", "Until: 24:00", sprintf("%.1f", ddy_setpoint),
-        "For: AllOtherDays", "Until: 24:00", sprintf("%.1f", setpoint)
-    )
-
-    idf
-}
-# }}}
-
-# set_condenser_setpoint {{{
-set_condenser_setpoint <- function (idf, setpoint = 29.5, ddy_setpoint = 29.5) {
-    sch_condenser <- "Sch_CndW_Loop_Temp"
-    idf$object(sch_condenser)$set(
-        sch_condenser, "Temperature", "Through: 12/31",
-        "For: SummerDesignDay", "Until: 24:00", sprintf("%.1f", ddy_setpoint),
-        "For: AllOtherDays", "Until: 24:00", sprintf("%.1f", setpoint)
-    )
+    idf$add("ZoneVentilation:DesignFlowRate" := list(
+        sprintf("NatVent_%s", zones),
+        zones,
+        "Sch_Occupancy",
+        "AirChanges/Hour",
+        air_changes_per_hour = ach,
+        ventilation_type = "natural",
+        maximum_outdoor_temperature = max_oa_temp
+    ))
 
     idf
 }
@@ -191,224 +547,6 @@ add_ceiling_fan <- function(idf, watts_per_area = 0.5) {
 }
 # }}}
 
-# add_economizer {{{
-add_economizer <- function (idf, setpoint = 24 + 3, ddy_setpoint = 24) {
-    # set mixed air temperature setpoint schedule
-    create_simple_sch(idf, "Sch_MAT", sprintf("%.1f", setpoint), sprintf("%.1f", ddy_setpoint))
-
-    # add economizer
-    idf$set("Controller:OutdoorAir" := list(
-        Economizer_Control_Type = "FixedDryBulb",
-        Economizer_Maximum_Limit_Dry_Bulb_Temperature = setpoint
-    ))
-
-    # create setpoint manager
-    zn <- grep("core_(bot|mid|top)", idf$object_name("Zone", TRUE), value = TRUE, ignore.case = TRUE)
-    node <- idf$to_table(class = "Controller:OutdoorAir", wide = TRUE)[["Mixed Air Node Name"]]
-    l <- replicate(length(zn), idf$definition("SetpointManager:Scheduled")$to_table(), FALSE)
-    dt <- data.table::rbindlist(lapply(seq_along(zn), function (i) {
-        l[[i]][, value := c(
-            name = paste0(zn[i], "_MAT_Setpoint"),
-            control_variable = "Temperature",
-            schedule_name = "Sch_MAT",
-            setpoint_node_or_nodelist_name = node[i]
-        )][, id := i]
-    }))
-    idf$load(dt)
-
-    idf
-}
-# }}}
-
-# add_CO2_ctrlr {{{
-add_CO2_ctrlr <- function (idf, source = 400, setpoint = 1115) {
-    # set CO2 source schedule
-    # reference: ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt
-    create_simple_sch(idf, "Sch_Outdoor_CO2", sprintf("%.1f", source), sprintf("%.1f", source))
-
-    # add contaminant source
-    if (idf$is_valid_class("ZoneAirContaminantBalance")) {
-        idf$set("ZoneAirContaminantBalance" := list("Yes", "Sch_Outdoor_CO2", "No"))
-    } else {
-        idf$add("ZoneAirContaminantBalance" = list("Yes", "Sch_Outdoor_CO2", "No"))
-    }
-
-    # set CO2 setpoint schedule
-    create_simple_sch(idf, "Sch_CO2_Setpoint", sprintf("%.1f", setpoint), sprintf("%.1f", setpoint))
-
-    # add contaminant controller
-    zn <- grep("core_(bot|mid|top)", idf$object_name("Zone", TRUE), value = TRUE, ignore.case = TRUE)
-    l <- replicate(length(zn), idf$definition("ZoneControl:ContaminantController")$to_table(), FALSE)
-    dt <- data.table::rbindlist(lapply(seq_along(zn), function (i) {
-        l[[i]][, value := c(
-            name = paste0(zn[i], "_CO2_Controller"),
-            zone_name = zn[i],
-            carbon_dioxide_control_availability_schedule_name = "Sch_ACMV",
-            carbon_dioxide_setpoint_schedule_name = "Sch_CO2_Setpoint"
-        )][, id := i]
-    }))
-    eplusr::with_silent(idf$load(dt))
-
-    # change mechanical ventilation control methods
-    idf$set("Controller:MechanicalVentilation" := list(system_outdoor_air_method = "IndoorAirQualityProcedure"))
-
-    idf
-}
-# }}}
-
-# use_lowe_win {{{
-use_lowe_win <- function (idf) {
-    idf$set("FenestrationSurface:Detailed" := list(construction_name = "SGP_DoublepaneWindow"))
-    idf
-}
-# }}}
-
-# add_daylight_control {{{
-add_daylight_control <- function (idf, illu_setpoint = 500, glare_setpoint = 19,
-                                  dist_from_wall = 1.6764, dist_from_floor = 0.762) {
-    create_simple_sch(idf, "Sch_Daylight_Control_Availability", 1, 0)
-
-    # get azimuth of exterior window
-    win <- idf$to_table(class = "FenestrationSurface:Detailed", wide = TRUE, string_value = FALSE)
-    vert_win <- get_outward_normal(get_vertices(win))[, azimuth := get_azimuth(c(x, y, z)), by = "id"]
-    win[vert_win, on = "id", azimuth := i.azimuth]
-    data.table::set(win, NULL, "Building Surface Name", toupper(win[["Building Surface Name"]]))
-
-    # get all exterior walls with windows
-    surf <- idf$to_table(win[["Building Surface Name"]], wide = TRUE, string_value = FALSE)
-    vert_surf <- get_vertices(surf)[, lapply(.SD, list), by = "id"]
-    surf[vert_surf, on = "id", `:=`(X = i.x, Y = i.y, Z = i.z)]
-    data.table::set(surf, NULL, "name", toupper(surf$name))
-
-    # get azimuth
-    surf[win, on = c(name = "Building Surface Name"), azimuth := i.azimuth]
-
-    # add reference point
-    pnt <- surf[, by = c("id", "azimuth"), c("ref_X", "ref_Y", "ref_Z") := {
-        # north
-        if (azimuth == 0) {
-            x <- mean(range(X[[1L]]))
-            y <- Y[[1L]][[1L]] - dist_from_wall
-        # east
-        } else if (azimuth == 90) {
-            x <- X[[1L]][[1L]] - dist_from_wall
-            y <- mean(range(Y[[1L]]))
-        # south
-        } else if (azimuth == 180) {
-            x <- mean(range(X[[1L]]))
-            y <- Y[[1L]][[1L]] + dist_from_wall
-        # north
-        } else {
-            x <- X[[1L]][[1L]] + dist_from_wall
-            y <- mean(range(Y[[1L]]))
-        }
-
-        z <- min(Z[[1L]]) + dist_from_floor
-
-        list(x, y, z)
-    }][, list(id, class = "Daylighting:ReferencePoint", Name = paste0(`Zone Name`, "_DaylRefPt1"),
-        `Zone Name`, ref_X, ref_Y, ref_Z
-    )]
-    data.table::setnames(pnt, sprintf("ref_%s", c("X", "Y", "Z")),
-        sprintf("%s-Coordinate of Reference Point", c("X", "Y", "Z"))
-    )
-    idf$load(eplusr::dt_to_load(pnt))
-
-    # add daylighting control
-    l <- replicate(nrow(pnt), idf$definition("Daylighting:Controls")$to_table(), FALSE)
-    for (i in seq_len(nrow(pnt))) data.table::set(l[[i]], NULL, "id", i)
-    dt <- data.table::rbindlist(l)
-    dt[J(1L), on = "index", value := paste0(pnt[["Zone Name"]], "_DaylCtrl")]
-    dt[J(2L), on = "index", value := pnt[["Zone Name"]]]
-    dt[J(10L), on = "index", value := pnt[["Name"]]]
-    dt[J(14L), on = "index", value := pnt[["Name"]]]
-    dt[J(c(3:9)), on = "index", by = "id", value := c(
-        "SplitFlux", "Sch_Daylight_Control_Availability", "Continuous",
-        "0.3", "0.2", 1, 1
-    )]
-    dt[J(11L), on = "index", value := "90"]
-    dt[J(12L), on = "index", value := as.character(glare_setpoint)]
-    dt[J(16L), on = "index", value := as.character(illu_setpoint)]
-    idf$load(dt)
-
-    idf
-}
-# }}}
-
-# create_simple_sch {{{
-create_simple_sch <- function (idf, name, value, ddy_value) {
-    if (idf$is_valid_name(name)) eplusr::with_silent(idf$del(name, .force = TRUE))
-    idf$add("Schedule:Compact" = list(
-        name, "Any Number", "Through: 12/31",
-        "For: SummerDesignDay", "Until: 24:00", as.character(ddy_value),
-        "For: AllOtherDays", "Until: 24:00", as.character(value)
-    ))[[1L]]
-}
-# }}}
-
-# set_sch_occupancy {{{
-set_sch_occupancy <- function (idf, frac = 1.0) {
-    apply_sch_frac(idf, "Sch_Occupancy", frac)
-}
-# }}}
-
-# set_sch_equipment {{{
-set_sch_equipment <- function (idf, frac = 1.0) {
-    apply_sch_frac(idf, "Sch_Equipment", frac)
-}
-# }}}
-
-# set_sch_lighting {{{
-set_sch_lighting <- function (idf, frac = 1.0) {
-    apply_sch_frac(idf, "Sch_Lighting_Offices&Toilets", frac)
-}
-# }}}
-
-# apply_sch_frac {{{
-apply_sch_frac <- function (idf, sch, frac = 1.0) {
-    dt <- idf$"Schedule:Compact"[[sch]]$to_table()
-    i <- dt[grepl("Weekdays", value), which = TRUE]
-    val <- dt[index >= (i + 2) & (index - (i + 2)) %% 2 == 0][1:24]
-    val[, value := sprintf("%.3f", as.double(value) * frac)]
-    idf$update(val)
-    idf
-}
-# }}}
-
-# use_LED {{{
-use_LED <- function (idf) {
-    set_lpd(idf, watts_per_area = 5, frac_rad = 0, frac_vis = 0.85)
-
-    # assume all lights with LPD <= 5W/m2 are LED
-    dt <- idf$to_table(class = "Lights", wide = TRUE, string_value = FALSE)
-
-    dt <- dt[tolower(`Design Level Calculation Method`) == "watts/area" & `Watts per Zone Floor Area` <= 5][
-        , `:=`(`Fraction Radiant` = 0, `Fraction Visible` = 0.85)
-    ]
-
-    idf$update(eplusr::dt_to_load(dt))
-    idf
-}
-# }}}
-
-# set_lpd {{{
-set_lpd <- function (idf, watts_per_area = 14, frac_rad = NA, frac_vis = NA) {
-    z <- grep("Plenum|Parking", idf$object_name("Zone")$Zone, invert = TRUE, value = TRUE)
-
-    id_lt <- vapply(z, function (zn) idf$Zone[[zn]]$ref_by_object(class = "Lights")[[1]]$id(), integer(1))
-
-    idf$set(.(id_lt) := list(
-        Design_Level_Calculation_Method = "Watts/Area",
-        Watts_per_Zone_Floor_Area = watts_per_area
-    ))
-
-    if (!is.na(frac_rad)) idf$set(.(id_lt) := list(Fraction_Radiant = frac_rad))
-    if (!is.na(frac_vis)) idf$set(.(id_lt) := list(Fraction_Visible = frac_vis))
-
-    idf
-}
-# }}}
-
 # read_eui {{{
 read_eui <- function(job) {
     checkmate::assert_r6(job)
@@ -428,24 +566,6 @@ read_eui <- function(job) {
 
     data.table::setnames(dt, names(dt)[4:5], gsub("_building", "", names(dt)[4:5], fixed = TRUE))
 
-    dt
-}
-# }}}
-
-# read_comfort_not_met {{{
-read_comfort_not_met <- function(job) {
-    checkmate::assert_r6(job)
-    checkmate::assert_multi_class(job, c("EplusSql", "EplusJob", "EplusGroupJob"))
-
-    # read comfort and setpoint not met summary
-    dt <- job$tabular_data(
-        report_name = "AnnualBuildingUtilityPerformanceSummary",
-        table_name = "Comfort and Setpoint Not Met Summary",
-        wide = TRUE
-    )[[1L]]
-
-    data.table::set(dt, NULL, c("report_name", "report_for", "table_name"), NULL)
-    data.table::setnames(dt, "row_name", "type")
     dt
 }
 # }}}
@@ -548,108 +668,5 @@ set_col_units <- function(dt, cols, units = NULL) {
 # tidy_names {{{
 tidy_names <- function(dt) {
     data.table::setnames(dt, gsub("\\s+", "_", tolower(names(dt))))
-}
-# }}}
-
-# get_vertices {{{
-get_vertices <- function (dt, keep = NULL) {
-    dt <- data.table::melt.data.table(dt, c("id", keep),
-        patterns("X-coordinate", "Y-coordinate", "Z-coordinate"),
-        value.name = c("x", "y", "z")
-    )
-    data.table::set(dt, NULL, "variable", NULL)
-    # retain the original order
-    data.table::setorderv(dt, "id")
-}
-# }}}
-# align_face {{{
-align_face <- function (dt) {
-    norm <- get_outward_normal(dt)
-    dt[norm, on = "id", by = .EACHI, {
-        align <- align_z_prime(i.x, i.y, i.z)
-
-        # get aligned vertices
-        align_inv <- solve(align)
-        align_vert <- apply(matrix(c(x, y, z, rep(1.0, .N)), ncol = 4L), 1, function (x) align_inv %*% x)[1:3,]
-
-        # compute translation to minimum in aligned system
-        trans <- diag(nrow = 4L)
-        trans[1:3, 4L] <- apply(align_vert, 1, min)
-        list(trans = list(align %*% trans))
-    }]
-}
-# }}}
-# get_outward_normal {{{
-get_outward_normal <- function (dt) {
-    # calculate normal vector of surfaces using Newell Method
-    # Reference: https://www.khronos.org/opengl/wiki/Calculating_a_Surface_Normal#Newell.27s_Method
-    dt[, by = "id", {
-        nx <- seq_len(.N) %% .N + 1L
-        # calculate the distance from the origin to the first point on each polygon
-        norm <- normalize(c(
-            x = sum((z + z[nx]) * (y - y[nx])),
-            y = sum((x + x[nx]) * (z - z[nx])),
-            z = sum((y + y[nx]) * (x - x[nx]))
-        ))
-        data.table::setattr(as.list(norm), "names", c("x", "y", "z"))
-    }]
-}
-# }}}
-# align_z_prime {{{
-align_z_prime <- function (x, y, z) {
-    axis_x <- c(1, 0, 0)
-    axis_y <- c(0, 1, 0)
-    axis_z <- c(0, 0, 1)
-    axis_x_neg <- c(-1, 0, 0)
-
-    zp <- normalize(c(x, y, z))
-
-    dot_zp <- as.numeric(zp %*% axis_z)
-
-    if (abs(dot_zp) < 0.99) {
-        yp <- normalize(axis_z - as.numeric(zp %*% axis_z) * zp)
-        xp <- crossproduct(yp, zp)
-    } else {
-        xp <- normalize(axis_x_neg - as.numeric(zp %*% axis_x_neg) * zp)
-        yp <- crossproduct(zp, xp)
-    }
-
-    trans <- diag(nrow = 4L)
-    trans[1:3, 1] <- xp
-    trans[1:3, 2] <- yp
-    trans[1:3, 3] <- zp
-    trans
-}
-# }}}
-# crossproduct {{{
-crossproduct <- function(v1, v2) {
-    v1[c(2L, 3L, 1L)] * v2[c(3L, 1L, 2L)] - v1[c(3L, 1L, 2L)] * v2[c(2L, 3L, 1L)]
-}
-# }}}
-# normalize {{{
-normalize <- function(v) v / sqrt(sum(v^2)) 
-# }}}
-# deg_to_rad {{{
-deg_to_rad <- function (x) x / 180 * pi
-# }}}
-# rad_to_deg {{{
-rad_to_deg <- function (x) x / pi * 180
-# }}}
-# get_angle {{{
-get_angle <- function (v1, v2) {
-    normalize(v1) %*% normalize(v2)
-    d <- rad_to_deg(acos(normalize(v1) %*% normalize(v2)))[1]
-    if (v1[[1]] < 0) d <- d + 180
-    d
-}
-# }}}
-# get_tilt {{{
-get_tilt <- function (out_norm) {
-    get_angle(out_norm, c(0, 0, 1))
-}
-# }}}
-# get_azimuth {{{
-get_azimuth <- function (out_norm) {
-    get_angle(out_norm, c(0, 1, 0))
 }
 # }}}

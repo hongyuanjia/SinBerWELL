@@ -78,14 +78,6 @@ HeatBalanceAlgorithm,
     ConductionTransferFunction;  !- Algorithm
 
 
-!-   ===========  ALL OBJECTS IN CLASS: ZONEAIRCONTAMINANTBALANCE ===========
-
-ZoneAirContaminantBalance,
-    Yes,                     !- Carbon Dioxide Concentration
-    Sch_Outdoor_CO2,         !- Outdoor Carbon Dioxide Schedule Name
-    No;                      !- Generic Contaminant Concentration
-
-
 !-   ===========  ALL OBJECTS IN CLASS: TIMESTEP ===========
 
 Timestep,
@@ -457,7 +449,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    0.2;                     !- Field 4
+    0.3;                     !- Field 4
 
 Schedule:Compact,
     Sch_Clothing,            !- Name
@@ -487,23 +479,17 @@ Schedule:Compact,
     Sch_Coil_SAT,            !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: SummerDesignDay,    !- Field 2
+    For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    12.8,                    !- Field 4
-    For: AllOtherDays,       !- Field 5
-    Until: 24:00,            !- Field 6
-    14.8;                    !- Field 7
+    12.8;                    !- Field 4
 
 Schedule:Compact,
     Sch_ChW_Loop_Temp,       !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: SummerDesignDay,    !- Field 2
+    For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    6.7,                     !- Field 4
-    For: AllOtherDays,       !- Field 5
-    Until: 24:00,            !- Field 6
-    8.7;                     !- Field 7
+    6.7;                     !- Field 4
 
 Schedule:Compact,
     Sch_CndW_Loop_Temp,      !- Name
@@ -517,12 +503,9 @@ Schedule:Compact,
     Sch_Zone_Cooling_Setpoint_Solar,  !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: SummerDesignDay,    !- Field 2
+    For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    23.0,                    !- Field 4
-    For: AllOtherDays,       !- Field 5
-    Until: 24:00,            !- Field 6
-    26.0;                    !- Field 7
+    26;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Thermostat_Control_Type,  !- Name
@@ -940,53 +923,53 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: Weekdays,           !- Field 2
     Until: 01:00,            !- Field 3
-    0.000,                   !- Field 4
+    0,                       !- Field 4
     Until: 02:00,            !- Field 5
-    0.000,                   !- Field 6
+    0,                       !- Field 6
     Until: 03:00,            !- Field 7
-    0.000,                   !- Field 8
+    0,                       !- Field 8
     Until: 04:00,            !- Field 9
-    0.000,                   !- Field 10
+    0,                       !- Field 10
     Until: 05:00,            !- Field 11
-    0.000,                   !- Field 12
+    0,                       !- Field 12
     Until: 06:00,            !- Field 13
-    0.000,                   !- Field 14
+    0,                       !- Field 14
     Until: 07:00,            !- Field 15
-    0.000,                   !- Field 16
+    0,                       !- Field 16
     Until: 08:00,            !- Field 17
-    0.200,                   !- Field 18
+    0.5,                     !- Field 18
     Until: 09:00,            !- Field 19
-    0.380,                   !- Field 20
+    0.95,                    !- Field 20
     Until: 10:00,            !- Field 21
-    0.380,                   !- Field 22
+    0.95,                    !- Field 22
     Until: 11:00,            !- Field 23
-    0.380,                   !- Field 24
+    0.95,                    !- Field 24
     Until: 12:00,            !- Field 25
-    0.380,                   !- Field 26
+    0.95,                    !- Field 26
     Until: 13:00,            !- Field 27
-    0.200,                   !- Field 28
+    0.5,                     !- Field 28
     Until: 14:00,            !- Field 29
-    0.380,                   !- Field 30
+    0.95,                    !- Field 30
     Until: 15:00,            !- Field 31
-    0.380,                   !- Field 32
+    0.95,                    !- Field 32
     Until: 16:00,            !- Field 33
-    0.380,                   !- Field 34
+    0.95,                    !- Field 34
     Until: 17:00,            !- Field 35
-    0.380,                   !- Field 36
+    0.95,                    !- Field 36
     Until: 18:00,            !- Field 37
-    0.200,                   !- Field 38
+    0.5,                     !- Field 38
     Until: 19:00,            !- Field 39
-    0.020,                   !- Field 40
+    0.05,                    !- Field 40
     Until: 20:00,            !- Field 41
-    0.000,                   !- Field 42
+    0,                       !- Field 42
     Until: 21:00,            !- Field 43
-    0.000,                   !- Field 44
+    0,                       !- Field 44
     Until: 22:00,            !- Field 45
-    0.000,                   !- Field 46
+    0,                       !- Field 46
     Until: 23:00,            !- Field 47
-    0.000,                   !- Field 48
+    0,                       !- Field 48
     Until: 24:00,            !- Field 49
-    0.000,                   !- Field 50
+    0,                       !- Field 50
     For: Saturday,           !- Field 51
     Until: 01:00,            !- Field 52
     0,                       !- Field 53
@@ -1543,53 +1526,53 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: Weekdays,           !- Field 2
     Until: 01:00,            !- Field 3
-    0.020,                   !- Field 4
+    0.05,                    !- Field 4
     Until: 02:00,            !- Field 5
-    0.020,                   !- Field 6
+    0.05,                    !- Field 6
     Until: 03:00,            !- Field 7
-    0.020,                   !- Field 8
+    0.05,                    !- Field 8
     Until: 04:00,            !- Field 9
-    0.020,                   !- Field 10
+    0.05,                    !- Field 10
     Until: 05:00,            !- Field 11
-    0.020,                   !- Field 12
+    0.05,                    !- Field 12
     Until: 06:00,            !- Field 13
-    0.020,                   !- Field 14
+    0.05,                    !- Field 14
     Until: 07:00,            !- Field 15
-    0.040,                   !- Field 16
+    0.1,                     !- Field 16
     Until: 08:00,            !- Field 17
-    0.111,                   !- Field 18
+    0.27714,                 !- Field 18
     Until: 09:00,            !- Field 19
-    0.333,                   !- Field 20
+    0.83142,                 !- Field 20
     Until: 10:00,            !- Field 21
-    0.333,                   !- Field 22
+    0.83142,                 !- Field 22
     Until: 11:00,            !- Field 23
-    0.333,                   !- Field 24
+    0.83142,                 !- Field 24
     Until: 12:00,            !- Field 25
-    0.333,                   !- Field 26
+    0.83142,                 !- Field 26
     Until: 13:00,            !- Field 27
-    0.333,                   !- Field 28
+    0.83142,                 !- Field 28
     Until: 14:00,            !- Field 29
-    0.333,                   !- Field 30
+    0.83142,                 !- Field 30
     Until: 15:00,            !- Field 31
-    0.333,                   !- Field 32
+    0.83142,                 !- Field 32
     Until: 16:00,            !- Field 33
-    0.333,                   !- Field 34
+    0.83142,                 !- Field 34
     Until: 17:00,            !- Field 35
-    0.333,                   !- Field 36
+    0.83142,                 !- Field 36
     Until: 18:00,            !- Field 37
-    0.111,                   !- Field 38
+    0.27714,                 !- Field 38
     Until: 19:00,            !- Field 39
-    0.040,                   !- Field 40
+    0.1,                     !- Field 40
     Until: 20:00,            !- Field 41
-    0.020,                   !- Field 42
+    0.05,                    !- Field 42
     Until: 21:00,            !- Field 43
-    0.020,                   !- Field 44
+    0.05,                    !- Field 44
     Until: 22:00,            !- Field 45
-    0.020,                   !- Field 46
+    0.05,                    !- Field 46
     Until: 23:00,            !- Field 47
-    0.020,                   !- Field 48
+    0.05,                    !- Field 48
     Until: 24:00,            !- Field 49
-    0.020,                   !- Field 50
+    0.05,                    !- Field 50
     For: Saturday,           !- Field 51
     Until: 01:00,            !- Field 52
     0.05,                    !- Field 53
@@ -1744,53 +1727,53 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: Weekdays,           !- Field 2
     Until: 01:00,            !- Field 3
-    0.035,                   !- Field 4
+    0.05,                    !- Field 4
     Until: 02:00,            !- Field 5
-    0.035,                   !- Field 6
+    0.05,                    !- Field 6
     Until: 03:00,            !- Field 7
-    0.035,                   !- Field 8
+    0.05,                    !- Field 8
     Until: 04:00,            !- Field 9
-    0.035,                   !- Field 10
+    0.05,                    !- Field 10
     Until: 05:00,            !- Field 11
-    0.035,                   !- Field 12
+    0.05,                    !- Field 12
     Until: 06:00,            !- Field 13
-    0.035,                   !- Field 14
+    0.05,                    !- Field 14
     Until: 07:00,            !- Field 15
-    0.035,                   !- Field 16
+    0.05,                    !- Field 16
     Until: 08:00,            !- Field 17
-    0.266,                   !- Field 18
+    0.38,                    !- Field 18
     Until: 09:00,            !- Field 19
-    0.599,                   !- Field 20
+    0.856,                   !- Field 20
     Until: 10:00,            !- Field 21
-    0.599,                   !- Field 22
+    0.856,                   !- Field 22
     Until: 11:00,            !- Field 23
-    0.599,                   !- Field 24
+    0.856,                   !- Field 24
     Until: 12:00,            !- Field 25
-    0.599,                   !- Field 26
+    0.856,                   !- Field 26
     Until: 13:00,            !- Field 27
-    0.266,                   !- Field 28
+    0.38,                    !- Field 28
     Until: 14:00,            !- Field 29
-    0.599,                   !- Field 30
+    0.856,                   !- Field 30
     Until: 15:00,            !- Field 31
-    0.599,                   !- Field 32
+    0.856,                   !- Field 32
     Until: 16:00,            !- Field 33
-    0.599,                   !- Field 34
+    0.856,                   !- Field 34
     Until: 17:00,            !- Field 35
-    0.599,                   !- Field 36
+    0.856,                   !- Field 36
     Until: 18:00,            !- Field 37
-    0.266,                   !- Field 38
+    0.38,                    !- Field 38
     Until: 19:00,            !- Field 39
-    0.035,                   !- Field 40
+    0.05,                    !- Field 40
     Until: 20:00,            !- Field 41
-    0.035,                   !- Field 42
+    0.05,                    !- Field 42
     Until: 21:00,            !- Field 43
-    0.035,                   !- Field 44
+    0.05,                    !- Field 44
     Until: 22:00,            !- Field 45
-    0.035,                   !- Field 46
+    0.05,                    !- Field 46
     Until: 23:00,            !- Field 47
-    0.035,                   !- Field 48
+    0.05,                    !- Field 48
     Until: 24:00,            !- Field 49
-    0.035,                   !- Field 50
+    0.05,                    !- Field 50
     For: Saturday,           !- Field 51
     Until: 01:00,            !- Field 52
     0.05,                    !- Field 53
@@ -2375,56 +2358,9 @@ Schedule:Compact,
     Sch_Zone_Cooling_Setpoint_Wo_Solar,  !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: SummerDesignDay,    !- Field 2
+    For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    24.0,                    !- Field 4
-    For: AllOtherDays,       !- Field 5
-    Until: 24:00,            !- Field 6
-    27.0;                    !- Field 7
-
-Schedule:Compact,
-    Sch_MAT,                 !- Name
-    Any Number,              !- Schedule Type Limits Name
-    Through: 12/31,          !- Field 1
-    For: SummerDesignDay,    !- Field 2
-    Until: 24:00,            !- Field 3
-    24.0,                    !- Field 4
-    For: AllOtherDays,       !- Field 5
-    Until: 24:00,            !- Field 6
-    26.0;                    !- Field 7
-
-Schedule:Compact,
-    Sch_Outdoor_CO2,         !- Name
-    Any Number,              !- Schedule Type Limits Name
-    Through: 12/31,          !- Field 1
-    For: SummerDesignDay,    !- Field 2
-    Until: 24:00,            !- Field 3
-    400.0,                   !- Field 4
-    For: AllOtherDays,       !- Field 5
-    Until: 24:00,            !- Field 6
-    400.0;                   !- Field 7
-
-Schedule:Compact,
-    Sch_CO2_Setpoint,        !- Name
-    Any Number,              !- Schedule Type Limits Name
-    Through: 12/31,          !- Field 1
-    For: SummerDesignDay,    !- Field 2
-    Until: 24:00,            !- Field 3
-    1115.0,                  !- Field 4
-    For: AllOtherDays,       !- Field 5
-    Until: 24:00,            !- Field 6
-    1115.0;                  !- Field 7
-
-Schedule:Compact,
-    Sch_Daylight_Control_Availability,  !- Name
-    Any Number,              !- Schedule Type Limits Name
-    Through: 12/31,          !- Field 1
-    For: SummerDesignDay,    !- Field 2
-    Until: 24:00,            !- Field 3
-    0,                       !- Field 4
-    For: AllOtherDays,       !- Field 5
-    Until: 24:00,            !- Field 6
-    1;                       !- Field 7
+    26;                      !- Field 4
 
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:CONSTANT ===========
@@ -8454,7 +8390,7 @@ BuildingSurface:Detailed,
 FenestrationSurface:Detailed,
     Zone_Bot_N_Wall_N_Window,!- Name
     Window,                  !- Surface Type
-    SGP_DoublepaneWindow,    !- Construction Name
+    SGP_SinglepaneWindow,    !- Construction Name
     Zone_Bot_N_Wall_N,       !- Building Surface Name
     ,                        !- Outside Boundary Condition Object
     AutoCalculate,           !- View Factor to Ground
@@ -8500,7 +8436,7 @@ FenestrationSurface:Detailed,
 FenestrationSurface:Detailed,
     Zone_Bot_S_Wall_S_Window,!- Name
     Window,                  !- Surface Type
-    SGP_DoublepaneWindow,    !- Construction Name
+    SGP_SinglepaneWindow,    !- Construction Name
     Zone_Bot_S_Wall_S,       !- Building Surface Name
     ,                        !- Outside Boundary Condition Object
     AutoCalculate,           !- View Factor to Ground
@@ -8546,7 +8482,7 @@ FenestrationSurface:Detailed,
 FenestrationSurface:Detailed,
     Zone_Mid_N_Wall_N_Window,!- Name
     Window,                  !- Surface Type
-    SGP_DoublepaneWindow,    !- Construction Name
+    SGP_SinglepaneWindow,    !- Construction Name
     Zone_Mid_N_Wall_N,       !- Building Surface Name
     ,                        !- Outside Boundary Condition Object
     AutoCalculate,           !- View Factor to Ground
@@ -8592,7 +8528,7 @@ FenestrationSurface:Detailed,
 FenestrationSurface:Detailed,
     Zone_Mid_S_Wall_S_Window,!- Name
     Window,                  !- Surface Type
-    SGP_DoublepaneWindow,    !- Construction Name
+    SGP_SinglepaneWindow,    !- Construction Name
     Zone_Mid_S_Wall_S,       !- Building Surface Name
     ,                        !- Outside Boundary Condition Object
     AutoCalculate,           !- View Factor to Ground
@@ -8638,7 +8574,7 @@ FenestrationSurface:Detailed,
 FenestrationSurface:Detailed,
     Zone_Top_N_Wall_N_Window,!- Name
     Window,                  !- Surface Type
-    SGP_DoublepaneWindow,    !- Construction Name
+    SGP_SinglepaneWindow,    !- Construction Name
     Zone_Top_N_Wall_N,       !- Building Surface Name
     ,                        !- Outside Boundary Condition Object
     AutoCalculate,           !- View Factor to Ground
@@ -8684,7 +8620,7 @@ FenestrationSurface:Detailed,
 FenestrationSurface:Detailed,
     Zone_Top_S_Wall_S_Window,!- Name
     Window,                  !- Surface Type
-    SGP_DoublepaneWindow,    !- Construction Name
+    SGP_SinglepaneWindow,    !- Construction Name
     Zone_Top_S_Wall_S,       !- Building Surface Name
     ,                        !- Outside Boundary Condition Object
     AutoCalculate,           !- View Factor to Ground
@@ -9273,11 +9209,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9290,11 +9226,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9307,11 +9243,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9324,11 +9260,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9341,11 +9277,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9358,11 +9294,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9375,11 +9311,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9392,11 +9328,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9409,11 +9345,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9426,11 +9362,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9443,11 +9379,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9460,11 +9396,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9477,11 +9413,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9494,11 +9430,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9511,11 +9447,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    12,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9531,8 +9467,8 @@ Lights,
     3,                       !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     Parking_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9548,8 +9484,8 @@ Lights,
     3,                       !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     Parking_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9565,8 +9501,8 @@ Lights,
     3,                       !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     Parking_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9582,8 +9518,8 @@ Lights,
     3,                       !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     Parking_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9599,8 +9535,8 @@ Lights,
     3,                       !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     Parking_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9616,8 +9552,8 @@ Lights,
     3,                       !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     Parking_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9630,11 +9566,11 @@ Lights,
     Sch_Lighting_Staircase,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    6,                       !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9647,11 +9583,11 @@ Lights,
     Sch_Lighting_Staircase,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    6,                       !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9664,11 +9600,11 @@ Lights,
     Sch_Lighting_Staircase,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    6,                       !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9681,11 +9617,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    10,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9698,11 +9634,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    10,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -9715,11 +9651,11 @@ Lights,
     Sch_Lighting_Offices&Toilets,  !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    5,                       !- Watts per Zone Floor Area {W/m2}
+    10,                      !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
-    0,                       !- Fraction Radiant
-    0.85,                    !- Fraction Visible
+    0.37,                    !- Fraction Radiant
+    0.18,                    !- Fraction Visible
     1,                       !- Fraction Replaceable
     General_Lights,          !- End-Use Subcategory
     No,                      !- Return Air Fraction Calculated from Plenum Temperature
@@ -10118,312 +10054,6 @@ ElectricEquipment,
     0.3,                     !- Fraction Radiant
     0,                       !- Fraction Lost
     Personal Fans;           !- End-Use Subcategory
-
-
-!-   ===========  ALL OBJECTS IN CLASS: DAYLIGHTING:CONTROLS ===========
-
-Daylighting:Controls,
-    Zone_Bot_N_DaylCtrl,     !- Name
-    Zone_Bot_N,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Bot_N_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Bot_N_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Bot_E_DaylCtrl,     !- Name
-    Zone_Bot_E,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Bot_E_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Bot_E_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Bot_S_DaylCtrl,     !- Name
-    Zone_Bot_S,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Bot_S_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Bot_S_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Bot_W_DaylCtrl,     !- Name
-    Zone_Bot_W,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Bot_W_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Bot_W_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Mid_N_DaylCtrl,     !- Name
-    Zone_Mid_N,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Mid_N_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Mid_N_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Mid_E_DaylCtrl,     !- Name
-    Zone_Mid_E,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Mid_E_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Mid_E_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Mid_S_DaylCtrl,     !- Name
-    Zone_Mid_S,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Mid_S_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Mid_S_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Mid_W_DaylCtrl,     !- Name
-    Zone_Mid_W,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Mid_W_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Mid_W_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Top_N_DaylCtrl,     !- Name
-    Zone_Top_N,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Top_N_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Top_N_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Top_E_DaylCtrl,     !- Name
-    Zone_Top_E,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Top_E_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Top_E_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Top_S_DaylCtrl,     !- Name
-    Zone_Top_S,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Top_S_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Top_S_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-Daylighting:Controls,
-    Zone_Top_W_DaylCtrl,     !- Name
-    Zone_Top_W,              !- Zone Name
-    SplitFlux,               !- Daylighting Method
-    Sch_Daylight_Control_Availability,  !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    Zone_Top_W_DaylRefPt1,   !- Glare Calculation Daylighting Reference Point Name
-    90,                      !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    19,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    Zone_Top_W_DaylRefPt1,   !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Zone Controlled by Reference Point 1
-    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
-
-
-!-   ===========  ALL OBJECTS IN CLASS: DAYLIGHTING:REFERENCEPOINT ===========
-
-Daylighting:ReferencePoint,
-    Zone_Bot_N_DaylRefPt1,   !- Name
-    Zone_Bot_N,              !- Zone Name
-    18.7083,                 !- X-Coordinate of Reference Point {m}
-    35.7402,                 !- Y-Coordinate of Reference Point {m}
-    12.762;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Bot_E_DaylRefPt1,   !- Name
-    Zone_Bot_E,              !- Zone Name
-    35.7402,                 !- X-Coordinate of Reference Point {m}
-    18.7083,                 !- Y-Coordinate of Reference Point {m}
-    12.762;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Bot_S_DaylRefPt1,   !- Name
-    Zone_Bot_S,              !- Zone Name
-    18.7083,                 !- X-Coordinate of Reference Point {m}
-    1.6764,                  !- Y-Coordinate of Reference Point {m}
-    12.762;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Bot_W_DaylRefPt1,   !- Name
-    Zone_Bot_W,              !- Zone Name
-    1.6764,                  !- X-Coordinate of Reference Point {m}
-    18.7083,                 !- Y-Coordinate of Reference Point {m}
-    12.762;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Mid_N_DaylRefPt1,   !- Name
-    Zone_Mid_N,              !- Zone Name
-    18.7083,                 !- X-Coordinate of Reference Point {m}
-    35.7402,                 !- Y-Coordinate of Reference Point {m}
-    41.218;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Mid_E_DaylRefPt1,   !- Name
-    Zone_Mid_E,              !- Zone Name
-    35.7402,                 !- X-Coordinate of Reference Point {m}
-    18.7083,                 !- Y-Coordinate of Reference Point {m}
-    41.218;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Mid_S_DaylRefPt1,   !- Name
-    Zone_Mid_S,              !- Zone Name
-    18.7083,                 !- X-Coordinate of Reference Point {m}
-    1.6764,                  !- Y-Coordinate of Reference Point {m}
-    41.218;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Mid_W_DaylRefPt1,   !- Name
-    Zone_Mid_W,              !- Zone Name
-    1.6764,                  !- X-Coordinate of Reference Point {m}
-    18.7083,                 !- Y-Coordinate of Reference Point {m}
-    41.218;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Top_N_DaylRefPt1,   !- Name
-    Zone_Top_N,              !- Zone Name
-    18.7083,                 !- X-Coordinate of Reference Point {m}
-    35.7402,                 !- Y-Coordinate of Reference Point {m}
-    75.162;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Top_E_DaylRefPt1,   !- Name
-    Zone_Top_E,              !- Zone Name
-    35.7402,                 !- X-Coordinate of Reference Point {m}
-    18.7083,                 !- Y-Coordinate of Reference Point {m}
-    75.162;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Top_S_DaylRefPt1,   !- Name
-    Zone_Top_S,              !- Zone Name
-    18.7083,                 !- X-Coordinate of Reference Point {m}
-    1.6764,                  !- Y-Coordinate of Reference Point {m}
-    75.162;                  !- Z-Coordinate of Reference Point {m}
-
-Daylighting:ReferencePoint,
-    Zone_Top_W_DaylRefPt1,   !- Name
-    Zone_Top_W,              !- Zone Name
-    1.6764,                  !- X-Coordinate of Reference Point {m}
-    18.7083,                 !- Y-Coordinate of Reference Point {m}
-    75.162;                  !- Z-Coordinate of Reference Point {m}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: ZONEINFILTRATION:DESIGNFLOWRATE ===========
@@ -12021,27 +11651,6 @@ ThermostatSetpoint:SingleCooling,
     Sch_Zone_Cooling_Setpoint_Solar;  !- Setpoint Temperature Schedule Name
 
 
-!-   ===========  ALL OBJECTS IN CLASS: ZONECONTROL:CONTAMINANTCONTROLLER ===========
-
-ZoneControl:ContaminantController,
-    Core_Bot_CO2_Controller, !- Name
-    Core_Bot,                !- Zone Name
-    Sch_ACMV,                !- Carbon Dioxide Control Availability Schedule Name
-    Sch_CO2_Setpoint;        !- Carbon Dioxide Setpoint Schedule Name
-
-ZoneControl:ContaminantController,
-    Core_Mid_CO2_Controller, !- Name
-    Core_Mid,                !- Zone Name
-    Sch_ACMV,                !- Carbon Dioxide Control Availability Schedule Name
-    Sch_CO2_Setpoint;        !- Carbon Dioxide Setpoint Schedule Name
-
-ZoneControl:ContaminantController,
-    Core_Top_CO2_Controller, !- Name
-    Core_Top,                !- Zone Name
-    Sch_ACMV,                !- Carbon Dioxide Control Availability Schedule Name
-    Sch_CO2_Setpoint;        !- Carbon Dioxide Setpoint Schedule Name
-
-
 !-   ===========  ALL OBJECTS IN CLASS: AIRTERMINAL:SINGLEDUCT:VAV:NOREHEAT ===========
 
 AirTerminal:SingleDuct:VAV:NoReheat,
@@ -12856,9 +12465,9 @@ Controller:OutdoorAir,
     VAV_Bot_OAInlet_Node,    !- Actuator Node Name
     0,                       !- Minimum Outdoor Air Flow Rate {m3/s}
     Autosize,                !- Maximum Outdoor Air Flow Rate {m3/s}
-    FixedDryBulb,            !- Economizer Control Type
+    NoEconomizer,            !- Economizer Control Type
     Modulateflow,            !- Economizer Control Action Type
-    26,                      !- Economizer Maximum Limit Dry-Bulb Temperature {C}
+    ,                        !- Economizer Maximum Limit Dry-Bulb Temperature {C}
     ,                        !- Economizer Maximum Limit Enthalpy {J/kg}
     ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
     ,                        !- Electronic Enthalpy Limit Curve Name
@@ -12878,9 +12487,9 @@ Controller:OutdoorAir,
     VAV_Mid_OAInlet_Node,    !- Actuator Node Name
     0,                       !- Minimum Outdoor Air Flow Rate {m3/s}
     Autosize,                !- Maximum Outdoor Air Flow Rate {m3/s}
-    FixedDryBulb,            !- Economizer Control Type
+    NoEconomizer,            !- Economizer Control Type
     Modulateflow,            !- Economizer Control Action Type
-    26,                      !- Economizer Maximum Limit Dry-Bulb Temperature {C}
+    ,                        !- Economizer Maximum Limit Dry-Bulb Temperature {C}
     ,                        !- Economizer Maximum Limit Enthalpy {J/kg}
     ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
     ,                        !- Electronic Enthalpy Limit Curve Name
@@ -12900,9 +12509,9 @@ Controller:OutdoorAir,
     VAV_Top_OAInlet_Node,    !- Actuator Node Name
     0,                       !- Minimum Outdoor Air Flow Rate {m3/s}
     Autosize,                !- Maximum Outdoor Air Flow Rate {m3/s}
-    FixedDryBulb,            !- Economizer Control Type
+    NoEconomizer,            !- Economizer Control Type
     Modulateflow,            !- Economizer Control Action Type
-    26,                      !- Economizer Maximum Limit Dry-Bulb Temperature {C}
+    ,                        !- Economizer Maximum Limit Dry-Bulb Temperature {C}
     ,                        !- Economizer Maximum Limit Enthalpy {J/kg}
     ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
     ,                        !- Electronic Enthalpy Limit Curve Name
@@ -12921,7 +12530,7 @@ Controller:MechanicalVentilation,
     VAV_Top_DCV,             !- Name
     Sch_Always_On,           !- Availability Schedule Name
     Yes,                     !- Demand Controlled Ventilation
-    IndoorAirQualityProcedure,  !- System Outdoor Air Method
+    VentilationRateProcedure,!- System Outdoor Air Method
     ,                        !- Zone Maximum Outdoor Air Fraction {dimensionless}
     Core_Top,                !- Zone or ZoneList 1 Name
     CM_DSOA_Core_Top,        !- Design Specification Outdoor Air Object Name 1
@@ -12943,7 +12552,7 @@ Controller:MechanicalVentilation,
     VAV_Bot_DCV,             !- Name
     Sch_Always_On,           !- Availability Schedule Name
     Yes,                     !- Demand Controlled Ventilation
-    IndoorAirQualityProcedure,  !- System Outdoor Air Method
+    VentilationRateProcedure,!- System Outdoor Air Method
     ,                        !- Zone Maximum Outdoor Air Fraction {dimensionless}
     Core_Bot,                !- Zone or ZoneList 1 Name
     CM_DSOA_Core_Bot,        !- Design Specification Outdoor Air Object Name 1
@@ -12965,7 +12574,7 @@ Controller:MechanicalVentilation,
     VAV_Mid_DCV,             !- Name
     Sch_Always_On,           !- Availability Schedule Name
     Yes,                     !- Demand Controlled Ventilation
-    IndoorAirQualityProcedure,  !- System Outdoor Air Method
+    VentilationRateProcedure,!- System Outdoor Air Method
     ,                        !- Zone Maximum Outdoor Air Fraction {dimensionless}
     Core_Mid,                !- Zone or ZoneList 1 Name
     CM_DSOA_Core_Mid,        !- Design Specification Outdoor Air Object Name 1
@@ -14045,24 +13654,6 @@ SetpointManager:Scheduled,
     Sch_ChW_Loop_Temp,       !- Schedule Name
     ChW_Demand_Inlet_Node;   !- Setpoint Node or NodeList Name
 
-SetpointManager:Scheduled,
-    Core_Bot_MAT_Setpoint,   !- Name
-    Temperature,             !- Control Variable
-    Sch_MAT,                 !- Schedule Name
-    VAV_Bot_Coil_Air_Inlet_Node;  !- Setpoint Node or NodeList Name
-
-SetpointManager:Scheduled,
-    Core_Mid_MAT_Setpoint,   !- Name
-    Temperature,             !- Control Variable
-    Sch_MAT,                 !- Schedule Name
-    VAV_Mid_Coil_Air_Inlet_Node;  !- Setpoint Node or NodeList Name
-
-SetpointManager:Scheduled,
-    Core_Top_MAT_Setpoint,   !- Name
-    Temperature,             !- Control Variable
-    Sch_MAT,                 !- Schedule Name
-    VAV_Top_Coil_Air_Inlet_Node;  !- Setpoint Node or NodeList Name
-
 
 !-   ===========  ALL OBJECTS IN CLASS: SETPOINTMANAGER:MIXEDAIR ===========
 
@@ -15041,41 +14632,6 @@ Output:Variable,
     *,                       !- Key Value
     Zone Mean Air Temperature,  !- Variable Name
     Hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Ventilation Air Change Rate,  !- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Ventilation Fan Electricity Energy,  !- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Ventilation Air Inlet Temperature,  !- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Chiller Part Load Ratio, !- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Chiller Evaporator Cooling Rate,  !- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Chiller Electricity Rate,!- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Fan Electricity Rate,    !- Variable Name
-    hourly;                  !- Reporting Frequency
 
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUTCONTROL:FILES ===========

@@ -2360,7 +2360,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    24;                      !- Field 4
+    23;                      !- Field 4
 
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:CONSTANT ===========
@@ -14437,41 +14437,6 @@ Output:Variable,
     *,                       !- Key Value
     Zone Mean Air Temperature,  !- Variable Name
     Hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Ventilation Air Change Rate,  !- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Ventilation Fan Electricity Energy,  !- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Ventilation Air Inlet Temperature,  !- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Chiller Part Load Ratio, !- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Chiller Evaporator Cooling Rate,  !- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Chiller Electricity Rate,!- Variable Name
-    hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Fan Electricity Rate,    !- Variable Name
-    hourly;                  !- Reporting Frequency
 
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUTCONTROL:FILES ===========

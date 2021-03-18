@@ -1,7 +1,27 @@
+.Rproj.user
 .Rhistory
-.Rapp.history
 .RData
 .Ruserdata
-_targets
 
-data/sim
+_targets/
+
+*.qs
+
+# EnergyPlus output
+fort.6
+*.audit
+*.bnd
+*.dxf
+*.eio
+*.end
+*Sqlite.err
+*.eso
+*.mdd
+*.mtd
+*.mtr
+*.rdd
+*.rvaudit
+*.shd
+*.sql
+# EnergyPlus csv output in side 'sim'
+data/sim/**/*.csv
