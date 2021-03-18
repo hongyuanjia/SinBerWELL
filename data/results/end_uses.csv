@@ -34,15 +34,15 @@ radiant1,Fans,Toilet_Exhaust_Fan,1.05,0
 radiant1,Pumps,General,0,1
 radiant1,Heat Rejection,General,0,1
 radiant1,Heat Recovery,General,0,
-radiant2,Cooling,General,30.69,0.153
+radiant2,Cooling,General,0,1
 radiant2,Interior Lighting,General_Lights,28.96,0
 radiant2,Interior Lighting,Parking_Lights,3.96,0
 radiant2,Exterior Lighting,ExteriorLights,2.13,0
 radiant2,Interior Equipment,MiscPlug,31.16,0
 radiant2,Interior Equipment,Personal Fans,1.08,0
 radiant2,Fans,Ventilation (simple),0.84,0
-radiant2,Fans,AHU,7.73,0.416
+radiant2,Fans,AHU,0,1
 radiant2,Fans,Toilet_Exhaust_Fan,1.05,0
-radiant2,Pumps,General,7.24,0.042
-radiant2,Heat Rejection,General,3.43,0.05
+radiant2,Pumps,General,0,1
+radiant2,Heat Rejection,General,0,1
 radiant2,Heat Recovery,General,0,
