@@ -34,15 +34,16 @@ The main files are:
 └── _targets.R
 ```
 
-| File                                                                                  | Purpose                                                                                                                                                           |
-| ---                                                                                   | ---                                                                                                                                                               |
-| [`renv.lock`](https://github.com/hongyuanjia/SinBerWELL/blob/main/renv.lock)          | The [renv](https://rstudio.github.io/renv/index.html) lockfile, describing the state of libraries used in this projected.                                         |
-| [`R/functions.R`](https://github.com/hongyuanjia/SinBerWELL/blob/main/R/functions.R)  | An R script with helper functions to midfy EnergyPlus and extract results.                                                                                        |
-| [`data-raw/*.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/main/data)          | The Singapore large office reference building [EnergyPlus](https://energyplus.net/) model developed by [SinBerBEST](http://doi.wiley.com/10.1002/ente.201700564). |
-| [`data-raw/*.epw`](https://github.com/hongyuanjia/SinBerWELL/blob/main/data)          | The [IWEC](https://energyplus.net/weather/sources#IWEC) EnergyPlus weather file.                                                                                  |
-| [`data/idf/`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf)         | The processed model generated during the calibration workflow.                                                                                                    |
-| [`data/sim/`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/sim)         | The individual simulation results including input IDF and EPW, ERR and table report.                                                                              |
-| [`data/results/`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/results) | The simulation result summary including EUI and its breakdowns, together with the energy saving compared with the baseline.                                       |
+| File                                                                                  | Purpose                                                                                                                                                                         |
+| ---                                                                                   | ---                                                                                                                                                                             |
+| [`renv.lock`](https://github.com/hongyuanjia/SinBerWELL/blob/main/renv.lock)          | The [renv](https://rstudio.github.io/renv/index.html) lockfile, describing the state of libraries used in this projected.                                                       |
+| [`_targets.R`](https://github.com/hongyuanjia/SinBerWELL/blob/main/_targets.R)        | The R script that declares the targets pipeline which shows the core workflow. The full workflow can be rerun using [`targets::tar_make()`](https://docs.ropensci.org/targets/). |
+| [`R/functions.R`](https://github.com/hongyuanjia/SinBerWELL/blob/main/R/functions.R)  | An R script with helper functions to midfy EnergyPlus and extract results.                                                                                                      |
+| [`data-raw/*.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/main/data)          | The Singapore large office reference building [EnergyPlus](https://energyplus.net/) model developed by [SinBerBEST](http://doi.wiley.com/10.1002/ente.201700564).               |
+| [`data-raw/*.epw`](https://github.com/hongyuanjia/SinBerWELL/blob/main/data)          | The [IWEC](https://energyplus.net/weather/sources#IWEC) EnergyPlus weather file.                                                                                                |
+| [`data/idf/`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf)         | The processed model generated during the calibration workflow.                                                                                                                  |
+| [`data/sim/`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/sim)         | The individual simulation results including input IDF and EPW, ERR and table report.                                                                                            |
+| [`data/results/`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/results) | The simulation result summary including EUI and its breakdowns, together with the energy saving compared with the baseline.                                                     |
 
 ## Scenarios investigated
 
