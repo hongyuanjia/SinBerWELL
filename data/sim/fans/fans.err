@@ -1,4 +1,4 @@
-Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 01:27,
+Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 10:38,
    ************* Beginning Zone Sizing Calculations
    ** Warning ** Site:GroundTemperature:BuildingSurface: Some values fall outside the range of 15-25C.
    **   ~~~   ** These values may be inappropriate.  Please consult the Input Output Reference for more details.
@@ -71,12 +71,12 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 01:27,
    ************* All Return Air Paths passed integrity testing
    ************* No node connection errors were found.
    ************* Beginning Simulation
-   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evaporator outlet temperature (10.50 C) is outside the range of evaporator outlet temperatures (X var) given in Cooling Capacity Function of Temperature biquadratic curve = WC_CENT_2010_PB_CAPFT
-   **   ~~~   ** The range specified = 5.00 C to 10.00 C. Environment=RUNPERIOD 1, at Simulation time=01/02 07:03 - 07:04
-   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evaporator outlet temperature (10.50 C) is outside the range of evaporator outlet temperatures (X var) given in Electric Input to Cooling Output Ratio Function of Temperature biquadratic curve = WC_CENT_2010_PB_EIRFT
-   **   ~~~   ** The range specified = 5.00 C to 10.00 C. Environment=RUNPERIOD 1, at Simulation time=01/02 07:03 - 07:04
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evaporator outlet temperature (10.44 C) is outside the range of evaporator outlet temperatures (X var) given in Cooling Capacity Function of Temperature biquadratic curve = WC_CENT_2010_PB_CAPFT
+   **   ~~~   ** The range specified = 5.00 C to 10.00 C. Environment=SGP_DESIGN_DAY_FEB, at Simulation time=02/21 07:01 - 07:02
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evaporator outlet temperature (10.44 C) is outside the range of evaporator outlet temperatures (X var) given in Electric Input to Cooling Output Ratio Function of Temperature biquadratic curve = WC_CENT_2010_PB_EIRFT
+   **   ~~~   ** The range specified = 5.00 C to 10.00 C. Environment=SGP_DESIGN_DAY_FEB, at Simulation time=02/21 07:01 - 07:02
    ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The condenser outlet temperature (31.12 C) is outside the range of condenser outlet temperatures (X var) given in Electric Input to Cooling Output Ratio Function of Part-load Ratio bicubic curve = WC_CENT_GT600_2010_PA_EIRFPLR
-   **   ~~~   ** The range specified = 31.13 C to 36.52 C. Environment=RUNPERIOD 1, at Simulation time=01/24 07:10 - 07:20
+   **   ~~~   ** The range specified = 31.13 C to 36.52 C. Environment=RUNPERIOD 1, at Simulation time=01/23 07:13 - 07:17
    ************* Simulation Error Summary *************
    ************* There are 1 unused objects in input.
    ************* Use Output:Diagnostics,DisplayUnusedObjects; to see them.
@@ -85,22 +85,22 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 01:27,
    ************* The following recurring error messages occurred.
    *************
    *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evap outlet temp range in Cooling Capacity Function of Temp curve error continues.
-   *************  **   ~~~   **   This error occurred 52 total times;
+   *************  **   ~~~   **   This error occurred 4404 total times;
    *************  **   ~~~   **   during Warmup 0 times;
    *************  **   ~~~   **   during Sizing 0 times.
-   *************  **   ~~~   **   Max=12.269224  Min=10.137882
+   *************  **   ~~~   **   Max=12.95574  Min=10.
    *************
    *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evap outlet temp range in Electric Input to Cooling Output Ratio Function of Temp curve error continues.
-   *************  **   ~~~   **   This error occurred 52 total times;
+   *************  **   ~~~   **   This error occurred 4404 total times;
    *************  **   ~~~   **   during Warmup 0 times;
    *************  **   ~~~   **   during Sizing 0 times.
-   *************  **   ~~~   **   Max=12.269224  Min=10.137882
+   *************  **   ~~~   **   Max=12.95574  Min=10.
    *************
    *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The cond outlet temp range in Electric Input to Cooling Output Ratio Function of PLR curve error continues.
-   *************  **   ~~~   **   This error occurred 2 total times;
+   *************  **   ~~~   **   This error occurred 73 total times;
    *************  **   ~~~   **   during Warmup 0 times;
    *************  **   ~~~   **   during Sizing 0 times.
-   *************  **   ~~~   **   Max=31.122444  Min=31.122429
+   *************  **   ~~~   **   Max=31.124762  Min=30.938238
    *************
    *************
    ************* ===== Final Error Summary =====
@@ -112,4 +112,4 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 01:27,
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
    ************* EnergyPlus Sizing Error Summary. During Sizing: 31 Warning; 0 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 143 Warning; 0 Severe Errors; Elapsed Time=00hr 02min  2.57sec
+   ************* EnergyPlus Completed Successfully-- 8918 Warning; 0 Severe Errors; Elapsed Time=00hr 02min  9.94sec

@@ -21,12 +21,18 @@ targets <- list(
         "data/idf/baseline.idf"
     }),
 
-    tar_target(path_sat, format = "file", {
+    tar_target(path_fans, format = "file", {
         # read the original benchmark model
         idf <- eplusr::read_idf(path_idf)
 
-        # change setpoint temperature to 23C
+        # change setpoint temperature to 26C
         set_thermostat_singlecooling(idf, core = 26, perimeter = 26)
+
+        # change SAT to from 12.8C to 16C
+        set_coil_setpoint(idf, 16)
+
+        # change chilled water temperature from 6.7C to 10C
+        set_evaporator_setpoint(idf, 10)
 
         # add ceiling fans
         add_ceiling_fan(idf, 0.5)
@@ -35,13 +41,13 @@ targets <- list(
         set_air_velocity(idf, 0.3)
 
         # save
-        idf$save("data/idf/sat.idf", overwrite = TRUE)
-        "data/idf/sat.idf"
+        idf$save("data/idf/fans.idf", overwrite = TRUE)
+        "data/idf/fans.idf"
     }),
 
     tar_target(path_radiant1, format = "file", {
         # read the SBB2 model
-        idf <- eplusr::read_idf(path_sat)
+        idf <- eplusr::read_idf(path_fans)
 
         # turn off air system
         turn_off_air_system(idf)
@@ -59,13 +65,13 @@ targets <- list(
 
     tar_target(path_radiant2, format = "file", {
         # read the SBB2 model
-        idf <- eplusr::read_idf(path_sat)
+        idf <- eplusr::read_idf(path_fans)
 
         # turn off air system
         turn_off_air_system(idf)
 
-        # add natural ventilation
-        add_natural_ventilation(idf, ach = 5, max_oa_temp = 30)
+        # # add natural ventilation
+        # add_natural_ventilation(idf, ach = 5, max_oa_temp = 30)
 
         # add radiant cooling floors and set setpoint temperature to 28-29C
         add_radiant_floor(idf, core = c(29, 30), perimeter = c(29, 30))
@@ -77,7 +83,7 @@ targets <- list(
 
     tar_target(path_sim, format = "file", {
         grp <- eplusr::group_job(
-            c(path_baseline, path_sat, path_radiant1, path_radiant2),
+            c(path_baseline, path_fans, path_radiant1, path_radiant2),
             "data-raw/SGP_Singapore.486980_IWEC.epw"
         )
         grp$run("data/sim")

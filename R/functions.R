@@ -304,10 +304,8 @@ add_radiant_floor <- function(idf, core, perimeter) {
     )]
     idf$load(dt_to_load(branch_clg), dt_to_load(branch_htg))
 
-    idf$object("CndW_Demand_Mixer")
-    idf$object("CndW_Demand_Splitter")
-
-    # insert radiant cooling branches into the condenser demand branch list
+    # insert radiant cooling branches into the condenser demand branch list and
+    # use cooling tower for radiant system cooling
     idf$set(
         CndW_Demand_Branches = as.list(c(
             "CndW_Demand_Branches",
@@ -330,6 +328,9 @@ add_radiant_floor <- function(idf, core, perimeter) {
             "CndW_Demand_Bypass_Branch"
         ))
     )
+
+    # change the cooling tower supply temperature to 20
+    idf$set(Sch_CndW_Loop_Temp = list(field_4 = "20"))
 
     # in order to make a full HVAC typology, should add heating loop
     idf$add(
@@ -539,6 +540,45 @@ add_ceiling_fan <- function(idf, watts_per_area = 0.5) {
     dt[index == 2L, value := z]
 
     eplusr::with_silent(idf$load(dt))
+
+    idf
+}
+# }}}
+
+# set_coil_setpoint {{{
+set_coil_setpoint <- function (idf, setpoint = 12.8, ddy_setpoint = setpoint) {
+    sch_sat <- "Sch_Coil_SAT"
+    idf$object(sch_sat)$set(
+        sch_sat, "Temperature", "Through: 12/31",
+        "For: SummerDesignDay", "Until: 24:00", sprintf("%.1f", ddy_setpoint),
+        "For: AllOtherDays", "Until: 24:00", sprintf("%.1f", setpoint)
+    )
+
+    idf
+}
+# }}}
+
+# set_evaporator_setpoint {{{
+set_evaporator_setpoint <- function (idf, setpoint = 6.7, ddy_setpoint = setpoint) {
+    sch_chilled <- "Sch_ChW_Loop_Temp"
+    idf$object(sch_chilled)$set(
+        sch_chilled, "Temperature", "Through: 12/31",
+        "For: SummerDesignDay", "Until: 24:00", sprintf("%.1f", ddy_setpoint),
+        "For: AllOtherDays", "Until: 24:00", sprintf("%.1f", setpoint)
+    )
+
+    idf
+}
+# }}}
+
+# set_condenser_setpoint {{{
+set_condenser_setpoint <- function (idf, setpoint = 29.5, ddy_setpoint = 29.5) {
+    sch_condenser <- "Sch_CndW_Loop_Temp"
+    idf$object(sch_condenser)$set(
+        sch_condenser, "Temperature", "Through: 12/31",
+        "For: SummerDesignDay", "Until: 24:00", sprintf("%.1f", ddy_setpoint),
+        "For: AllOtherDays", "Until: 24:00", sprintf("%.1f", setpoint)
+    )
 
     idf
 }

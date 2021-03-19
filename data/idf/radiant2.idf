@@ -479,17 +479,23 @@ Schedule:Compact,
     Sch_Coil_SAT,            !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: AllDays,            !- Field 2
+    For: SummerDesignDay,    !- Field 2
     Until: 24:00,            !- Field 3
-    12.8;                    !- Field 4
+    16.0,                    !- Field 4
+    For: AllOtherDays,       !- Field 5
+    Until: 24:00,            !- Field 6
+    16.0;                    !- Field 7
 
 Schedule:Compact,
     Sch_ChW_Loop_Temp,       !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: AllDays,            !- Field 2
+    For: SummerDesignDay,    !- Field 2
     Until: 24:00,            !- Field 3
-    6.7;                     !- Field 4
+    10.0,                    !- Field 4
+    For: AllOtherDays,       !- Field 5
+    Until: 24:00,            !- Field 6
+    10.0;                    !- Field 7
 
 Schedule:Compact,
     Sch_CndW_Loop_Temp,      !- Name
@@ -497,7 +503,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    29.5;                    !- Field 4
+    20;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Cooling_Setpoint_Solar,  !- Name
@@ -2592,16 +2598,6 @@ Schedule:Constant,
     Top_Toilet_Equipment HeatingFrac1,  !- Name
     ZoneEqList ScheduleTypeLimits,  !- Schedule Type Limits Name
     1;                       !- Hourly Value
-
-Schedule:Constant,
-    HybridVentType,          !- Name
-    Any Number,              !- Schedule Type Limits Name
-    1;                       !- Hourly Value
-
-Schedule:Constant,
-    Always 0,                !- Name
-    Any Number,              !- Schedule Type Limits Name
-    0;                       !- Hourly Value
 
 
 !-   ===========  ALL OBJECTS IN CLASS: MATERIAL ===========
@@ -10551,396 +10547,6 @@ ZoneVentilation:DesignFlowRate,
     100,                     !- Maximum Outdoor Temperature {C}
     ,                        !- Maximum Outdoor Temperature Schedule Name
     40;                      !- Maximum Wind Speed {m/s}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Core_Bot,        !- Name
-    Core_Bot,                !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Core_Mid,        !- Name
-    Core_Mid,                !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Core_Top,        !- Name
-    Core_Top,                !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Bot_N,      !- Name
-    Zone_Bot_N,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Bot_E,      !- Name
-    Zone_Bot_E,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Bot_S,      !- Name
-    Zone_Bot_S,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Bot_W,      !- Name
-    Zone_Bot_W,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Mid_N,      !- Name
-    Zone_Mid_N,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Mid_E,      !- Name
-    Zone_Mid_E,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Mid_S,      !- Name
-    Zone_Mid_S,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Mid_W,      !- Name
-    Zone_Mid_W,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Top_N,      !- Name
-    Zone_Top_N,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Top_E,      !- Name
-    Zone_Top_E,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Top_S,      !- Name
-    Zone_Top_S,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
-
-ZoneVentilation:DesignFlowRate,
-    NatVent_Zone_Top_W,      !- Name
-    Zone_Top_W,              !- Zone or ZoneList Name
-    Sch_Occupancy,           !- Schedule Name
-    AirChanges/Hour,         !- Design Flow Rate Calculation Method
-    ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Person {m3/s-person}
-    5,                       !- Air Changes per Hour {1/hr}
-    natural,                 !- Ventilation Type
-    0,                       !- Fan Pressure Rise {Pa}
-    1,                       !- Fan Total Efficiency
-    1,                       !- Constant Term Coefficient
-    0,                       !- Temperature Term Coefficient
-    0,                       !- Velocity Term Coefficient
-    0,                       !- Velocity Squared Term Coefficient
-    -100,                    !- Minimum Indoor Temperature {C}
-    ,                        !- Minimum Indoor Temperature Schedule Name
-    100,                     !- Maximum Indoor Temperature {C}
-    ,                        !- Maximum Indoor Temperature Schedule Name
-    -100,                    !- Delta Temperature {deltaC}
-    ,                        !- Delta Temperature Schedule Name
-    -100,                    !- Minimum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Temperature Schedule Name
-    30;                      !- Maximum Outdoor Temperature {C}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: ZONEMIXING ===========

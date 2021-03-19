@@ -1,4 +1,4 @@
-Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 01:27,
+Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 10:38,
    ************* Beginning Zone Sizing Calculations
    ** Warning ** Site:GroundTemperature:BuildingSurface: Some values fall outside the range of 15-25C.
    **   ~~~   ** These values may be inappropriate.  Please consult the Input Output Reference for more details.
@@ -85,10 +85,6 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 01:27,
    ************* Simulation Error Summary *************
    ************* There are 1 unused objects in input.
    ************* Use Output:Diagnostics,DisplayUnusedObjects; to see them.
-   ************* There are 2 unused schedules in input.
-   ************* There are 2 unused week schedules in input.
-   ************* There are 2 unused day schedules in input.
-   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.
    *************
    ************* ===== Final Error Summary =====
    ************* The following error categories occurred.  Consider correcting or noting.
@@ -99,4 +95,4 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 01:27,
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
    ************* EnergyPlus Sizing Error Summary. During Sizing: 32 Warning; 0 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 39 Warning; 0 Severe Errors; Elapsed Time=00hr 01min 52.74sec
+   ************* EnergyPlus Completed Successfully-- 39 Warning; 0 Severe Errors; Elapsed Time=00hr 01min 59.87sec

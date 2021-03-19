@@ -479,17 +479,23 @@ Schedule:Compact,
     Sch_Coil_SAT,            !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: AllDays,            !- Field 2
+    For: SummerDesignDay,    !- Field 2
     Until: 24:00,            !- Field 3
-    12.8;                    !- Field 4
+    16.0,                    !- Field 4
+    For: AllOtherDays,       !- Field 5
+    Until: 24:00,            !- Field 6
+    16.0;                    !- Field 7
 
 Schedule:Compact,
     Sch_ChW_Loop_Temp,       !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: AllDays,            !- Field 2
+    For: SummerDesignDay,    !- Field 2
     Until: 24:00,            !- Field 3
-    6.7;                     !- Field 4
+    10.0,                    !- Field 4
+    For: AllOtherDays,       !- Field 5
+    Until: 24:00,            !- Field 6
+    10.0;                    !- Field 7
 
 Schedule:Compact,
     Sch_CndW_Loop_Temp,      !- Name
@@ -497,7 +503,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    29.5;                    !- Field 4
+    20;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Cooling_Setpoint_Solar,  !- Name
@@ -2592,16 +2598,6 @@ Schedule:Constant,
     Top_Toilet_Equipment HeatingFrac1,  !- Name
     ZoneEqList ScheduleTypeLimits,  !- Schedule Type Limits Name
     1;                       !- Hourly Value
-
-Schedule:Constant,
-    HybridVentType,          !- Name
-    Any Number,              !- Schedule Type Limits Name
-    1;                       !- Hourly Value
-
-Schedule:Constant,
-    Always 0,                !- Name
-    Any Number,              !- Schedule Type Limits Name
-    0;                       !- Hourly Value
 
 
 !-   ===========  ALL OBJECTS IN CLASS: MATERIAL ===========
