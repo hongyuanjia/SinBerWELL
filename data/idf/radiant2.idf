@@ -511,7 +511,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    26;                      !- Field 4
+    29;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Thermostat_Control_Type,  !- Name
@@ -2366,15 +2366,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    26;                      !- Field 4
-
-Schedule:Compact,
-    Sch_Always_Off,          !- Name
-    On/Off,                  !- Schedule Type Limits Name
-    Through: 12/31,          !- Field 1
-    For: AllDays,            !- Field 2
-    Until: 24:00,            !- Field 3
-    0;                       !- Field 4
+    29;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_RadiantHeating_Setpoint_Core,  !- Name
@@ -10548,6 +10540,396 @@ ZoneVentilation:DesignFlowRate,
     ,                        !- Maximum Outdoor Temperature Schedule Name
     40;                      !- Maximum Wind Speed {m/s}
 
+ZoneVentilation:DesignFlowRate,
+    NatVent_Core_Bot,        !- Name
+    Core_Bot,                !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Core_Mid,        !- Name
+    Core_Mid,                !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Core_Top,        !- Name
+    Core_Top,                !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Bot_N,      !- Name
+    Zone_Bot_N,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Bot_E,      !- Name
+    Zone_Bot_E,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Bot_S,      !- Name
+    Zone_Bot_S,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Bot_W,      !- Name
+    Zone_Bot_W,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Mid_N,      !- Name
+    Zone_Mid_N,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Mid_E,      !- Name
+    Zone_Mid_E,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Mid_S,      !- Name
+    Zone_Mid_S,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Mid_W,      !- Name
+    Zone_Mid_W,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Top_N,      !- Name
+    Zone_Top_N,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Top_E,      !- Name
+    Zone_Top_E,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Top_S,      !- Name
+    Zone_Top_S,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
+ZoneVentilation:DesignFlowRate,
+    NatVent_Zone_Top_W,      !- Name
+    Zone_Top_W,              !- Zone or ZoneList Name
+    Sch_Occupancy,           !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Person {m3/s-person}
+    5,                       !- Air Changes per Hour {1/hr}
+    natural,                 !- Ventilation Type
+    0,                       !- Fan Pressure Rise {Pa}
+    1,                       !- Fan Total Efficiency
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0,                       !- Velocity Squared Term Coefficient
+    -100,                    !- Minimum Indoor Temperature {C}
+    ,                        !- Minimum Indoor Temperature Schedule Name
+    100,                     !- Maximum Indoor Temperature {C}
+    ,                        !- Maximum Indoor Temperature Schedule Name
+    -100,                    !- Delta Temperature {deltaC}
+    ,                        !- Delta Temperature Schedule Name
+    -100,                    !- Minimum Outdoor Temperature {C}
+    ,                        !- Minimum Outdoor Temperature Schedule Name
+    30;                      !- Maximum Outdoor Temperature {C}
+
 
 !-   ===========  ALL OBJECTS IN CLASS: ZONEMIXING ===========
 
@@ -11412,145 +11794,19 @@ Sizing:Zone,
     autosize;                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
 
 
-!-   ===========  ALL OBJECTS IN CLASS: SIZING:SYSTEM ===========
-
-Sizing:System,
-    VAV_Bot,                 !- AirLoop Name
-    Total,                   !- Type of Load to Size On
-    Autosize,                !- Design Outdoor Air Flow Rate {m3/s}
-    0.25,                    !- Central Heating Maximum System Air Flow Ratio
-    7,                       !- Preheat Design Temperature {C}
-    0.008,                   !- Preheat Design Humidity Ratio {kgWater/kgDryAir}
-    12.8,                    !- Precool Design Temperature {C}
-    0.008,                   !- Precool Design Humidity Ratio {kgWater/kgDryAir}
-    12.8,                    !- Central Cooling Design Supply Air Temperature {C}
-    12.8,                    !- Central Heating Design Supply Air Temperature {C}
-    Coincident,              !- Type of Zone Sum to Use
-    No,                      !- 100% Outdoor Air in Cooling
-    No,                      !- 100% Outdoor Air in Heating
-    0.008,                   !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
-    0.008,                   !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
-    DesignDay,               !- Cooling Supply Air Flow Rate Method
-    0,                       !- Cooling Supply Air Flow Rate {m3/s}
-    ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
-    ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
-    ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
-    DesignDay,               !- Heating Supply Air Flow Rate Method
-    0,                       !- Heating Supply Air Flow Rate {m3/s}
-    ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
-    ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
-    ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
-    ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
-    ZoneSum,                 !- System Outdoor Air Method
-    1,                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    CoolingDesignCapacity,   !- Cooling Design Capacity Method
-    autosize,                !- Cooling Design Capacity {W}
-    ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
-    ,                        !- Fraction of Autosized Cooling Design Capacity
-    HeatingDesignCapacity,   !- Heating Design Capacity Method
-    autosize,                !- Heating Design Capacity {W}
-    ,                        !- Heating Design Capacity Per Floor Area {W/m2}
-    ,                        !- Fraction of Autosized Heating Design Capacity
-    OnOff;                   !- Central Cooling Capacity Control Method
-
-Sizing:System,
-    VAV_Mid,                 !- AirLoop Name
-    Total,                   !- Type of Load to Size On
-    Autosize,                !- Design Outdoor Air Flow Rate {m3/s}
-    0.25,                    !- Central Heating Maximum System Air Flow Ratio
-    7,                       !- Preheat Design Temperature {C}
-    0.008,                   !- Preheat Design Humidity Ratio {kgWater/kgDryAir}
-    12.8,                    !- Precool Design Temperature {C}
-    0.008,                   !- Precool Design Humidity Ratio {kgWater/kgDryAir}
-    12.8,                    !- Central Cooling Design Supply Air Temperature {C}
-    12.8,                    !- Central Heating Design Supply Air Temperature {C}
-    Coincident,              !- Type of Zone Sum to Use
-    No,                      !- 100% Outdoor Air in Cooling
-    No,                      !- 100% Outdoor Air in Heating
-    0.008,                   !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
-    0.008,                   !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
-    DesignDay,               !- Cooling Supply Air Flow Rate Method
-    0,                       !- Cooling Supply Air Flow Rate {m3/s}
-    ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
-    ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
-    ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
-    DesignDay,               !- Heating Supply Air Flow Rate Method
-    0,                       !- Heating Supply Air Flow Rate {m3/s}
-    ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
-    ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
-    ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
-    ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
-    ZoneSum,                 !- System Outdoor Air Method
-    1,                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    CoolingDesignCapacity,   !- Cooling Design Capacity Method
-    autosize,                !- Cooling Design Capacity {W}
-    ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
-    ,                        !- Fraction of Autosized Cooling Design Capacity
-    HeatingDesignCapacity,   !- Heating Design Capacity Method
-    autosize,                !- Heating Design Capacity {W}
-    ,                        !- Heating Design Capacity Per Floor Area {W/m2}
-    ,                        !- Fraction of Autosized Heating Design Capacity
-    OnOff;                   !- Central Cooling Capacity Control Method
-
-Sizing:System,
-    VAV_Top,                 !- AirLoop Name
-    Total,                   !- Type of Load to Size On
-    Autosize,                !- Design Outdoor Air Flow Rate {m3/s}
-    0.25,                    !- Central Heating Maximum System Air Flow Ratio
-    7,                       !- Preheat Design Temperature {C}
-    0.008,                   !- Preheat Design Humidity Ratio {kgWater/kgDryAir}
-    12.8,                    !- Precool Design Temperature {C}
-    0.008,                   !- Precool Design Humidity Ratio {kgWater/kgDryAir}
-    12.8,                    !- Central Cooling Design Supply Air Temperature {C}
-    12.8,                    !- Central Heating Design Supply Air Temperature {C}
-    Coincident,              !- Type of Zone Sum to Use
-    No,                      !- 100% Outdoor Air in Cooling
-    No,                      !- 100% Outdoor Air in Heating
-    0.008,                   !- Central Cooling Design Supply Air Humidity Ratio {kgWater/kgDryAir}
-    0.008,                   !- Central Heating Design Supply Air Humidity Ratio {kgWater/kgDryAir}
-    DesignDay,               !- Cooling Supply Air Flow Rate Method
-    0,                       !- Cooling Supply Air Flow Rate {m3/s}
-    ,                        !- Cooling Supply Air Flow Rate Per Floor Area {m3/s-m2}
-    ,                        !- Cooling Fraction of Autosized Cooling Supply Air Flow Rate
-    ,                        !- Cooling Supply Air Flow Rate Per Unit Cooling Capacity {m3/s-W}
-    DesignDay,               !- Heating Supply Air Flow Rate Method
-    0,                       !- Heating Supply Air Flow Rate {m3/s}
-    ,                        !- Heating Supply Air Flow Rate Per Floor Area {m3/s-m2}
-    ,                        !- Heating Fraction of Autosized Heating Supply Air Flow Rate
-    ,                        !- Heating Fraction of Autosized Cooling Supply Air Flow Rate
-    ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
-    ZoneSum,                 !- System Outdoor Air Method
-    1,                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    CoolingDesignCapacity,   !- Cooling Design Capacity Method
-    autosize,                !- Cooling Design Capacity {W}
-    ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
-    ,                        !- Fraction of Autosized Cooling Design Capacity
-    HeatingDesignCapacity,   !- Heating Design Capacity Method
-    autosize,                !- Heating Design Capacity {W}
-    ,                        !- Heating Design Capacity Per Floor Area {W/m2}
-    ,                        !- Fraction of Autosized Heating Design Capacity
-    OnOff;                   !- Central Cooling Capacity Control Method
-
-
 !-   ===========  ALL OBJECTS IN CLASS: SIZING:PLANT ===========
 
 Sizing:Plant,
-    ChW,                     !- Plant or Condenser Loop Name
+    CndW_Radiant_Loop,       !- Plant or Condenser Loop Name
     Cooling,                 !- Loop Type
     6.7,                     !- Design Loop Exit Temperature {C}
-    5.5;                     !- Loop Design Temperature Difference {deltaC}
-
-Sizing:Plant,
-    CndW,                    !- Plant or Condenser Loop Name
-    Condenser,               !- Loop Type
-    29.5,                    !- Design Loop Exit Temperature {C}
-    5.5;                     !- Loop Design Temperature Difference {deltaC}
+    5;                       !- Loop Design Temperature Difference {deltaC}
 
 Sizing:Plant,
     HW_Loop,                 !- Plant or Condenser Loop Name
     Heating,                 !- Loop Type
-    30,                      !- Design Loop Exit Temperature {C}
-    5;                       !- Loop Design Temperature Difference {deltaC}
+    60,                      !- Design Loop Exit Temperature {C}
+    10;                      !- Loop Design Temperature Difference {deltaC}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: ZONECONTROL:THERMOSTAT ===========
@@ -11728,7 +11984,7 @@ ThermostatSetpoint:SingleCooling,
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Core_Bot_Radiant,        !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Core_Bot,                !- Zone Name
     Core_Bot_Radiant_Floor,  !- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -11742,7 +11998,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Core_Bot_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Core_Bot_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -11751,19 +12007,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Core_Bot_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Core_Bot_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Core,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Core_Mid_Radiant,        !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Core_Mid,                !- Zone Name
     Core_Mid_Radiant_Floor,  !- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -11777,7 +12033,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Core_Mid_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Core_Mid_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -11786,19 +12042,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Core_Mid_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Core_Mid_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Core,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Core_Top_Radiant,        !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Core_Top,                !- Zone Name
     Core_Top_Radiant_Floor,  !- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -11812,7 +12068,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Core_Top_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Core_Top_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -11821,19 +12077,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Core_Top_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Core_Top_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Core,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Bot_N_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Bot_N,              !- Zone Name
     Zone_Bot_N_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -11847,7 +12103,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Bot_N_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Bot_N_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -11856,19 +12112,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_N_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_N_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Bot_E_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Bot_E,              !- Zone Name
     Zone_Bot_E_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -11882,7 +12138,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Bot_E_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Bot_E_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -11891,19 +12147,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_E_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_E_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Bot_S_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Bot_S,              !- Zone Name
     Zone_Bot_S_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -11917,7 +12173,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Bot_S_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Bot_S_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -11926,19 +12182,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_S_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_S_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Bot_W_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Bot_W,              !- Zone Name
     Zone_Bot_W_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -11952,7 +12208,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Bot_W_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Bot_W_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -11961,19 +12217,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_W_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_W_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Mid_N_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Mid_N,              !- Zone Name
     Zone_Mid_N_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -11987,7 +12243,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Mid_N_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Mid_N_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -11996,19 +12252,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_N_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_N_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Mid_E_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Mid_E,              !- Zone Name
     Zone_Mid_E_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -12022,7 +12278,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Mid_E_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Mid_E_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -12031,19 +12287,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_E_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_E_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Mid_S_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Mid_S,              !- Zone Name
     Zone_Mid_S_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -12057,7 +12313,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Mid_S_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Mid_S_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -12066,19 +12322,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_S_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_S_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Mid_W_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Mid_W,              !- Zone Name
     Zone_Mid_W_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -12092,7 +12348,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Mid_W_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Mid_W_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -12101,19 +12357,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_W_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_W_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Top_N_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Top_N,              !- Zone Name
     Zone_Top_N_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -12127,7 +12383,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Top_N_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Top_N_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -12136,19 +12392,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_N_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_N_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Top_E_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Top_E,              !- Zone Name
     Zone_Top_E_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -12162,7 +12418,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Top_E_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Top_E_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -12171,19 +12427,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_E_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_E_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Top_S_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Top_S,              !- Zone Name
     Zone_Top_S_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -12197,7 +12453,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Top_S_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Top_S_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -12206,19 +12462,19 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_S_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_S_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
 
 ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Zone_Top_W_Radiant,      !- Name
-    Sch_ACMV,                !- Availability Schedule Name
+    Sch_Always_On,           !- Availability Schedule Name
     Zone_Top_W,              !- Zone Name
     Zone_Top_W_Radiant_Floor,!- Surface Name or Radiant Surface Group Name
     ConvectionOnly,          !- Fluid to Radiant Surface Heat Transfer Model
@@ -12232,7 +12488,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
     1,                       !- Fraction of Autosized Heating Design Capacity
-    ,                        !- Maximum Hot Water Flow {m3/s}
+    Autosize,                !- Maximum Hot Water Flow {m3/s}
     Zone_Top_W_RadiantHeating_Water_Inlet_Node,  !- Heating Water Inlet Node Name
     Zone_Top_W_RadiantHeating_Water_Outlet_Node,  !- Heating Water Outlet Node Name
     0.5,                     !- Heating Control Throttling Range {deltaC}
@@ -12241,12 +12497,12 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
     ,                        !- Fraction of Autosized Cooling Design Capacity
-    ,                        !- Maximum Cold Water Flow {m3/s}
+    Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_W_RadiantCooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_W_RadiantCooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
     0.5,                     !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_RadiantCooling_Setpoint_Perimeter,  !- Cooling Control Temperature Schedule Name
-    VariableOff,             !- Condensation Control Type
+    Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
     OnePerSurface,           !- Number of Circuits
     106.7;                   !- Circuit Length {m}
@@ -12340,282 +12596,6 @@ ZoneHVAC:LowTemperatureRadiant:SurfaceGroup,
     1;                       !- Flow Fraction for Surface 1
 
 
-!-   ===========  ALL OBJECTS IN CLASS: AIRTERMINAL:SINGLEDUCT:VAV:NOREHEAT ===========
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Core_Bot_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Core_Bot_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Core_Bot_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Core_Mid_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Core_Mid_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Core_Mid_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Core_Top_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Core_Top_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Core_Top_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Bot_N_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Bot_N_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Bot_N_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Bot_E_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Bot_E_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Bot_E_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Bot_S_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Bot_S_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Bot_S_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Bot_W_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Bot_W_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Bot_W_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Mid_N_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Mid_N_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Mid_N_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Mid_E_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Mid_E_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Mid_E_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Mid_S_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Mid_S_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Mid_S_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Mid_W_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Mid_W_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Mid_W_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Top_N_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Top_N_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Top_N_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Top_E_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Top_E_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Top_E_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Top_S_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Top_S_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Top_S_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-AirTerminal:SingleDuct:VAV:NoReheat,
-    Zone_Top_W_VAV_Box_Component,  !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Zone_Top_W_VAV_Box_Outlet_Node,  !- Air Outlet Node Name
-    Zone_Top_W_VAV_Box_Inlet_Node,  !- Air Inlet Node Name
-    Autosize,                !- Maximum Air Flow Rate {m3/s}
-    Constant,                !- Zone Minimum Air Flow Input Method
-    0.2,                     !- Constant Minimum Air Flow Fraction
-    ,                        !- Fixed Minimum Air Flow Rate {m3/s}
-    ,                        !- Minimum Air Flow Fraction Schedule Name
-    ;                        !- Design Specification Outdoor Air Object Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: ZONEHVAC:AIRDISTRIBUTIONUNIT ===========
-
-ZoneHVAC:AirDistributionUnit,
-    Core_Bot_VAV_Box,        !- Name
-    Core_Bot_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Core_Bot_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Core_Mid_VAV_Box,        !- Name
-    Core_Mid_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Core_Mid_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Core_Top_VAV_Box,        !- Name
-    Core_Top_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Core_Top_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Bot_N_VAV_Box,      !- Name
-    Zone_Bot_N_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Bot_N_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Bot_E_VAV_Box,      !- Name
-    Zone_Bot_E_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Bot_E_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Bot_S_VAV_Box,      !- Name
-    Zone_Bot_S_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Bot_S_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Bot_W_VAV_Box,      !- Name
-    Zone_Bot_W_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Bot_W_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Mid_N_VAV_Box,      !- Name
-    Zone_Mid_N_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Mid_N_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Mid_E_VAV_Box,      !- Name
-    Zone_Mid_E_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Mid_E_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Mid_S_VAV_Box,      !- Name
-    Zone_Mid_S_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Mid_S_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Mid_W_VAV_Box,      !- Name
-    Zone_Mid_W_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Mid_W_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Top_N_VAV_Box,      !- Name
-    Zone_Top_N_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Top_N_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Top_E_VAV_Box,      !- Name
-    Zone_Top_E_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Top_E_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Top_S_VAV_Box,      !- Name
-    Zone_Top_S_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Top_S_VAV_Box_Component;  !- Air Terminal Name
-
-ZoneHVAC:AirDistributionUnit,
-    Zone_Top_W_VAV_Box,      !- Name
-    Zone_Top_W_VAV_Box_Outlet_Node,  !- Air Distribution Unit Outlet Node Name
-    AirTerminal:SingleDuct:VAV:NoReheat,  !- Air Terminal Object Type
-    Zone_Top_W_VAV_Box_Component;  !- Air Terminal Name
-
-
 !-   ===========  ALL OBJECTS IN CLASS: ZONEHVAC:EQUIPMENTLIST ===========
 
 ZoneHVAC:EquipmentList,
@@ -12626,13 +12606,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Core_Bot_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Core_Bot_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Core_Bot_VAV_Box,        !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Core_Bot_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Core_Bot_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Core_Bot_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Core_Mid_Equipment,      !- Name
@@ -12642,13 +12616,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Core_Mid_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Core_Mid_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Core_Mid_VAV_Box,        !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Core_Mid_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Core_Mid_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Core_Mid_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Core_Top_Equipment,      !- Name
@@ -12658,13 +12626,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Core_Top_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Core_Top_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Core_Top_VAV_Box,        !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Core_Top_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Core_Top_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Core_Top_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Bot_N_Equipment,    !- Name
@@ -12674,13 +12636,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Bot_N_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Bot_N_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Bot_N_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Bot_N_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Bot_N_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Bot_N_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Bot_E_Equipment,    !- Name
@@ -12690,13 +12646,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Bot_E_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Bot_E_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Bot_E_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Bot_E_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Bot_E_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Bot_E_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Bot_S_Equipment,    !- Name
@@ -12706,13 +12656,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Bot_S_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Bot_S_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Bot_S_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Bot_S_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Bot_S_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Bot_S_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Bot_W_Equipment,    !- Name
@@ -12722,13 +12666,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Bot_W_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Bot_W_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Bot_W_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Bot_W_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Bot_W_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Bot_W_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Mid_N_Equipment,    !- Name
@@ -12738,13 +12676,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Mid_N_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Mid_N_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Mid_N_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Mid_N_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Mid_N_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Mid_N_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Mid_E_Equipment,    !- Name
@@ -12754,13 +12686,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Mid_E_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Mid_E_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Mid_E_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Mid_E_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Mid_E_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Mid_E_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Mid_S_Equipment,    !- Name
@@ -12770,13 +12696,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Mid_S_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Mid_S_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Mid_S_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Mid_S_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Mid_S_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Mid_S_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Mid_W_Equipment,    !- Name
@@ -12786,13 +12706,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Mid_W_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Mid_W_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Mid_W_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Mid_W_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Mid_W_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Mid_W_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Top_N_Equipment,    !- Name
@@ -12802,13 +12716,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Top_N_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Top_N_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Top_N_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Top_N_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Top_N_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Top_N_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Top_E_Equipment,    !- Name
@@ -12818,13 +12726,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Top_E_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Top_E_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Top_E_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Top_E_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Top_E_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Top_E_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Top_S_Equipment,    !- Name
@@ -12834,13 +12736,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Top_S_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Top_S_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Top_S_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Top_S_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Top_S_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Top_S_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Zone_Top_W_Equipment,    !- Name
@@ -12850,13 +12746,7 @@ ZoneHVAC:EquipmentList,
     1,                       !- Zone Equipment 1 Cooling Sequence
     1,                       !- Zone Equipment 1 Heating or No-Load Sequence
     Zone_Top_W_Equipment CoolingFrac1,  !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
-    Zone_Top_W_Equipment HeatingFrac1,  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
-    ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 2 Object Type
-    Zone_Top_W_VAV_Box,      !- Zone Equipment 2 Name
-    2,                       !- Zone Equipment 2 Cooling Sequence
-    2,                       !- Zone Equipment 2 Heating or No-Load Sequence
-    Zone_Top_W_Equipment CoolingFrac1,  !- Zone Equipment 2 Sequential Cooling Fraction Schedule Name
-    Zone_Top_W_Equipment HeatingFrac1;  !- Zone Equipment 2 Sequential Heating Fraction Schedule Name
+    Zone_Top_W_Equipment HeatingFrac1;  !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
 ZoneHVAC:EquipmentList,
     Bot_Toilet_Equipment,    !- Name
@@ -12894,7 +12784,7 @@ ZoneHVAC:EquipmentList,
 ZoneHVAC:EquipmentConnections,
     Core_Bot,                !- Zone Name
     Core_Bot_Equipment,      !- Zone Conditioning Equipment List Name
-    Core_Bot_Inlet_Nodes,    !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Core_Bot_Air_Node,       !- Zone Air Node Name
     Core_Bot_Return_Air_Node;!- Zone Return Air Node or NodeList Name
@@ -12902,7 +12792,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Core_Mid,                !- Zone Name
     Core_Mid_Equipment,      !- Zone Conditioning Equipment List Name
-    Core_Mid_Inlet_Nodes,    !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Core_Mid_Air_Node,       !- Zone Air Node Name
     Core_Mid_Return_Air_Node;!- Zone Return Air Node or NodeList Name
@@ -12910,7 +12800,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Core_Top,                !- Zone Name
     Core_Top_Equipment,      !- Zone Conditioning Equipment List Name
-    Core_Top_Inlet_Nodes,    !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Core_Top_Air_Node,       !- Zone Air Node Name
     Core_Top_Return_Air_Node;!- Zone Return Air Node or NodeList Name
@@ -12918,7 +12808,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Bot_N,              !- Zone Name
     Zone_Bot_N_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Bot_N_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Bot_N_Air_Node,     !- Zone Air Node Name
     Zone_Bot_N_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -12926,7 +12816,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Bot_E,              !- Zone Name
     Zone_Bot_E_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Bot_E_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Bot_E_Air_Node,     !- Zone Air Node Name
     Zone_Bot_E_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -12934,7 +12824,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Bot_S,              !- Zone Name
     Zone_Bot_S_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Bot_S_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Bot_S_Air_Node,     !- Zone Air Node Name
     Zone_Bot_S_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -12942,7 +12832,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Bot_W,              !- Zone Name
     Zone_Bot_W_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Bot_W_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Bot_W_Air_Node,     !- Zone Air Node Name
     Zone_Bot_W_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -12950,7 +12840,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Mid_N,              !- Zone Name
     Zone_Mid_N_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Mid_N_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Mid_N_Air_Node,     !- Zone Air Node Name
     Zone_Mid_N_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -12958,7 +12848,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Mid_E,              !- Zone Name
     Zone_Mid_E_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Mid_E_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Mid_E_Air_Node,     !- Zone Air Node Name
     Zone_Mid_E_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -12966,7 +12856,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Mid_S,              !- Zone Name
     Zone_Mid_S_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Mid_S_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Mid_S_Air_Node,     !- Zone Air Node Name
     Zone_Mid_S_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -12974,7 +12864,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Mid_W,              !- Zone Name
     Zone_Mid_W_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Mid_W_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Mid_W_Air_Node,     !- Zone Air Node Name
     Zone_Mid_W_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -12982,7 +12872,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Top_N,              !- Zone Name
     Zone_Top_N_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Top_N_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Top_N_Air_Node,     !- Zone Air Node Name
     Zone_Top_N_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -12990,7 +12880,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Top_E,              !- Zone Name
     Zone_Top_E_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Top_E_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Top_E_Air_Node,     !- Zone Air Node Name
     Zone_Top_E_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -12998,7 +12888,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Top_S,              !- Zone Name
     Zone_Top_S_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Top_S_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Top_S_Air_Node,     !- Zone Air Node Name
     Zone_Top_S_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -13006,7 +12896,7 @@ ZoneHVAC:EquipmentConnections,
 ZoneHVAC:EquipmentConnections,
     Zone_Top_W,              !- Zone Name
     Zone_Top_W_Equipment,    !- Zone Conditioning Equipment List Name
-    Zone_Top_W_Inlet_Nodes,  !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Inlet Node or NodeList Name
     ,                        !- Zone Air Exhaust Node or NodeList Name
     Zone_Top_W_Air_Node,     !- Zone Air Node Name
     Zone_Top_W_Return_Air_Node;  !- Zone Return Air Node or NodeList Name
@@ -13034,69 +12924,6 @@ ZoneHVAC:EquipmentConnections,
     Top_Toilet_Exhaust_Node, !- Zone Air Exhaust Node or NodeList Name
     Top_Toilet_Air_Node,     !- Zone Air Node Name
     Top_Toilet_Return_Node;  !- Zone Return Air Node or NodeList Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: FAN:VARIABLEVOLUME ===========
-
-Fan:VariableVolume,
-    VAV_Bot_Fan,             !- Name
-    Sch_ACMV,                !- Availability Schedule Name
-    0.61,                    !- Fan Total Efficiency
-    1000,                    !- Pressure Rise {Pa}
-    7.07,                    !- Maximum Flow Rate {m3/s}
-    Fraction,                !- Fan Power Minimum Flow Rate Input Method
-    0.5,                     !- Fan Power Minimum Flow Fraction
-    ,                        !- Fan Power Minimum Air Flow Rate {m3/s}
-    0.91,                    !- Motor Efficiency
-    1,                       !- Motor In Airstream Fraction
-    0.0013,                  !- Fan Power Coefficient 1
-    0.147,                   !- Fan Power Coefficient 2
-    0.9506,                  !- Fan Power Coefficient 3
-    0.0998,                  !- Fan Power Coefficient 4
-    0,                       !- Fan Power Coefficient 5
-    VAV_Bot_Coil_Fan_Air_Node,  !- Air Inlet Node Name
-    VAV_Bot_Fan_Outlet,      !- Air Outlet Node Name
-    AHU;                     !- End-Use Subcategory
-
-Fan:VariableVolume,
-    VAV_Mid_Fan,             !- Name
-    Sch_ACMV,                !- Availability Schedule Name
-    0.61,                    !- Fan Total Efficiency
-    1000,                    !- Pressure Rise {Pa}
-    91.76,                   !- Maximum Flow Rate {m3/s}
-    Fraction,                !- Fan Power Minimum Flow Rate Input Method
-    0.5,                     !- Fan Power Minimum Flow Fraction
-    ,                        !- Fan Power Minimum Air Flow Rate {m3/s}
-    0.91,                    !- Motor Efficiency
-    1,                       !- Motor In Airstream Fraction
-    0.0013,                  !- Fan Power Coefficient 1
-    0.147,                   !- Fan Power Coefficient 2
-    0.9506,                  !- Fan Power Coefficient 3
-    0.0998,                  !- Fan Power Coefficient 4
-    0,                       !- Fan Power Coefficient 5
-    VAV_Mid_Coil_Fan_Air_Node,  !- Air Inlet Node Name
-    VAV_Mid_Fan_Outlet,      !- Air Outlet Node Name
-    AHU;                     !- End-Use Subcategory
-
-Fan:VariableVolume,
-    VAV_Top_Fan,             !- Name
-    Sch_ACMV,                !- Availability Schedule Name
-    0.61,                    !- Fan Total Efficiency
-    1000,                    !- Pressure Rise {Pa}
-    6.65,                    !- Maximum Flow Rate {m3/s}
-    Fraction,                !- Fan Power Minimum Flow Rate Input Method
-    0.5,                     !- Fan Power Minimum Flow Fraction
-    ,                        !- Fan Power Minimum Air Flow Rate {m3/s}
-    0.91,                    !- Motor Efficiency
-    1,                       !- Motor In Airstream Fraction
-    0.0013,                  !- Fan Power Coefficient 1
-    0.147,                   !- Fan Power Coefficient 2
-    0.9506,                  !- Fan Power Coefficient 3
-    0.0998,                  !- Fan Power Coefficient 4
-    0,                       !- Fan Power Coefficient 5
-    VAV_Top_Coil_Fan_Air_Node,  !- Air Inlet Node Name
-    VAV_Top_Fan_Outlet,      !- Air Outlet Node Name
-    AHU;                     !- End-Use Subcategory
 
 
 !-   ===========  ALL OBJECTS IN CLASS: FAN:ZONEEXHAUST ===========
@@ -13144,705 +12971,7 @@ Fan:ZoneExhaust,
     Sch_Always_On;           !- Balanced Exhaust Fraction Schedule Name
 
 
-!-   ===========  ALL OBJECTS IN CLASS: COIL:COOLING:WATER ===========
-
-Coil:Cooling:Water,
-    VAV_Bot_Coil,            !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    0.006708,                !- Design Water Flow Rate {m3/s}
-    7.07,                    !- Design Air Flow Rate {m3/s}
-    6.7,                     !- Design Inlet Water Temperature {C}
-    24.34,                   !- Design Inlet Air Temperature {C}
-    11.47,                   !- Design Outlet Air Temperature {C}
-    0.01,                    !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
-    0.008,                   !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
-    VAV_Bot_Coil_W_Inlet_Node,  !- Water Inlet Node Name
-    VAV_Bot_Coil_W_Outlet_Node,  !- Water Outlet Node Name
-    VAV_Bot_Coil_Air_Inlet_Node,  !- Air Inlet Node Name
-    VAV_Bot_Coil_Fan_Air_Node,  !- Air Outlet Node Name
-    DetailedAnalysis,        !- Type of Analysis
-    Crossflow;               !- Heat Exchanger Configuration
-
-Coil:Cooling:Water,
-    VAV_Mid_Coil,            !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    0.090853,                !- Design Water Flow Rate {m3/s}
-    91.76,                   !- Design Air Flow Rate {m3/s}
-    6.7,                     !- Design Inlet Water Temperature {C}
-    24.46,                   !- Design Inlet Air Temperature {C}
-    11.47,                   !- Design Outlet Air Temperature {C}
-    0.010264,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
-    0.008,                   !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
-    VAV_Mid_Coil_W_Inlet_Node,  !- Water Inlet Node Name
-    VAV_Mid_Coil_W_Outlet_Node,  !- Water Outlet Node Name
-    VAV_Mid_Coil_Air_Inlet_Node,  !- Air Inlet Node Name
-    VAV_Mid_Coil_Fan_Air_Node,  !- Air Outlet Node Name
-    DetailedAnalysis,        !- Type of Analysis
-    Crossflow;               !- Heat Exchanger Configuration
-
-Coil:Cooling:Water,
-    VAV_Top_Coil,            !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    0.006418,                !- Design Water Flow Rate {m3/s}
-    6.65,                    !- Design Air Flow Rate {m3/s}
-    6.7,                     !- Design Inlet Water Temperature {C}
-    24.39,                   !- Design Inlet Air Temperature {C}
-    11.47,                   !- Design Outlet Air Temperature {C}
-    0.010107,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
-    0.008,                   !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
-    VAV_Top_Coil_W_Inlet_Node,  !- Water Inlet Node Name
-    VAV_Top_Coil_W_Outlet_Node,  !- Water Outlet Node Name
-    VAV_Top_Coil_Air_Inlet_Node,  !- Air Inlet Node Name
-    VAV_Top_Coil_Fan_Air_Node,  !- Air Outlet Node Name
-    DetailedAnalysis,        !- Type of Analysis
-    Crossflow;               !- Heat Exchanger Configuration
-
-
-!-   ===========  ALL OBJECTS IN CLASS: CONTROLLER:WATERCOIL ===========
-
-Controller:WaterCoil,
-    VAV_Bot_Coil_Controller, !- Name
-    Temperature,             !- Control Variable
-    Reverse,                 !- Action
-    Flow,                    !- Actuator Variable
-    VAV_Bot_Coil_Fan_Air_Node,  !- Sensor Node Name
-    VAV_Bot_Coil_W_Inlet_Node,  !- Actuator Node Name
-    ,                        !- Controller Convergence Tolerance {deltaC}
-    Autosize,                !- Maximum Actuated Flow {m3/s}
-    0;                       !- Minimum Actuated Flow {m3/s}
-
-Controller:WaterCoil,
-    VAV_Mid_Coil_Controller, !- Name
-    Temperature,             !- Control Variable
-    Reverse,                 !- Action
-    Flow,                    !- Actuator Variable
-    VAV_Mid_Coil_Fan_Air_Node,  !- Sensor Node Name
-    VAV_Mid_Coil_W_Inlet_Node,  !- Actuator Node Name
-    ,                        !- Controller Convergence Tolerance {deltaC}
-    Autosize,                !- Maximum Actuated Flow {m3/s}
-    0;                       !- Minimum Actuated Flow {m3/s}
-
-Controller:WaterCoil,
-    VAV_Top_Coil_Controller, !- Name
-    Temperature,             !- Control Variable
-    Reverse,                 !- Action
-    Flow,                    !- Actuator Variable
-    VAV_Top_Coil_Fan_Air_Node,  !- Sensor Node Name
-    VAV_Top_Coil_W_Inlet_Node,  !- Actuator Node Name
-    ,                        !- Controller Convergence Tolerance {deltaC}
-    Autosize,                !- Maximum Actuated Flow {m3/s}
-    0;                       !- Minimum Actuated Flow {m3/s}
-
-
-!-   ===========  ALL OBJECTS IN CLASS: CONTROLLER:OUTDOORAIR ===========
-
-Controller:OutdoorAir,
-    VAV_Bot_OA_Controller,   !- Name
-    VAV_Bot_OARelief_Node,   !- Relief Air Outlet Node Name
-    VAV_Bot_Supply_Equip_Inlet_Node,  !- Return Air Node Name
-    VAV_Bot_Coil_Air_Inlet_Node,  !- Mixed Air Node Name
-    VAV_Bot_OAInlet_Node,    !- Actuator Node Name
-    0,                       !- Minimum Outdoor Air Flow Rate {m3/s}
-    Autosize,                !- Maximum Outdoor Air Flow Rate {m3/s}
-    NoEconomizer,            !- Economizer Control Type
-    Modulateflow,            !- Economizer Control Action Type
-    ,                        !- Economizer Maximum Limit Dry-Bulb Temperature {C}
-    ,                        !- Economizer Maximum Limit Enthalpy {J/kg}
-    ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
-    ,                        !- Electronic Enthalpy Limit Curve Name
-    ,                        !- Economizer Minimum Limit Dry-Bulb Temperature {C}
-    NoLockout,               !- Lockout Type
-    Fixedminimum,            !- Minimum Limit Type
-    Sch_MinOA,               !- Minimum Outdoor Air Schedule Name
-    ,                        !- Minimum Fraction of Outdoor Air Schedule Name
-    ,                        !- Maximum Fraction of Outdoor Air Schedule Name
-    VAV_Bot_DCV;             !- Mechanical Ventilation Controller Name
-
-Controller:OutdoorAir,
-    VAV_Mid_OA_Controller,   !- Name
-    VAV_Mid_OARelief_Node,   !- Relief Air Outlet Node Name
-    VAV_Mid_Supply_Equip_Inlet_Node,  !- Return Air Node Name
-    VAV_Mid_Coil_Air_Inlet_Node,  !- Mixed Air Node Name
-    VAV_Mid_OAInlet_Node,    !- Actuator Node Name
-    0,                       !- Minimum Outdoor Air Flow Rate {m3/s}
-    Autosize,                !- Maximum Outdoor Air Flow Rate {m3/s}
-    NoEconomizer,            !- Economizer Control Type
-    Modulateflow,            !- Economizer Control Action Type
-    ,                        !- Economizer Maximum Limit Dry-Bulb Temperature {C}
-    ,                        !- Economizer Maximum Limit Enthalpy {J/kg}
-    ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
-    ,                        !- Electronic Enthalpy Limit Curve Name
-    ,                        !- Economizer Minimum Limit Dry-Bulb Temperature {C}
-    NoLockout,               !- Lockout Type
-    Fixedminimum,            !- Minimum Limit Type
-    Sch_MinOA,               !- Minimum Outdoor Air Schedule Name
-    ,                        !- Minimum Fraction of Outdoor Air Schedule Name
-    ,                        !- Maximum Fraction of Outdoor Air Schedule Name
-    VAV_Mid_DCV;             !- Mechanical Ventilation Controller Name
-
-Controller:OutdoorAir,
-    VAV_Top_OA_Controller,   !- Name
-    VAV_Top_OARelief_Node,   !- Relief Air Outlet Node Name
-    VAV_Top_Supply_Equip_Inlet_Node,  !- Return Air Node Name
-    VAV_Top_Coil_Air_Inlet_Node,  !- Mixed Air Node Name
-    VAV_Top_OAInlet_Node,    !- Actuator Node Name
-    0,                       !- Minimum Outdoor Air Flow Rate {m3/s}
-    Autosize,                !- Maximum Outdoor Air Flow Rate {m3/s}
-    NoEconomizer,            !- Economizer Control Type
-    Modulateflow,            !- Economizer Control Action Type
-    ,                        !- Economizer Maximum Limit Dry-Bulb Temperature {C}
-    ,                        !- Economizer Maximum Limit Enthalpy {J/kg}
-    ,                        !- Economizer Maximum Limit Dewpoint Temperature {C}
-    ,                        !- Electronic Enthalpy Limit Curve Name
-    ,                        !- Economizer Minimum Limit Dry-Bulb Temperature {C}
-    NoLockout,               !- Lockout Type
-    Fixedminimum,            !- Minimum Limit Type
-    Sch_MinOA,               !- Minimum Outdoor Air Schedule Name
-    ,                        !- Minimum Fraction of Outdoor Air Schedule Name
-    ,                        !- Maximum Fraction of Outdoor Air Schedule Name
-    VAV_Top_DCV;             !- Mechanical Ventilation Controller Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: CONTROLLER:MECHANICALVENTILATION ===========
-
-Controller:MechanicalVentilation,
-    VAV_Top_DCV,             !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Yes,                     !- Demand Controlled Ventilation
-    VentilationRateProcedure,!- System Outdoor Air Method
-    ,                        !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    Core_Top,                !- Zone or ZoneList 1 Name
-    CM_DSOA_Core_Top,        !- Design Specification Outdoor Air Object Name 1
-    CM_DSZAD_Core_Top,       !- Design Specification Zone Air Distribution Object Name 1
-    Zone_Top_S,              !- Zone or ZoneList 2 Name
-    CM_DSOA_Zone_Top_S,      !- Design Specification Outdoor Air Object Name 2
-    CM_DSZAD_Zone_Top_S,     !- Design Specification Zone Air Distribution Object Name 2
-    Zone_Top_E,              !- Zone or ZoneList 3 Name
-    CM_DSOA_Zone_Top_E,      !- Design Specification Outdoor Air Object Name 3
-    CM_DSZAD_Zone_Top_E,     !- Design Specification Zone Air Distribution Object Name 3
-    Zone_Top_N,              !- Zone or ZoneList 4 Name
-    CM_DSOA_Zone_Top_N,      !- Design Specification Outdoor Air Object Name 4
-    CM_DSZAD_Zone_Top_N,     !- Design Specification Zone Air Distribution Object Name 4
-    Zone_Top_W,              !- Zone or ZoneList 5 Name
-    CM_DSOA_Zone_Top_W,      !- Design Specification Outdoor Air Object Name 5
-    CM_DSZAD_Zone_Top_W;     !- Design Specification Zone Air Distribution Object Name 5
-
-Controller:MechanicalVentilation,
-    VAV_Bot_DCV,             !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Yes,                     !- Demand Controlled Ventilation
-    VentilationRateProcedure,!- System Outdoor Air Method
-    ,                        !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    Core_Bot,                !- Zone or ZoneList 1 Name
-    CM_DSOA_Core_Bot,        !- Design Specification Outdoor Air Object Name 1
-    CM_DSZAD_Core_Bot,       !- Design Specification Zone Air Distribution Object Name 1
-    Zone_Bot_S,              !- Zone or ZoneList 2 Name
-    CM_DSOA_Zone_Bot_S,      !- Design Specification Outdoor Air Object Name 2
-    CM_DSZAD_Zone_Bot_S,     !- Design Specification Zone Air Distribution Object Name 2
-    Zone_Bot_E,              !- Zone or ZoneList 3 Name
-    CM_DSOA_Zone_Bot_E,      !- Design Specification Outdoor Air Object Name 3
-    CM_DSZAD_Zone_Bot_E,     !- Design Specification Zone Air Distribution Object Name 3
-    Zone_Bot_N,              !- Zone or ZoneList 4 Name
-    CM_DSOA_Zone_Bot_N,      !- Design Specification Outdoor Air Object Name 4
-    CM_DSZAD_Zone_Bot_N,     !- Design Specification Zone Air Distribution Object Name 4
-    Zone_Bot_W,              !- Zone or ZoneList 5 Name
-    CM_DSOA_Zone_Bot_W,      !- Design Specification Outdoor Air Object Name 5
-    CM_DSZAD_Zone_Bot_W;     !- Design Specification Zone Air Distribution Object Name 5
-
-Controller:MechanicalVentilation,
-    VAV_Mid_DCV,             !- Name
-    Sch_Always_On,           !- Availability Schedule Name
-    Yes,                     !- Demand Controlled Ventilation
-    VentilationRateProcedure,!- System Outdoor Air Method
-    ,                        !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    Core_Mid,                !- Zone or ZoneList 1 Name
-    CM_DSOA_Core_Mid,        !- Design Specification Outdoor Air Object Name 1
-    CM_DSZAD_Core_Mid,       !- Design Specification Zone Air Distribution Object Name 1
-    Zone_Mid_S,              !- Zone or ZoneList 2 Name
-    CM_DSOA_Zone_Mid_S,      !- Design Specification Outdoor Air Object Name 2
-    CM_DSZAD_Zone_Mid_S,     !- Design Specification Zone Air Distribution Object Name 2
-    Zone_Mid_E,              !- Zone or ZoneList 3 Name
-    CM_DSOA_Zone_Mid_E,      !- Design Specification Outdoor Air Object Name 3
-    CM_DSZAD_Zone_Mid_E,     !- Design Specification Zone Air Distribution Object Name 3
-    Zone_Mid_N,              !- Zone or ZoneList 4 Name
-    CM_DSOA_Zone_Mid_N,      !- Design Specification Outdoor Air Object Name 4
-    CM_DSZAD_Zone_Mid_N,     !- Design Specification Zone Air Distribution Object Name 4
-    Zone_Mid_W,              !- Zone or ZoneList 5 Name
-    CM_DSOA_Zone_Mid_W,      !- Design Specification Outdoor Air Object Name 5
-    CM_DSZAD_Zone_Mid_W;     !- Design Specification Zone Air Distribution Object Name 5
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:CONTROLLERLIST ===========
-
-AirLoopHVAC:ControllerList,
-    VAV_Bot_OA_Controllers,  !- Name
-    Controller:OutdoorAir,   !- Controller 1 Object Type
-    VAV_Bot_OA_Controller;   !- Controller 1 Name
-
-AirLoopHVAC:ControllerList,
-    VAV_Mid_OA_Controllers,  !- Name
-    Controller:OutdoorAir,   !- Controller 1 Object Type
-    VAV_Mid_OA_Controller;   !- Controller 1 Name
-
-AirLoopHVAC:ControllerList,
-    VAV_Top_OA_Controllers,  !- Name
-    Controller:OutdoorAir,   !- Controller 1 Object Type
-    VAV_Top_OA_Controller;   !- Controller 1 Name
-
-AirLoopHVAC:ControllerList,
-    VAV_Bot_Controllers,     !- Name
-    Controller:WaterCoil,    !- Controller 1 Object Type
-    VAV_Bot_Coil_Controller; !- Controller 1 Name
-
-AirLoopHVAC:ControllerList,
-    VAV_Mid_Controllers,     !- Name
-    Controller:WaterCoil,    !- Controller 1 Object Type
-    VAV_Mid_Coil_Controller; !- Controller 1 Name
-
-AirLoopHVAC:ControllerList,
-    VAV_Top_Controllers,     !- Name
-    Controller:WaterCoil,    !- Controller 1 Object Type
-    VAV_Top_Coil_Controller; !- Controller 1 Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC ===========
-
-AirLoopHVAC,
-    VAV_Bot,                 !- Name
-    VAV_Bot_Controllers,     !- Controller List Name
-    VAV_Bot_Availability_List,  !- Availability Manager List Name
-    Autosize,                !- Design Supply Air Flow Rate {m3/s}
-    VAV_Bot_Air_Loop_Branches,  !- Branch List Name
-    ,                        !- Connector List Name
-    VAV_Bot_Supply_Equip_Inlet_Node,  !- Supply Side Inlet Node Name
-    VAV_Bot_Zone_Equip_Outlet_Node,  !- Demand Side Outlet Node Name
-    VAV_Bot_Zone_Equip_Inlet_Node,  !- Demand Side Inlet Node Names
-    VAV_Bot_Fan_Outlet;      !- Supply Side Outlet Node Names
-
-AirLoopHVAC,
-    VAV_Mid,                 !- Name
-    VAV_Mid_Controllers,     !- Controller List Name
-    VAV_Mid_Availability_List,  !- Availability Manager List Name
-    Autosize,                !- Design Supply Air Flow Rate {m3/s}
-    VAV_Mid_Air_Loop_Branches,  !- Branch List Name
-    ,                        !- Connector List Name
-    VAV_Mid_Supply_Equip_Inlet_Node,  !- Supply Side Inlet Node Name
-    VAV_Mid_Zone_Equip_Outlet_Node,  !- Demand Side Outlet Node Name
-    VAV_Mid_Zone_Equip_Inlet_Node,  !- Demand Side Inlet Node Names
-    VAV_Mid_Fan_Outlet;      !- Supply Side Outlet Node Names
-
-AirLoopHVAC,
-    VAV_Top,                 !- Name
-    VAV_Top_Controllers,     !- Controller List Name
-    VAV_Top_Availability_List,  !- Availability Manager List Name
-    Autosize,                !- Design Supply Air Flow Rate {m3/s}
-    VAV_Top_Air_Loop_Branches,  !- Branch List Name
-    ,                        !- Connector List Name
-    VAV_Top_Supply_Equip_Inlet_Node,  !- Supply Side Inlet Node Name
-    VAV_Top_Zone_Equip_Outlet_Node,  !- Demand Side Outlet Node Name
-    VAV_Top_Zone_Equip_Inlet_Node,  !- Demand Side Inlet Node Names
-    VAV_Top_Fan_Outlet;      !- Supply Side Outlet Node Names
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:OUTDOORAIRSYSTEM:EQUIPMENTLIST ===========
-
-AirLoopHVAC:OutdoorAirSystem:EquipmentList,
-    VAV_Bot_OA_Equipment,    !- Name
-    OutdoorAir:Mixer,        !- Component 1 Object Type
-    VAV_Bot_OAMixing_Box;    !- Component 1 Name
-
-AirLoopHVAC:OutdoorAirSystem:EquipmentList,
-    VAV_Mid_OA_Equipment,    !- Name
-    OutdoorAir:Mixer,        !- Component 1 Object Type
-    VAV_Mid_OAMixing_Box;    !- Component 1 Name
-
-AirLoopHVAC:OutdoorAirSystem:EquipmentList,
-    VAV_Top_OA_Equipment,    !- Name
-    OutdoorAir:Mixer,        !- Component 1 Object Type
-    VAV_Top_OAMixing_Box;    !- Component 1 Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:OUTDOORAIRSYSTEM ===========
-
-AirLoopHVAC:OutdoorAirSystem,
-    VAV_Bot_OA,              !- Name
-    VAV_Bot_OA_Controllers,  !- Controller List Name
-    VAV_Bot_OA_Equipment,    !- Outdoor Air Equipment List Name
-    ;                        !- Availability Manager List Name
-
-AirLoopHVAC:OutdoorAirSystem,
-    VAV_Mid_OA,              !- Name
-    VAV_Mid_OA_Controllers,  !- Controller List Name
-    VAV_Mid_OA_Equipment,    !- Outdoor Air Equipment List Name
-    ;                        !- Availability Manager List Name
-
-AirLoopHVAC:OutdoorAirSystem,
-    VAV_Top_OA,              !- Name
-    VAV_Top_OA_Controllers,  !- Controller List Name
-    VAV_Top_OA_Equipment,    !- Outdoor Air Equipment List Name
-    ;                        !- Availability Manager List Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: OUTDOORAIR:MIXER ===========
-
-OutdoorAir:Mixer,
-    VAV_Bot_OAMixing_Box,    !- Name
-    VAV_Bot_Coil_Air_Inlet_Node,  !- Mixed Air Node Name
-    VAV_Bot_OAInlet_Node,    !- Outdoor Air Stream Node Name
-    VAV_Bot_OARelief_Node,   !- Relief Air Stream Node Name
-    VAV_Bot_Supply_Equip_Inlet_Node;  !- Return Air Stream Node Name
-
-OutdoorAir:Mixer,
-    VAV_Mid_OAMixing_Box,    !- Name
-    VAV_Mid_Coil_Air_Inlet_Node,  !- Mixed Air Node Name
-    VAV_Mid_OAInlet_Node,    !- Outdoor Air Stream Node Name
-    VAV_Mid_OARelief_Node,   !- Relief Air Stream Node Name
-    VAV_Mid_Supply_Equip_Inlet_Node;  !- Return Air Stream Node Name
-
-OutdoorAir:Mixer,
-    VAV_Top_OAMixing_Box,    !- Name
-    VAV_Top_Coil_Air_Inlet_Node,  !- Mixed Air Node Name
-    VAV_Top_OAInlet_Node,    !- Outdoor Air Stream Node Name
-    VAV_Top_OARelief_Node,   !- Relief Air Stream Node Name
-    VAV_Top_Supply_Equip_Inlet_Node;  !- Return Air Stream Node Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:ZONESPLITTER ===========
-
-AirLoopHVAC:ZoneSplitter,
-    VAV_Bot_Supply_Air_Splitter,  !- Name
-    VAV_Bot_Zone_Equip_Inlet_Node,  !- Inlet Node Name
-    Core_Bot_VAV_Box_Inlet_Node,  !- Outlet 1 Node Name
-    Zone_Bot_N_VAV_Box_Inlet_Node,  !- Outlet 2 Node Name
-    Zone_Bot_E_VAV_Box_Inlet_Node,  !- Outlet 3 Node Name
-    Zone_Bot_S_VAV_Box_Inlet_Node,  !- Outlet 4 Node Name
-    Zone_Bot_W_VAV_Box_Inlet_Node;  !- Outlet 5 Node Name
-
-AirLoopHVAC:ZoneSplitter,
-    VAV_Mid_Supply_Air_Splitter,  !- Name
-    VAV_Mid_Zone_Equip_Inlet_Node,  !- Inlet Node Name
-    Core_Mid_VAV_Box_Inlet_Node,  !- Outlet 1 Node Name
-    Zone_Mid_N_VAV_Box_Inlet_Node,  !- Outlet 2 Node Name
-    Zone_Mid_E_VAV_Box_Inlet_Node,  !- Outlet 3 Node Name
-    Zone_Mid_S_VAV_Box_Inlet_Node,  !- Outlet 4 Node Name
-    Zone_Mid_W_VAV_Box_Inlet_Node;  !- Outlet 5 Node Name
-
-AirLoopHVAC:ZoneSplitter,
-    VAV_Top_Supply_Air_Splitter,  !- Name
-    VAV_Top_Zone_Equip_Inlet_Node,  !- Inlet Node Name
-    Core_Top_VAV_Box_Inlet_Node,  !- Outlet 1 Node Name
-    Zone_Top_N_VAV_Box_Inlet_Node,  !- Outlet 2 Node Name
-    Zone_Top_E_VAV_Box_Inlet_Node,  !- Outlet 3 Node Name
-    Zone_Top_S_VAV_Box_Inlet_Node,  !- Outlet 4 Node Name
-    Zone_Top_W_VAV_Box_Inlet_Node;  !- Outlet 5 Node Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:SUPPLYPATH ===========
-
-AirLoopHVAC:SupplyPath,
-    VAV_Bot,                 !- Name
-    VAV_Bot_Zone_Equip_Inlet_Node,  !- Supply Air Path Inlet Node Name
-    AirLoopHVAC:ZoneSplitter,!- Component 1 Object Type
-    VAV_Bot_Supply_Air_Splitter;  !- Component 1 Name
-
-AirLoopHVAC:SupplyPath,
-    VAV_Mid,                 !- Name
-    VAV_Mid_Zone_Equip_Inlet_Node,  !- Supply Air Path Inlet Node Name
-    AirLoopHVAC:ZoneSplitter,!- Component 1 Object Type
-    VAV_Mid_Supply_Air_Splitter;  !- Component 1 Name
-
-AirLoopHVAC:SupplyPath,
-    VAV_Top,                 !- Name
-    VAV_Top_Zone_Equip_Inlet_Node,  !- Supply Air Path Inlet Node Name
-    AirLoopHVAC:ZoneSplitter,!- Component 1 Object Type
-    VAV_Top_Supply_Air_Splitter;  !- Component 1 Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:ZONEMIXER ===========
-
-AirLoopHVAC:ZoneMixer,
-    VAV_Bot_Return_Air_Mixer,!- Name
-    VAV_Bot_Zone_Equip_Outlet_Node,  !- Outlet Node Name
-    Bot_Plenum_Outlet_Node;  !- Inlet 1 Node Name
-
-AirLoopHVAC:ZoneMixer,
-    VAV_Mid_Return_Air_Mixer,!- Name
-    VAV_Mid_Zone_Equip_Outlet_Node,  !- Outlet Node Name
-    Mid_Plenum_Outlet_Node;  !- Inlet 1 Node Name
-
-AirLoopHVAC:ZoneMixer,
-    VAV_Top_Return_Air_Mixer,!- Name
-    VAV_Top_Zone_Equip_Outlet_Node,  !- Outlet Node Name
-    Top_Plenum_Outlet_Node;  !- Inlet 1 Node Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:RETURNPLENUM ===========
-
-AirLoopHVAC:ReturnPlenum,
-    Groundfloor_Return_Plenum,  !- Name
-    Bot_Plenum,              !- Zone Name
-    Bot_Plenum_Node,         !- Zone Node Name
-    Bot_Plenum_Outlet_Node,  !- Outlet Node Name
-    ,                        !- Induced Air Outlet Node or NodeList Name
-    Zone_Bot_S_Return_Air_Node,  !- Inlet 1 Node Name
-    Zone_Bot_E_Return_Air_Node,  !- Inlet 2 Node Name
-    Zone_Bot_N_Return_Air_Node,  !- Inlet 3 Node Name
-    Zone_Bot_W_Return_Air_Node,  !- Inlet 4 Node Name
-    Core_Bot_Return_Air_Node;!- Inlet 5 Node Name
-
-AirLoopHVAC:ReturnPlenum,
-    Midfloor_Return_Plenum,  !- Name
-    Mid_Plenum,              !- Zone Name
-    Mid_Plenum_Node,         !- Zone Node Name
-    Mid_Plenum_Outlet_Node,  !- Outlet Node Name
-    ,                        !- Induced Air Outlet Node or NodeList Name
-    Zone_Mid_S_Return_Air_Node,  !- Inlet 1 Node Name
-    Zone_Mid_E_Return_Air_Node,  !- Inlet 2 Node Name
-    Zone_Mid_N_Return_Air_Node,  !- Inlet 3 Node Name
-    Zone_Mid_W_Return_Air_Node,  !- Inlet 4 Node Name
-    Core_Mid_Return_Air_Node;!- Inlet 5 Node Name
-
-AirLoopHVAC:ReturnPlenum,
-    Topfloor_Return_Plenum,  !- Name
-    Top_Plenum,              !- Zone Name
-    Top_Plenum_Node,         !- Zone Node Name
-    Top_Plenum_Outlet_Node,  !- Outlet Node Name
-    ,                        !- Induced Air Outlet Node or NodeList Name
-    Zone_Top_S_Return_Air_Node,  !- Inlet 1 Node Name
-    Zone_Top_E_Return_Air_Node,  !- Inlet 2 Node Name
-    Zone_Top_N_Return_Air_Node,  !- Inlet 3 Node Name
-    Zone_Top_W_Return_Air_Node,  !- Inlet 4 Node Name
-    Core_Top_Return_Air_Node;!- Inlet 5 Node Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:RETURNPATH ===========
-
-AirLoopHVAC:ReturnPath,
-    VAV_Bot_Return_Air_Path, !- Name
-    VAV_Bot_Zone_Equip_Outlet_Node,  !- Return Air Path Outlet Node Name
-    AirLoopHVAC:ReturnPlenum,!- Component 1 Object Type
-    Groundfloor_Return_Plenum,  !- Component 1 Name
-    AirLoopHVAC:ZoneMixer,   !- Component 2 Object Type
-    VAV_Bot_Return_Air_Mixer;!- Component 2 Name
-
-AirLoopHVAC:ReturnPath,
-    VAV_Mid_Return_Air_Path, !- Name
-    VAV_Mid_Zone_Equip_Outlet_Node,  !- Return Air Path Outlet Node Name
-    AirLoopHVAC:ReturnPlenum,!- Component 1 Object Type
-    Midfloor_Return_Plenum,  !- Component 1 Name
-    AirLoopHVAC:ZoneMixer,   !- Component 2 Object Type
-    VAV_Mid_Return_Air_Mixer;!- Component 2 Name
-
-AirLoopHVAC:ReturnPath,
-    VAV_Top_Return_Air_Path, !- Name
-    VAV_Top_Zone_Equip_Outlet_Node,  !- Return Air Path Outlet Node Name
-    AirLoopHVAC:ReturnPlenum,!- Component 1 Object Type
-    Topfloor_Return_Plenum,  !- Component 1 Name
-    AirLoopHVAC:ZoneMixer,   !- Component 2 Object Type
-    VAV_Top_Return_Air_Mixer;!- Component 2 Name
-
-
 !-   ===========  ALL OBJECTS IN CLASS: BRANCH ===========
-
-Branch,
-    ChW_Supply_Inlet_Branch, !- Name
-    ,                        !- Pressure Drop Curve Name
-    HeaderedPumps:VariableSpeed,  !- Component 1 Object Type
-    ChW_Pump,                !- Component 1 Name
-    ChW_Supply_Inlet_Node,   !- Component 1 Inlet Node Name
-    ChW_Pump_Outlet_Node;    !- Component 1 Outlet Node Name
-
-Branch,
-    ChW_Supply_Equipment_Branch_1,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    Chiller:Electric:ReformulatedEIR,  !- Component 1 Object Type
-    SG_Chiller_1,            !- Component 1 Name
-    ChW_Chiller_1_Inlet_Node,!- Component 1 Inlet Node Name
-    ChW_Chiller_1_Outlet_Node;  !- Component 1 Outlet Node Name
-
-Branch,
-    ChW_Demand_Equipment_Bypass_Branch,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    Pipe:Adiabatic,          !- Component 1 Object Type
-    ChW_Demand_Equipment_Bypass_Pipe,  !- Component 1 Name
-    ChW_Demand_Equip_Bypass_Inlet_Node,  !- Component 1 Inlet Node Name
-    ChW_Demand_Equip_Bypass_Outlet_Node;  !- Component 1 Outlet Node Name
-
-Branch,
-    ChW_Supply_Outlet_Branch,!- Name
-    ,                        !- Pressure Drop Curve Name
-    Pipe:Adiabatic,          !- Component 1 Object Type
-    ChW_Supply_Outlet_Pipe,  !- Component 1 Name
-    ChW_Supply_Mixer-ChW_Supply_Outlet_Pipe,  !- Component 1 Inlet Node Name
-    ChW_Supply_Outlet_Node;  !- Component 1 Outlet Node Name
-
-Branch,
-    ChW_Demand_Inlet_Branch, !- Name
-    ,                        !- Pressure Drop Curve Name
-    Pipe:Adiabatic,          !- Component 1 Object Type
-    ChW_Demand_Pipe,         !- Component 1 Name
-    ChW_Demand_Inlet_Node,   !- Component 1 Inlet Node Name
-    ChW_Pump_Secondary-ChW_Demand_Mixer;  !- Component 1 Outlet Node Name
-
-Branch,
-    ChW_Demand_Load_Branch_1,!- Name
-    ,                        !- Pressure Drop Curve Name
-    Coil:Cooling:Water,      !- Component 1 Object Type
-    VAV_Bot_Coil,            !- Component 1 Name
-    VAV_Bot_Coil_W_Inlet_Node,  !- Component 1 Inlet Node Name
-    VAV_Bot_Coil_W_Outlet_Node;  !- Component 1 Outlet Node Name
-
-Branch,
-    ChW_Demand_Load_Branch_2,!- Name
-    ,                        !- Pressure Drop Curve Name
-    Coil:Cooling:Water,      !- Component 1 Object Type
-    VAV_Mid_Coil,            !- Component 1 Name
-    VAV_Mid_Coil_W_Inlet_Node,  !- Component 1 Inlet Node Name
-    VAV_Mid_Coil_W_Outlet_Node;  !- Component 1 Outlet Node Name
-
-Branch,
-    ChW_Demand_Load_Branch_3,!- Name
-    ,                        !- Pressure Drop Curve Name
-    Coil:Cooling:Water,      !- Component 1 Object Type
-    VAV_Top_Coil,            !- Component 1 Name
-    VAV_Top_Coil_W_Inlet_Node,  !- Component 1 Inlet Node Name
-    VAV_Top_Coil_W_Outlet_Node;  !- Component 1 Outlet Node Name
-
-Branch,
-    ChW_Demand_Outlet_Branch,!- Name
-    ,                        !- Pressure Drop Curve Name
-    Pipe:Adiabatic,          !- Component 1 Object Type
-    ChW_Demand_Outlet_Pipe,  !- Component 1 Name
-    ChW_Demand_Mixer-ChW_Demand_Outlet_Pipe,  !- Component 1 Inlet Node Name
-    ChW_Demand_Outlet_Node;  !- Component 1 Outlet Node Name
-
-Branch,
-    CndW_Supply_Inlet_Branch,!- Name
-    ,                        !- Pressure Drop Curve Name
-    HeaderedPumps:ConstantSpeed,  !- Component 1 Object Type
-    CndW_Pump,               !- Component 1 Name
-    CndW_Supply_Inlet_Node,  !- Component 1 Inlet Node Name
-    CndW_Pump_Outlet_Node;   !- Component 1 Outlet Node Name
-
-Branch,
-    CndW_Supply_Equipment_Branch_1,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    CoolingTower:SingleSpeed,!- Component 1 Object Type
-    SGP_CoolTower_1,         !- Component 1 Name
-    CndW_Tower_1_Inlet_Node, !- Component 1 Inlet Node Name
-    CndW_Tower_1_Outlet_Node;!- Component 1 Outlet Node Name
-
-Branch,
-    CndW_Supply_Equipment_Branch_2,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    CoolingTower:SingleSpeed,!- Component 1 Object Type
-    SGP_CoolTower_2,         !- Component 1 Name
-    CndW_Tower_2_Inlet_Node, !- Component 1 Inlet Node Name
-    CndW_Tower_2_Outlet_Node;!- Component 1 Outlet Node Name
-
-Branch,
-    CndW_Supply_Equipment_Bypass_Branch,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    Pipe:Adiabatic,          !- Component 1 Object Type
-    CndW_Supply_Equipment_Bypass_Pipe,  !- Component 1 Name
-    CndW_Supply_Equip_Bypass_Inlet_Node,  !- Component 1 Inlet Node Name
-    CndW_Supply_Equip_Bypass_Outlet_Node;  !- Component 1 Outlet Node Name
-
-Branch,
-    CndW_Supply_Outlet_Branch,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    Pipe:Adiabatic,          !- Component 1 Object Type
-    CndW_Supply_Outlet_Pipe, !- Component 1 Name
-    CndW_Supply_Mixer-CndW_Supply_Outlet_Pipe,  !- Component 1 Inlet Node Name
-    CndW_Supply_Outlet_Node; !- Component 1 Outlet Node Name
-
-Branch,
-    CndW_Demand_Inlet_Branch,!- Name
-    ,                        !- Pressure Drop Curve Name
-    Pipe:Adiabatic,          !- Component 1 Object Type
-    CndW_Demand_Inlet_Pipe,  !- Component 1 Name
-    CndW_Demand_Inlet_Node,  !- Component 1 Inlet Node Name
-    CndW_Demand_Inlet_Pipe-CndW_Demand_Mixer;  !- Component 1 Outlet Node Name
-
-Branch,
-    CndW_Demand_Load_Branch_1,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    Chiller:Electric:ReformulatedEIR,  !- Component 1 Object Type
-    SG_Chiller_1,            !- Component 1 Name
-    CndW_Chiller_1_Inlet_Node,  !- Component 1 Inlet Node Name
-    CndW_Chiller_1_Outlet_Node;  !- Component 1 Outlet Node Name
-
-Branch,
-    CndW_Demand_Bypass_Branch,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    Pipe:Adiabatic,          !- Component 1 Object Type
-    CndW_Demand_Bypass_Pipe, !- Component 1 Name
-    CndW_Demand_Bypass_Pipe_Inlet_Node,  !- Component 1 Inlet Node Name
-    CndW_Demand_Bypass_Pipe_Outlet_Node;  !- Component 1 Outlet Node Name
-
-Branch,
-    CndW_Demand_Outlet_Branch,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    Pipe:Adiabatic,          !- Component 1 Object Type
-    CndW_Demand_Outlet_Pipe, !- Component 1 Name
-    CndW_Demand_Mixer-CndW_Demand_Outlet_Pipe,  !- Component 1 Inlet Node Name
-    CndW_Demand_Outlet_Node; !- Component 1 Outlet Node Name
-
-Branch,
-    VAV_Bot_Air_Loop_Main_Branch,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    AirLoopHVAC:OutdoorAirsystem,  !- Component 1 Object Type
-    VAV_Bot_OA,              !- Component 1 Name
-    VAV_Bot_Supply_Equip_Inlet_Node,  !- Component 1 Inlet Node Name
-    VAV_Bot_Coil_Air_Inlet_Node,  !- Component 1 Outlet Node Name
-    Coil:Cooling:Water,      !- Component 2 Object Type
-    VAV_Bot_Coil,            !- Component 2 Name
-    VAV_Bot_Coil_Air_Inlet_Node,  !- Component 2 Inlet Node Name
-    VAV_Bot_Coil_Fan_Air_Node,  !- Component 2 Outlet Node Name
-    Fan:VariableVolume,      !- Component 3 Object Type
-    VAV_Bot_Fan,             !- Component 3 Name
-    VAV_Bot_Coil_Fan_Air_Node,  !- Component 3 Inlet Node Name
-    VAV_Bot_Fan_Outlet;      !- Component 3 Outlet Node Name
-
-Branch,
-    VAV_Mid_Air_Loop_Main_Branch,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    AirLoopHVAC:OutdoorAirsystem,  !- Component 1 Object Type
-    VAV_Mid_OA,              !- Component 1 Name
-    VAV_Mid_Supply_Equip_Inlet_Node,  !- Component 1 Inlet Node Name
-    VAV_Mid_Coil_Air_Inlet_Node,  !- Component 1 Outlet Node Name
-    Coil:Cooling:Water,      !- Component 2 Object Type
-    VAV_Mid_Coil,            !- Component 2 Name
-    VAV_Mid_Coil_Air_Inlet_Node,  !- Component 2 Inlet Node Name
-    VAV_Mid_Coil_Fan_Air_Node,  !- Component 2 Outlet Node Name
-    Fan:VariableVolume,      !- Component 3 Object Type
-    VAV_Mid_Fan,             !- Component 3 Name
-    VAV_Mid_Coil_Fan_Air_Node,  !- Component 3 Inlet Node Name
-    VAV_Mid_Fan_Outlet;      !- Component 3 Outlet Node Name
-
-Branch,
-    VAV_Top_Air_Loop_Main_Branch,  !- Name
-    ,                        !- Pressure Drop Curve Name
-    AirLoopHVAC:OutdoorAirsystem,  !- Component 1 Object Type
-    VAV_Top_OA,              !- Component 1 Name
-    VAV_Top_Supply_Equip_Inlet_Node,  !- Component 1 Inlet Node Name
-    VAV_Top_Coil_Air_Inlet_Node,  !- Component 1 Outlet Node Name
-    Coil:Cooling:Water,      !- Component 2 Object Type
-    VAV_Top_Coil,            !- Component 2 Name
-    VAV_Top_Coil_Air_Inlet_Node,  !- Component 2 Inlet Node Name
-    VAV_Top_Coil_Fan_Air_Node,  !- Component 2 Outlet Node Name
-    Fan:VariableVolume,      !- Component 3 Object Type
-    VAV_Top_Fan,             !- Component 3 Name
-    VAV_Top_Coil_Fan_Air_Node,  !- Component 3 Inlet Node Name
-    VAV_Top_Fan_Outlet;      !- Component 3 Outlet Node Name
-
-Branch,
-    ChW_Supply_Bypass_Branch,!- Name
-    ,                        !- Pressure Drop Curve Name
-    Pipe:Adiabatic,          !- Component 1 Object Type
-    ChW_Supply_Bypass_Pipe,  !- Component 1 Name
-    ChW_Supply_Bypass_Inlet, !- Component 1 Inlet Node Name
-    ChW_Supply_Bypass_Outlet;!- Component 1 Outlet Node Name
 
 Branch,
     Core_Bot_RadiantCooling_Branch,  !- Name
@@ -14085,6 +13214,62 @@ Branch,
     Zone_Top_W_RadiantHeating_Water_Outlet_Node;  !- Component 1 Outlet Node Name
 
 Branch,
+    CndW_Demand_Inlet_Branch,!- Name
+    ,                        !- Pressure Drop Curve Name
+    Pipe:Adiabatic,          !- Component 1 Object Type
+    CndW_Demand_Inlet_Pipe,  !- Component 1 Name
+    CndW_Demand_Inlet_Node,  !- Component 1 Inlet Node Name
+    CndW_Demand_Inlet_Pipe_Outlet_Node;  !- Component 1 Outlet Node Name
+
+Branch,
+    CndW_Demand_Bypass_Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    Pipe:Adiabatic,          !- Component 1 Object Type
+    CndW_Demand_Bypass_Pipe, !- Component 1 Name
+    CndW_Demand_Bypass_Pipe_Inlet_Node,  !- Component 1 Inlet Node Name
+    CndW_Demand_Bypass_Pipe_Outlet_Node;  !- Component 1 Outlet Node Name
+
+Branch,
+    CndW_Demand_Outlet_Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    Pipe:Adiabatic,          !- Component 1 Object Type
+    CndW_Demand_Outlet_Pipe, !- Component 1 Name
+    CndW_Demand_Outlet_Pipe_Inlet_Node,  !- Component 1 Inlet Node Name
+    CndW_Demand_Outlet_Node; !- Component 1 Outlet Node Name
+
+Branch,
+    CndW_Supply_Inlet_Branch,!- Name
+    ,                        !- Pressure Drop Curve Name
+    Pump:VariableSpeed,      !- Component 1 Object Type
+    CndW_Pump,               !- Component 1 Name
+    CndW_Supply_Inlet_Node,  !- Component 1 Inlet Node Name
+    CndW_Pump_Outlet_Node;   !- Component 1 Outlet Node Name
+
+Branch,
+    CndW_Supply_Equipment_Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    CoolingTower:SingleSpeed,!- Component 1 Object Type
+    SGP_CoolingTower_Radiant,!- Component 1 Name
+    CndW_Tower_Radiant_Inlet_Node,  !- Component 1 Inlet Node Name
+    CndW_Tower_Radiant_Outlet_Node;  !- Component 1 Outlet Node Name
+
+Branch,
+    CndW_Supply_Bypass_Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    Pipe:Adiabatic,          !- Component 1 Object Type
+    CndW_Supply_Bypass_Pipe, !- Component 1 Name
+    CndW_Supply_Bypass_Pipe_Inlet_Node,  !- Component 1 Inlet Node Name
+    CndW_Supply_Bypass_Pipe_Outlet_Node;  !- Component 1 Outlet Node Name
+
+Branch,
+    CndW_Supply_Outlet_Branch,  !- Name
+    ,                        !- Pressure Drop Curve Name
+    Pipe:Adiabatic,          !- Component 1 Object Type
+    CndW_Supply_Outlet_Pipe, !- Component 1 Name
+    CndW_Supply_Outlet_Pipe_Inlet_Node,  !- Component 1 Inlet Node Name
+    CndW_Supply_Outlet_Node; !- Component 1 Outlet Node Name
+
+Branch,
     HW_Demand_Inlet_Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -14144,26 +13329,6 @@ Branch,
 !-   ===========  ALL OBJECTS IN CLASS: BRANCHLIST ===========
 
 BranchList,
-    VAV_Bot_Air_Loop_Branches,  !- Name
-    VAV_Bot_Air_Loop_Main_Branch;  !- Branch 1 Name
-
-BranchList,
-    VAV_Mid_Air_Loop_Branches,  !- Name
-    VAV_Mid_Air_Loop_Main_Branch;  !- Branch 1 Name
-
-BranchList,
-    VAV_Top_Air_Loop_Branches,  !- Name
-    VAV_Top_Air_Loop_Main_Branch;  !- Branch 1 Name
-
-BranchList,
-    CndW_Supply_Branches,    !- Name
-    CndW_Supply_Inlet_Branch,!- Branch 1 Name
-    CndW_Supply_Equipment_Branch_1,  !- Branch 2 Name
-    CndW_Supply_Equipment_Branch_2,  !- Branch 3 Name
-    CndW_Supply_Equipment_Bypass_Branch,  !- Branch 4 Name
-    CndW_Supply_Outlet_Branch;  !- Branch 5 Name
-
-BranchList,
     CndW_Demand_Branches,    !- Name
     CndW_Demand_Inlet_Branch,!- Branch 1 Name
     Core_Bot_RadiantCooling_Branch,  !- Branch 2 Name
@@ -14181,25 +13346,15 @@ BranchList,
     Zone_Top_E_RadiantCooling_Branch,  !- Branch 14 Name
     Zone_Top_S_RadiantCooling_Branch,  !- Branch 15 Name
     Zone_Top_W_RadiantCooling_Branch,  !- Branch 16 Name
-    CndW_Demand_Load_Branch_1,  !- Branch 17 Name
-    CndW_Demand_Bypass_Branch,  !- Branch 18 Name
-    CndW_Demand_Outlet_Branch;  !- Branch 19 Name
+    CndW_Demand_Bypass_Branch,  !- Branch 17 Name
+    CndW_Demand_Outlet_Branch;  !- Branch 18 Name
 
 BranchList,
-    ChW_Demand_Branches,     !- Name
-    ChW_Demand_Inlet_Branch, !- Branch 1 Name
-    ChW_Demand_Load_Branch_1,!- Branch 2 Name
-    ChW_Demand_Load_Branch_2,!- Branch 3 Name
-    ChW_Demand_Load_Branch_3,!- Branch 4 Name
-    ChW_Demand_Equipment_Bypass_Branch,  !- Branch 5 Name
-    ChW_Demand_Outlet_Branch;!- Branch 6 Name
-
-BranchList,
-    ChW_Supply_Branches,     !- Name
-    ChW_Supply_Inlet_Branch, !- Branch 1 Name
-    ChW_Supply_Equipment_Branch_1,  !- Branch 2 Name
-    ChW_Supply_Bypass_Branch,!- Branch 3 Name
-    ChW_Supply_Outlet_Branch;!- Branch 4 Name
+    CndW_Supply_Branches,    !- Name
+    CndW_Supply_Inlet_Branch,!- Branch 1 Name
+    CndW_Supply_Equipment_Branch,  !- Branch 2 Name
+    CndW_Supply_Bypass_Branch,  !- Branch 3 Name
+    CndW_Supply_Outlet_Branch;  !- Branch 4 Name
 
 BranchList,
     HW_Demand_Branches,      !- Name
@@ -14233,13 +13388,6 @@ BranchList,
 !-   ===========  ALL OBJECTS IN CLASS: CONNECTOR:SPLITTER ===========
 
 Connector:Splitter,
-    CndW_Supply_Splitter,    !- Name
-    CndW_Supply_Inlet_Branch,!- Inlet Branch Name
-    CndW_Supply_Equipment_Branch_1,  !- Outlet Branch 1 Name
-    CndW_Supply_Equipment_Branch_2,  !- Outlet Branch 2 Name
-    CndW_Supply_Equipment_Bypass_Branch;  !- Outlet Branch 3 Name
-
-Connector:Splitter,
     CndW_Demand_Splitter,    !- Name
     CndW_Demand_Inlet_Branch,!- Inlet Branch Name
     Core_Bot_RadiantCooling_Branch,  !- Outlet Branch 1 Name
@@ -14257,22 +13405,13 @@ Connector:Splitter,
     Zone_Top_E_RadiantCooling_Branch,  !- Outlet Branch 13 Name
     Zone_Top_S_RadiantCooling_Branch,  !- Outlet Branch 14 Name
     Zone_Top_W_RadiantCooling_Branch,  !- Outlet Branch 15 Name
-    CndW_Demand_Load_Branch_1,  !- Outlet Branch 16 Name
-    CndW_Demand_Bypass_Branch;  !- Outlet Branch 17 Name
+    CndW_Demand_Bypass_Branch;  !- Outlet Branch 16 Name
 
 Connector:Splitter,
-    ChW_Demand_Splitter,     !- Name
-    ChW_Demand_Inlet_Branch, !- Inlet Branch Name
-    ChW_Demand_Load_Branch_1,!- Outlet Branch 1 Name
-    ChW_Demand_Load_Branch_2,!- Outlet Branch 2 Name
-    ChW_Demand_Load_Branch_3,!- Outlet Branch 3 Name
-    ChW_Demand_Equipment_Bypass_Branch;  !- Outlet Branch 4 Name
-
-Connector:Splitter,
-    ChW_Supply_Splitter,     !- Name
-    ChW_Supply_Inlet_Branch, !- Inlet Branch Name
-    ChW_Supply_Equipment_Branch_1,  !- Outlet Branch 1 Name
-    ChW_Supply_Bypass_Branch;!- Outlet Branch 2 Name
+    CndW_Supply_Splitter,    !- Name
+    CndW_Supply_Inlet_Branch,!- Inlet Branch Name
+    CndW_Supply_Equipment_Branch,  !- Outlet Branch 1 Name
+    CndW_Supply_Bypass_Branch;  !- Outlet Branch 2 Name
 
 Connector:Splitter,
     HW_Demand_Splitter,      !- Name
@@ -14304,13 +13443,6 @@ Connector:Splitter,
 !-   ===========  ALL OBJECTS IN CLASS: CONNECTOR:MIXER ===========
 
 Connector:Mixer,
-    CndW_Supply_Mixer,       !- Name
-    CndW_Supply_Outlet_Branch,  !- Outlet Branch Name
-    CndW_Supply_Equipment_Branch_1,  !- Inlet Branch 1 Name
-    CndW_Supply_Equipment_Branch_2,  !- Inlet Branch 2 Name
-    CndW_Supply_Equipment_Bypass_Branch;  !- Inlet Branch 3 Name
-
-Connector:Mixer,
     CndW_Demand_Mixer,       !- Name
     CndW_Demand_Outlet_Branch,  !- Outlet Branch Name
     Core_Bot_RadiantCooling_Branch,  !- Inlet Branch 1 Name
@@ -14328,22 +13460,13 @@ Connector:Mixer,
     Zone_Top_E_RadiantCooling_Branch,  !- Inlet Branch 13 Name
     Zone_Top_S_RadiantCooling_Branch,  !- Inlet Branch 14 Name
     Zone_Top_W_RadiantCooling_Branch,  !- Inlet Branch 15 Name
-    CndW_Demand_Load_Branch_1,  !- Inlet Branch 16 Name
-    CndW_Demand_Bypass_Branch;  !- Inlet Branch 17 Name
+    CndW_Demand_Bypass_Branch;  !- Inlet Branch 16 Name
 
 Connector:Mixer,
-    ChW_Demand_Mixer,        !- Name
-    ChW_Demand_Outlet_Branch,!- Outlet Branch Name
-    ChW_Demand_Load_Branch_1,!- Inlet Branch 1 Name
-    ChW_Demand_Load_Branch_2,!- Inlet Branch 2 Name
-    ChW_Demand_Load_Branch_3,!- Inlet Branch 3 Name
-    ChW_Demand_Equipment_Bypass_Branch;  !- Inlet Branch 4 Name
-
-Connector:Mixer,
-    ChW_Supply_Mixer,        !- Name
-    ChW_Supply_Outlet_Branch,!- Outlet Branch Name
-    ChW_Supply_Equipment_Branch_1,  !- Inlet Branch 1 Name
-    ChW_Supply_Bypass_Branch;!- Inlet Branch 2 Name
+    CndW_Supply_Mixer,       !- Name
+    CndW_Supply_Outlet_Branch,  !- Outlet Branch Name
+    CndW_Supply_Equipment_Branch,  !- Inlet Branch 1 Name
+    CndW_Supply_Bypass_Branch;  !- Inlet Branch 2 Name
 
 Connector:Mixer,
     HW_Demand_Mixer,         !- Name
@@ -14375,18 +13498,11 @@ Connector:Mixer,
 !-   ===========  ALL OBJECTS IN CLASS: CONNECTORLIST ===========
 
 ConnectorList,
-    ChW_Supply_Connectors,   !- Name
+    CndW_Demand_Connectors,  !- Name
     Connector:Splitter,      !- Connector 1 Object Type
-    ChW_Supply_Splitter,     !- Connector 1 Name
+    CndW_Demand_Splitter,    !- Connector 1 Name
     Connector:Mixer,         !- Connector 2 Object Type
-    ChW_Supply_Mixer;        !- Connector 2 Name
-
-ConnectorList,
-    ChW_Demand_Connectors,   !- Name
-    Connector:Splitter,      !- Connector 1 Object Type
-    ChW_Demand_Splitter,     !- Connector 1 Name
-    Connector:Mixer,         !- Connector 2 Object Type
-    ChW_Demand_Mixer;        !- Connector 2 Name
+    CndW_Demand_Mixer;       !- Connector 2 Name
 
 ConnectorList,
     CndW_Supply_Connectors,  !- Name
@@ -14394,13 +13510,6 @@ ConnectorList,
     CndW_Supply_Splitter,    !- Connector 1 Name
     Connector:Mixer,         !- Connector 2 Object Type
     CndW_Supply_Mixer;       !- Connector 2 Name
-
-ConnectorList,
-    CndW_Demand_Connectors,  !- Name
-    Connector:Splitter,      !- Connector 1 Object Type
-    CndW_Demand_Splitter,    !- Connector 1 Name
-    Connector:Mixer,         !- Connector 2 Object Type
-    CndW_Demand_Mixer;       !- Connector 2 Name
 
 ConnectorList,
     HW_Demand_Connectors,    !- Name
@@ -14514,34 +13623,9 @@ OutdoorAir:NodeList,
 !-   ===========  ALL OBJECTS IN CLASS: PIPE:ADIABATIC ===========
 
 Pipe:Adiabatic,
-    ChW_Demand_Equipment_Bypass_Pipe,  !- Name
-    ChW_Demand_Equip_Bypass_Inlet_Node,  !- Inlet Node Name
-    ChW_Demand_Equip_Bypass_Outlet_Node;  !- Outlet Node Name
-
-Pipe:Adiabatic,
-    ChW_Supply_Outlet_Pipe,  !- Name
-    ChW_Supply_Mixer-ChW_Supply_Outlet_Pipe,  !- Inlet Node Name
-    ChW_Supply_Outlet_Node;  !- Outlet Node Name
-
-Pipe:Adiabatic,
-    ChW_Demand_Outlet_Pipe,  !- Name
-    ChW_Demand_Mixer-ChW_Demand_Outlet_Pipe,  !- Inlet Node Name
-    ChW_Demand_Outlet_Node;  !- Outlet Node Name
-
-Pipe:Adiabatic,
-    CndW_Supply_Equipment_Bypass_Pipe,  !- Name
-    CndW_Supply_Equip_Bypass_Inlet_Node,  !- Inlet Node Name
-    CndW_Supply_Equip_Bypass_Outlet_Node;  !- Outlet Node Name
-
-Pipe:Adiabatic,
-    CndW_Supply_Outlet_Pipe, !- Name
-    CndW_Supply_Mixer-CndW_Supply_Outlet_Pipe,  !- Inlet Node Name
-    CndW_Supply_Outlet_Node; !- Outlet Node Name
-
-Pipe:Adiabatic,
     CndW_Demand_Inlet_Pipe,  !- Name
     CndW_Demand_Inlet_Node,  !- Inlet Node Name
-    CndW_Demand_Inlet_Pipe-CndW_Demand_Mixer;  !- Outlet Node Name
+    CndW_Demand_Inlet_Pipe_Outlet_Node;  !- Outlet Node Name
 
 Pipe:Adiabatic,
     CndW_Demand_Bypass_Pipe, !- Name
@@ -14550,18 +13634,18 @@ Pipe:Adiabatic,
 
 Pipe:Adiabatic,
     CndW_Demand_Outlet_Pipe, !- Name
-    CndW_Demand_Mixer-CndW_Demand_Outlet_Pipe,  !- Inlet Node Name
+    CndW_Demand_Outlet_Pipe_Inlet_Node,  !- Inlet Node Name
     CndW_Demand_Outlet_Node; !- Outlet Node Name
 
 Pipe:Adiabatic,
-    ChW_Demand_Pipe,         !- Name
-    ChW_Demand_Inlet_Node,   !- Inlet Node Name
-    ChW_Pump_Secondary-ChW_Demand_Mixer;  !- Outlet Node Name
+    CndW_Supply_Bypass_Pipe, !- Name
+    CndW_Supply_Bypass_Pipe_Inlet_Node,  !- Inlet Node Name
+    CndW_Supply_Bypass_Pipe_Outlet_Node;  !- Outlet Node Name
 
 Pipe:Adiabatic,
-    ChW_Supply_Bypass_Pipe,  !- Name
-    ChW_Supply_Bypass_Inlet, !- Inlet Node Name
-    ChW_Supply_Bypass_Outlet;!- Outlet Node Name
+    CndW_Supply_Outlet_Pipe, !- Name
+    CndW_Supply_Outlet_Pipe_Inlet_Node,  !- Inlet Node Name
+    CndW_Supply_Outlet_Node; !- Outlet Node Name
 
 Pipe:Adiabatic,
     HW_Demand_Inlet_Pipe,    !- Name
@@ -14592,6 +13676,22 @@ Pipe:Adiabatic,
 !-   ===========  ALL OBJECTS IN CLASS: PUMP:VARIABLESPEED ===========
 
 Pump:VariableSpeed,
+    CndW_Pump,               !- Name
+    CndW_Supply_Inlet_Node,  !- Inlet Node Name
+    CndW_Pump_Outlet_Node,   !- Outlet Node Name
+    0.06,                    !- Design Maximum Flow Rate {m3/s}
+    350000,                  !- Design Pump Head {Pa}
+    30000,                   !- Design Power Consumption {W}
+    0.9,                     !- Motor Efficiency
+    0,                       !- Fraction of Motor Inefficiencies to Fluid Stream
+    0,                       !- Coefficient 1 of the Part Load Performance Curve
+    1,                       !- Coefficient 2 of the Part Load Performance Curve
+    0,                       !- Coefficient 3 of the Part Load Performance Curve
+    0,                       !- Coefficient 4 of the Part Load Performance Curve
+    0,                       !- Design Minimum Flow Rate {m3/s}
+    Intermittent;            !- Pump Control Type
+
+Pump:VariableSpeed,
     HW_Pump,                 !- Name
     HW_Supply_Inlet_Node,    !- Inlet Node Name
     HW_Pump_Outlet_Node,     !- Outlet Node Name
@@ -14604,83 +13704,8 @@ Pump:VariableSpeed,
     1,                       !- Coefficient 2 of the Part Load Performance Curve
     0,                       !- Coefficient 3 of the Part Load Performance Curve
     0,                       !- Coefficient 4 of the Part Load Performance Curve
-    autosize,                !- Design Minimum Flow Rate {m3/s}
+    0,                       !- Design Minimum Flow Rate {m3/s}
     Intermittent;            !- Pump Control Type
-
-
-!-   ===========  ALL OBJECTS IN CLASS: HEADEREDPUMPS:CONSTANTSPEED ===========
-
-HeaderedPumps:ConstantSpeed,
-    CndW_Pump,               !- Name
-    CndW_Supply_Inlet_Node,  !- Inlet Node Name
-    CndW_Pump_Outlet_Node,   !- Outlet Node Name
-    0.165759890027,          !- Total Design Flow Rate {m3/s}
-    2,                       !- Number of Pumps in Bank
-    Sequential,              !- Flow Sequencing Control Scheme
-    150000,                  !- Design Pump Head {Pa}
-    34424.3,                 !- Design Power Consumption {W}
-    0.926,                   !- Motor Efficiency
-    0,                       !- Fraction of Motor Inefficiencies to Fluid Stream
-    Intermittent;            !- Pump Control Type
-
-
-!-   ===========  ALL OBJECTS IN CLASS: HEADEREDPUMPS:VARIABLESPEED ===========
-
-HeaderedPumps:VariableSpeed,
-    ChW_Pump,                !- Name
-    ChW_Supply_Inlet_Node,   !- Inlet Node Name
-    ChW_Pump_Outlet_Node,    !- Outlet Node Name
-    0.12288,                 !- Total Design Flow Rate {m3/s}
-    2,                       !- Number of Pumps in Bank
-    Sequential,              !- Flow Sequencing Control Scheme
-    2e+05,                   !- Design Pump Head {Pa}
-    33806.54,                !- Design Power Consumption {W}
-    0.932,                   !- Motor Efficiency
-    0,                       !- Fraction of Motor Inefficiencies to Fluid Stream
-    0.0205,                  !- Coefficient 1 of the Part Load Performance Curve
-    0.4101,                  !- Coefficient 2 of the Part Load Performance Curve
-    0.5753,                  !- Coefficient 3 of the Part Load Performance Curve
-    0,                       !- Coefficient 4 of the Part Load Performance Curve
-    0,                       !- Minimum Flow Rate Fraction
-    Intermittent;            !- Pump Control Type
-
-
-!-   ===========  ALL OBJECTS IN CLASS: CHILLER:ELECTRIC:REFORMULATEDEIR ===========
-
-! ReformEIRChiller Trane CVHF 2799kW/6.40COP/Vanes
-! Manufacturer = Trane, Model Line = CVHF
-! Reference Capacity = 2799 kW (796 tons)
-! Compressor Type = Centrifugal, Condenser Type = Water
-! Refrigerant = R-123, Voltage & Phase = 4,160V-3PH-60HZ
-! Unloading Mechanism = Inlet Vanes
-!
-Chiller:Electric:ReformulatedEIR,
-    SG_Chiller_1,            !- Name
-    2287872.01,              !- Reference Capacity {W}
-    6.286,                   !- Reference COP {W/W}
-    6.67,                    !- Reference Leaving Chilled Water Temperature {C}
-    31.74,                   !- Reference Leaving Condenser Water Temperature {C}
-    0.119575,                !- Reference Chilled Water Flow Rate {m3/s}
-    0.141168,                !- Reference Condenser Water Flow Rate {m3/s}
-    WC_Cent_2010_Pb_CapFT,   !- Cooling Capacity Function of Temperature Curve Name
-    WC_Cent_2010_Pb_EIRFT,   !- Electric Input to Cooling Output Ratio Function of Temperature Curve Name
-    LeavingCondenserWaterTemperature,  !- Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Type
-    WC_Cent_Gt600_2010_Pa_EIRFPLR,  !- Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name
-    0.1,                     !- Minimum Part Load Ratio
-    1,                       !- Maximum Part Load Ratio
-    1,                       !- Optimum Part Load Ratio
-    0.1,                     !- Minimum Unloading Ratio
-    ChW_Chiller_1_Inlet_Node,!- Chilled Water Inlet Node Name
-    ChW_Chiller_1_Outlet_Node,  !- Chilled Water Outlet Node Name
-    CndW_Chiller_1_Inlet_Node,  !- Condenser Inlet Node Name
-    CndW_Chiller_1_Outlet_Node,  !- Condenser Outlet Node Name
-    1,                       !- Fraction of Compressor Electric Consumption Rejected by Condenser
-    2,                       !- Leaving Chilled Water Lower Temperature Limit {C}
-    ConstantFlow,            !- Chiller Flow Mode Type
-    0,                       !- Design Heat Recovery Water Flow Rate {m3/s}
-    ,                        !- Heat Recovery Inlet Node Name
-    ,                        !- Heat Recovery Outlet Node Name
-    1.15;                    !- Sizing Factor
 
 
 !-   ===========  ALL OBJECTS IN CLASS: DISTRICTHEATING ===========
@@ -14695,26 +13720,26 @@ DistrictHeating,
 !-   ===========  ALL OBJECTS IN CLASS: COOLINGTOWER:SINGLESPEED ===========
 
 CoolingTower:SingleSpeed,
-    SGP_CoolTower_1,         !- Name
-    CndW_Tower_1_Inlet_Node, !- Water Inlet Node Name
-    CndW_Tower_1_Outlet_Node,!- Water Outlet Node Name
-    Autosize,                !- Design Water Flow Rate {m3/s}
-    Autosize,                !- Design Air Flow Rate {m3/s}
-    Autosize,                !- Design Fan Power {W}
-    Autosize,                !- Design U-Factor Times Area Value {W/K}
-    Autocalculate,           !- Free Convection Regime Air Flow Rate {m3/s}
+    SGP_CoolingTower_Radiant,!- Name
+    CndW_Tower_Radiant_Inlet_Node,  !- Water Inlet Node Name
+    CndW_Tower_Radiant_Outlet_Node,  !- Water Outlet Node Name
+    0.08,                    !- Design Water Flow Rate {m3/s}
+    52,                      !- Design Air Flow Rate {m3/s}
+    19600,                   !- Design Fan Power {W}
+    114900,                  !- Design U-Factor Times Area Value {W/K}
+    6.46,                    !- Free Convection Regime Air Flow Rate {m3/s}
     0.125,                   !- Free Convection Regime Air Flow Rate Sizing Factor
-    Autocalculate,           !- Free Convection Regime U-Factor Times Area Value {W/K}
+    11480,                   !- Free Convection Regime U-Factor Times Area Value {W/K}
     0.1,                     !- Free Convection U-Factor Times Area Value Sizing Factor
     UFactorTimesAreaAndDesignWaterFlowRate,  !- Performance Input Method
     1.25,                    !- Heat Rejection Capacity and Nominal Capacity Sizing Ratio
     ,                        !- Nominal Capacity {W}
     ,                        !- Free Convection Capacity {W}
     0.1,                     !- Free Convection Nominal Capacity Sizing Factor
-    ,                        !- Design Inlet Air Dry-Bulb Temperature {C}
-    ,                        !- Design Inlet Air Wet-Bulb Temperature {C}
-    ,                        !- Design Approach Temperature {deltaC}
-    ,                        !- Design Range Temperature {deltaC}
+    35,                      !- Design Inlet Air Dry-Bulb Temperature {C}
+    25.6,                    !- Design Inlet Air Wet-Bulb Temperature {C}
+    autosize,                !- Design Approach Temperature {deltaC}
+    autosize,                !- Design Range Temperature {deltaC}
     0,                       !- Basin Heater Capacity {W/K}
     2,                       !- Basin Heater Setpoint Temperature {C}
     ,                        !- Basin Heater Operating Schedule Name
@@ -14731,73 +13756,10 @@ CoolingTower:SingleSpeed,
     MinimalCell,             !- Cell Control
     0.33,                    !- Cell Minimum  Water Flow Rate Fraction
     2.5,                     !- Cell Maximum Water Flow Rate Fraction
-    0.575;                   !- Sizing Factor
-
-CoolingTower:SingleSpeed,
-    SGP_CoolTower_2,         !- Name
-    CndW_Tower_2_Inlet_Node, !- Water Inlet Node Name
-    CndW_Tower_2_Outlet_Node,!- Water Outlet Node Name
-    Autosize,                !- Design Water Flow Rate {m3/s}
-    Autosize,                !- Design Air Flow Rate {m3/s}
-    Autosize,                !- Design Fan Power {W}
-    Autosize,                !- Design U-Factor Times Area Value {W/K}
-    Autocalculate,           !- Free Convection Regime Air Flow Rate {m3/s}
-    0.125,                   !- Free Convection Regime Air Flow Rate Sizing Factor
-    Autocalculate,           !- Free Convection Regime U-Factor Times Area Value {W/K}
-    0.1,                     !- Free Convection U-Factor Times Area Value Sizing Factor
-    UFactorTimesAreaAndDesignWaterFlowRate,  !- Performance Input Method
-    1.25,                    !- Heat Rejection Capacity and Nominal Capacity Sizing Ratio
-    ,                        !- Nominal Capacity {W}
-    ,                        !- Free Convection Capacity {W}
-    0.1,                     !- Free Convection Nominal Capacity Sizing Factor
-    ,                        !- Design Inlet Air Dry-Bulb Temperature {C}
-    ,                        !- Design Inlet Air Wet-Bulb Temperature {C}
-    ,                        !- Design Approach Temperature {deltaC}
-    ,                        !- Design Range Temperature {deltaC}
-    0,                       !- Basin Heater Capacity {W/K}
-    2,                       !- Basin Heater Setpoint Temperature {C}
-    ,                        !- Basin Heater Operating Schedule Name
-    ,                        !- Evaporation Loss Mode
-    0.2,                     !- Evaporation Loss Factor {percent/K}
-    0.008,                   !- Drift Loss Percent {percent}
-    ,                        !- Blowdown Calculation Mode
-    3,                       !- Blowdown Concentration Ratio
-    ,                        !- Blowdown Makeup Water Usage Schedule Name
-    ,                        !- Supply Water Storage Tank Name
-    ,                        !- Outdoor Air Inlet Node Name
-    FanCycling,              !- Capacity Control
-    3,                       !- Number of Cells
-    MinimalCell,             !- Cell Control
-    0.33,                    !- Cell Minimum  Water Flow Rate Fraction
-    2.5,                     !- Cell Maximum Water Flow Rate Fraction
-    0.575;                   !- Sizing Factor
+    1;                       !- Sizing Factor
 
 
 !-   ===========  ALL OBJECTS IN CLASS: PLANTLOOP ===========
-
-PlantLoop,
-    ChW,                     !- Name
-    Water,                   !- Fluid Type
-    ,                        !- User Defined Fluid Type
-    ChW_Loop_Operation_Scheme_List,  !- Plant Equipment Operation Scheme Name
-    ChW_Supply_Outlet_Node,  !- Loop Temperature Setpoint Node Name
-    98,                      !- Maximum Loop Temperature {C}
-    1,                       !- Minimum Loop Temperature {C}
-    Autosize,                !- Maximum Loop Flow Rate {m3/s}
-    0,                       !- Minimum Loop Flow Rate {m3/s}
-    AutoCalculate,           !- Plant Loop Volume {m3}
-    ChW_Supply_Inlet_Node,   !- Plant Side Inlet Node Name
-    ChW_Supply_Outlet_Node,  !- Plant Side Outlet Node Name
-    ChW_Supply_Branches,     !- Plant Side Branch List Name
-    ChW_Supply_Connectors,   !- Plant Side Connector List Name
-    ChW_Demand_Inlet_Node,   !- Demand Side Inlet Node Name
-    ChW_Demand_Outlet_Node,  !- Demand Side Outlet Node Name
-    ChW_Demand_Branches,     !- Demand Side Branch List Name
-    ChW_Demand_Connectors,   !- Demand Side Connector List Name
-    UniformLoad,             !- Load Distribution Scheme
-    ,                        !- Availability Manager List Name
-    ,                        !- Plant Loop Demand Calculation Scheme
-    None;                    !- Common Pipe Simulation
 
 PlantLoop,
     HW_Loop,                 !- Name
@@ -14823,14 +13785,14 @@ PlantLoop,
 !-   ===========  ALL OBJECTS IN CLASS: CONDENSERLOOP ===========
 
 CondenserLoop,
-    CndW,                    !- Name
+    CndW_Radiant_Loop,       !- Name
     Water,                   !- Fluid Type
     ,                        !- User Defined Fluid Type
     CndW_Loop_Operation_Scheme_List,  !- Condenser Equipment Operation Scheme Name
     CndW_Supply_Outlet_Node, !- Condenser Loop Temperature Setpoint Node Name
-    80,                      !- Maximum Loop Temperature {C}
-    5,                       !- Minimum Loop Temperature {C}
-    Autosize,                !- Maximum Loop Flow Rate {m3/s}
+    100,                     !- Maximum Loop Temperature {C}
+    10,                      !- Minimum Loop Temperature {C}
+    0.06,                    !- Maximum Loop Flow Rate {m3/s}
     0,                       !- Minimum Loop Flow Rate {m3/s}
     Autocalculate,           !- Condenser Loop Volume {m3}
     CndW_Supply_Inlet_Node,  !- Condenser Side Inlet Node Name
@@ -14840,16 +13802,10 @@ CondenserLoop,
     CndW_Demand_Inlet_Node,  !- Demand Side Inlet Node Name
     CndW_Demand_Outlet_Node, !- Demand Side Outlet Node Name
     CndW_Demand_Branches,    !- Condenser Demand Side Branch List Name
-    CndW_Demand_Connectors,  !- Condenser Demand Side Connector List Name
-    SequentialLoad;          !- Load Distribution Scheme
+    CndW_Demand_Connectors;  !- Condenser Demand Side Connector List Name
 
 
 !-   ===========  ALL OBJECTS IN CLASS: PLANTEQUIPMENTLIST ===========
-
-PlantEquipmentList,
-    ChW_Equipment_List_1,    !- Name
-    Chiller:Electric:ReformulatedEIR,  !- Equipment 1 Object Type
-    SG_Chiller_1;            !- Equipment 1 Name
 
 PlantEquipmentList,
     HW_Equipment_List,       !- Name
@@ -14860,34 +13816,18 @@ PlantEquipmentList,
 !-   ===========  ALL OBJECTS IN CLASS: CONDENSEREQUIPMENTLIST ===========
 
 CondenserEquipmentList,
-    CndW_Equipment_List_1,   !- Name
+    CndW_Equipment_List,     !- Name
     CoolingTower:SingleSpeed,!- Equipment 1 Object Type
-    SGP_CoolTower_1;         !- Equipment 1 Name
-
-CondenserEquipmentList,
-    CndW_Equipment_List_2,   !- Name
-    CoolingTower:SingleSpeed,!- Equipment 1 Object Type
-    SGP_CoolTower_1,         !- Equipment 1 Name
-    CoolingTower:SingleSpeed,!- Equipment 2 Object Type
-    SGP_CoolTower_2;         !- Equipment 2 Name
+    SGP_CoolingTower_Radiant;!- Equipment 1 Name
 
 
 !-   ===========  ALL OBJECTS IN CLASS: PLANTEQUIPMENTOPERATION:COOLINGLOAD ===========
 
 PlantEquipmentOperation:CoolingLoad,
-    ChW_Operation_Scheme,    !- Name
-    0,                       !- Load Range 1 Lower Limit {W}
-    2800000,                 !- Load Range 1 Upper Limit {W}
-    ChW_Equipment_List_1;    !- Range 1 Equipment List Name
-
-PlantEquipmentOperation:CoolingLoad,
     CndW_Operation_Scheme,   !- Name
     0,                       !- Load Range 1 Lower Limit {W}
-    1400000,                 !- Load Range 1 Upper Limit {W}
-    CndW_Equipment_List_1,   !- Range 1 Equipment List Name
-    1400000,                 !- Load Range 2 Lower Limit {W}
-    1e+14,                   !- Load Range 2 Upper Limit {W}
-    CndW_Equipment_List_2;   !- Range 2 Equipment List Name
+    1e+09,                   !- Load Range 1 Upper Limit {W}
+    CndW_Equipment_List;     !- Range 1 Equipment List Name
 
 
 !-   ===========  ALL OBJECTS IN CLASS: PLANTEQUIPMENTOPERATION:HEATINGLOAD ===========
@@ -14902,12 +13842,6 @@ PlantEquipmentOperation:HeatingLoad,
 !-   ===========  ALL OBJECTS IN CLASS: PLANTEQUIPMENTOPERATIONSCHEMES ===========
 
 PlantEquipmentOperationSchemes,
-    ChW_Loop_Operation_Scheme_List,  !- Name
-    PlantEquipmentoperation:Coolingload,  !- Control Scheme 1 Object Type
-    ChW_Operation_Scheme,    !- Control Scheme 1 Name
-    Sch_Always_On;           !- Control Scheme 1 Schedule Name
-
-PlantEquipmentOperationSchemes,
     HW_Loop_Operation_Scheme_List,  !- Name
     PlantEquipmentOperation:HeatingLoad,  !- Control Scheme 1 Object Type
     HW_Operation_Scheme,     !- Control Scheme 1 Name
@@ -14918,69 +13852,12 @@ PlantEquipmentOperationSchemes,
 
 CondenserEquipmentOperationSchemes,
     CndW_Loop_Operation_Scheme_List,  !- Name
-    PlantEquipmentoperation:Coolingload,  !- Control Scheme 1 Object Type
+    PlantEquipmentOperation:CoolingLoad,  !- Control Scheme 1 Object Type
     CndW_Operation_Scheme,   !- Control Scheme 1 Name
     Sch_Always_On;           !- Control Scheme 1 Schedule Name
 
 
-!-   ===========  ALL OBJECTS IN CLASS: AVAILABILITYMANAGER:SCHEDULED ===========
-
-AvailabilityManager:Scheduled,
-    VAV_Bot_Availability,    !- Name
-    Sch_Always_Off;          !- Schedule Name
-
-AvailabilityManager:Scheduled,
-    VAV_Mid_Availability,    !- Name
-    Sch_Always_Off;          !- Schedule Name
-
-AvailabilityManager:Scheduled,
-    VAV_Top_Availability,    !- Name
-    Sch_Always_Off;          !- Schedule Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AVAILABILITYMANAGERASSIGNMENTLIST ===========
-
-AvailabilityManagerAssignmentList,
-    VAV_Bot_Availability_List,  !- Name
-    AvailabilityManager:Scheduled,  !- Availability Manager 1 Object Type
-    VAV_Bot_Availability;    !- Availability Manager 1 Name
-
-AvailabilityManagerAssignmentList,
-    VAV_Mid_Availability_List,  !- Name
-    AvailabilityManager:Scheduled,  !- Availability Manager 1 Object Type
-    VAV_Mid_Availability;    !- Availability Manager 1 Name
-
-AvailabilityManagerAssignmentList,
-    VAV_Top_Availability_List,  !- Name
-    AvailabilityManager:Scheduled,  !- Availability Manager 1 Object Type
-    VAV_Top_Availability;    !- Availability Manager 1 Name
-
-
 !-   ===========  ALL OBJECTS IN CLASS: SETPOINTMANAGER:SCHEDULED ===========
-
-SetpointManager:Scheduled,
-    VAV_Bot_Coil_Sat_Setpoint,  !- Name
-    Temperature,             !- Control Variable
-    Sch_Coil_SAT,            !- Schedule Name
-    VAV_Bot_Fan_Outlet;      !- Setpoint Node or NodeList Name
-
-SetpointManager:Scheduled,
-    VAV_Mid_Coil_Sat_Setpoint,  !- Name
-    Temperature,             !- Control Variable
-    Sch_Coil_SAT,            !- Schedule Name
-    VAV_Mid_Fan_Outlet;      !- Setpoint Node or NodeList Name
-
-SetpointManager:Scheduled,
-    VAV_Top_Coil_Sat_Setpoint,  !- Name
-    Temperature,             !- Control Variable
-    Sch_Coil_SAT,            !- Schedule Name
-    VAV_Top_Fan_Outlet;      !- Setpoint Node or NodeList Name
-
-SetpointManager:Scheduled,
-    ChW_Loop_Setpoint_Manager,  !- Name
-    Temperature,             !- Control Variable
-    Sch_ChW_Loop_Temp,       !- Schedule Name
-    ChW_Supply_Outlet_Node;  !- Setpoint Node or NodeList Name
 
 SetpointManager:Scheduled,
     CndW_Loop_Setpoint_Manager,  !- Name
@@ -14989,67 +13866,10 @@ SetpointManager:Scheduled,
     CndW_Supply_Outlet_Node; !- Setpoint Node or NodeList Name
 
 SetpointManager:Scheduled,
-    ChW_Loop_Demand_Inlet_Setpoint_Manager,  !- Name
-    Temperature,             !- Control Variable
-    Sch_ChW_Loop_Temp,       !- Schedule Name
-    ChW_Demand_Inlet_Node;   !- Setpoint Node or NodeList Name
-
-SetpointManager:Scheduled,
     HW_Loop_Setpoint_Manager,!- Name
     Temperature,             !- Control Variable
     Sch_HW_Loop_Temp,        !- Schedule Name
     HW_Supply_Outlet_Node;   !- Setpoint Node or NodeList Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: SETPOINTMANAGER:MIXEDAIR ===========
-
-SetpointManager:MixedAir,
-    VAV_Bot_OAMixing_Box SAT Manager,  !- Name
-    Temperature,             !- Control Variable
-    VAV_Bot_Fan_Outlet,      !- Reference Setpoint Node Name
-    VAV_Bot_Coil_Fan_Air_Node,  !- Fan Inlet Node Name
-    VAV_Bot_Fan_Outlet,      !- Fan Outlet Node Name
-    VAV_Bot_Coil_Air_Inlet_Node;  !- Setpoint Node or NodeList Name
-
-SetpointManager:MixedAir,
-    VAV_Mid_OAMixing_Box SAT Manager,  !- Name
-    Temperature,             !- Control Variable
-    VAV_Mid_Fan_Outlet,      !- Reference Setpoint Node Name
-    VAV_Mid_Coil_Fan_Air_Node,  !- Fan Inlet Node Name
-    VAV_Mid_Fan_Outlet,      !- Fan Outlet Node Name
-    VAV_Mid_Coil_Air_Inlet_Node;  !- Setpoint Node or NodeList Name
-
-SetpointManager:MixedAir,
-    VAV_Top_OAMixing_Box SAT Manager,  !- Name
-    Temperature,             !- Control Variable
-    VAV_Top_Fan_Outlet,      !- Reference Setpoint Node Name
-    VAV_Top_Coil_Fan_Air_Node,  !- Fan Inlet Node Name
-    VAV_Top_Fan_Outlet,      !- Fan Outlet Node Name
-    VAV_Top_Coil_Air_Inlet_Node;  !- Setpoint Node or NodeList Name
-
-SetpointManager:MixedAir,
-    VAV_Bot_Coil SAT Manager,!- Name
-    Temperature,             !- Control Variable
-    VAV_Bot_Fan_Outlet,      !- Reference Setpoint Node Name
-    VAV_Bot_Coil_Fan_Air_Node,  !- Fan Inlet Node Name
-    VAV_Bot_Fan_Outlet,      !- Fan Outlet Node Name
-    VAV_Bot_Coil_Fan_Air_Node;  !- Setpoint Node or NodeList Name
-
-SetpointManager:MixedAir,
-    VAV_Mid_Coil SAT Manager,!- Name
-    Temperature,             !- Control Variable
-    VAV_Mid_Fan_Outlet,      !- Reference Setpoint Node Name
-    VAV_Mid_Coil_Fan_Air_Node,  !- Fan Inlet Node Name
-    VAV_Mid_Fan_Outlet,      !- Fan Outlet Node Name
-    VAV_Mid_Coil_Fan_Air_Node;  !- Setpoint Node or NodeList Name
-
-SetpointManager:MixedAir,
-    VAV_Top_Coil SAT Manager,!- Name
-    Temperature,             !- Control Variable
-    VAV_Top_Fan_Outlet,      !- Reference Setpoint Node Name
-    VAV_Top_Coil_Fan_Air_Node,  !- Fan Inlet Node Name
-    VAV_Top_Fan_Outlet,      !- Fan Outlet Node Name
-    VAV_Top_Coil_Fan_Air_Node;  !- Setpoint Node or NodeList Name
 
 
 !-   ===========  ALL OBJECTS IN CLASS: CURVE:BICUBIC ===========
@@ -15361,23 +14181,6 @@ Curve:Bicubic,
     1.03;                    !- Maximum Value of y
 
 Curve:Bicubic,
-    WC_Cent_Gt600_2010_Pa_EIRFPLR,  !- Name
-    -0.1360532,              !- Coefficient1 Constant
-    0.008642703,             !- Coefficient2 x
-    3.855583e-06,            !- Coefficient3 x**2
-    1.024034,                !- Coefficient4 y
-    0.06047444,              !- Coefficient5 y**2
-    -0.00894786,             !- Coefficient6 x*y
-    0,                       !- Coefficient7 x**3
-    0.05706602,              !- Coefficient8 y**3
-    0,                       !- Coefficient9 x**2*y
-    0,                       !- Coefficient10 x*y**2
-    31.13,                   !- Minimum Value of x
-    36.52,                   !- Maximum Value of x
-    0.19,                    !- Minimum Value of y
-    1.03;                    !- Maximum Value of y
-
-Curve:Bicubic,
     WC_Cent_Lt150_2010_Pb_EIRFPLR,  !- Name
     -0.1360532,              !- Coefficient1 Constant
     0.008642703,             !- Coefficient2 x
@@ -15662,32 +14465,6 @@ Curve:Biquadratic,
     0.0014414,               !- Coefficient4 y
     0.0003005,               !- Coefficient5 y**2
     -0.0006807,              !- Coefficient6 x*y
-    5,                       !- Minimum Value of x
-    10,                      !- Maximum Value of x
-    17.78,                   !- Minimum Value of y
-    46.11;                   !- Maximum Value of y
-
-Curve:Biquadratic,
-    WC_Cent_2010_Pb_CapFT,   !- Name
-    0.536234,                !- Coefficient1 Constant
-    0.005581,                !- Coefficient2 x
-    -0.0013654,              !- Coefficient3 x**2
-    0.0488966,               !- Coefficient4 y
-    -0.0012018,              !- Coefficient5 y**2
-    0.0010523,               !- Coefficient6 x*y
-    5,                       !- Minimum Value of x
-    10,                      !- Maximum Value of x
-    17.78,                   !- Minimum Value of y
-    46.11;                   !- Maximum Value of y
-
-Curve:Biquadratic,
-    WC_Cent_2010_Pb_EIRFT,   !- Name
-    1.0821822,               !- Coefficient1 Constant
-    0.0042977,               !- Coefficient2 x
-    -0.0013182,              !- Coefficient3 x**2
-    -0.0260781,              !- Coefficient4 y
-    0.0008256,               !- Coefficient5 y**2
-    -0.0006013,              !- Coefficient6 x*y
     5,                       !- Minimum Value of x
     10,                      !- Maximum Value of x
     17.78,                   !- Minimum Value of y

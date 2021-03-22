@@ -1,4 +1,4 @@
-Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 10:38,
+Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.23 01:36,
    ************* Beginning Zone Sizing Calculations
    ** Warning ** Site:GroundTemperature:BuildingSurface: Some values fall outside the range of 15-25C.
    **   ~~~   ** These values may be inappropriate.  Please consult the Input Output Reference for more details.
@@ -8,6 +8,9 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 10:38,
    ** Warning ** CheckUsedConstructions: There are 1 nominally unused constructions in input.
    **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;
    ** Warning ** GetPlant/CondenserLoopData: PlantLoop="HW_LOOP", Invalid choice.
+   **   ~~~   ** ...Load Distribution Scheme="".
+   **   ~~~   ** Will default to SequentialLoad.
+   ** Warning ** GetPlant/CondenserLoopData: CondenserLoop="CNDW_RADIANT_LOOP", Invalid choice.
    **   ~~~   ** ...Load Distribution Scheme="".
    **   ~~~   ** Will default to SequentialLoad.
    ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="BOT_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
@@ -55,13 +58,6 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 10:38,
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ** Warning ** Calculated design heating load for zone=TOP_TOILET is zero.
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ************* Beginning System Sizing Calculations
-   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_BOT is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_MID is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_TOP is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ************* Beginning Plant Sizing Calculations
    ** Warning ** SizePlantLoop: Calculated Plant Sizing Design Volume Flow Rate=[0.00] is too small. Set to 0.0
    **   ~~~   ** ..occurs for PlantLoop=HW_LOOP
@@ -85,6 +81,8 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 10:38,
    ************* Simulation Error Summary *************
    ************* There are 1 unused objects in input.
    ************* Use Output:Diagnostics,DisplayUnusedObjects; to see them.
+   ************* There are 3 unused schedules in input.
+   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.
    *************
    ************* ===== Final Error Summary =====
    ************* The following error categories occurred.  Consider correcting or noting.
@@ -94,5 +92,5 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.19 10:38,
    ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
-   ************* EnergyPlus Sizing Error Summary. During Sizing: 32 Warning; 0 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 39 Warning; 0 Severe Errors; Elapsed Time=00hr 01min 59.87sec
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 30 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 37 Warning; 0 Severe Errors; Elapsed Time=00hr 02min 49.43sec

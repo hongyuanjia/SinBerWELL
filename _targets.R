@@ -49,14 +49,33 @@ targets <- list(
         # read the SBB2 model
         idf <- eplusr::read_idf(path_fans)
 
-        # turn off air system
-        turn_off_air_system(idf)
+        # remove existing airloop
+        remove_airloop(idf$AirLoopHVAC$VAV_Bot)
+        remove_airloop(idf$AirLoopHVAC$VAV_Mid)
+        remove_airloop(idf$AirLoopHVAC$VAV_Top)
+
+        # remove existing plant loop
+        remove_waterloop(idf$PlantLoop$ChW)
+        # remove existing condenser loop
+        remove_waterloop(idf$CondenserLoop$CndW)
 
         # add natural ventilation
         add_natural_ventilation(idf, ach = 5, max_oa_temp = 30)
 
+        # add deadband thermostat for autosizing radiant system
+        set_thermostat_singlecooling(idf, 28, 28)
+
         # add radiant cooling floors and set setpoint temperature to 28-29C
         add_radiant_floor(idf, core = c(28, 30), perimeter = c(28, 30))
+
+        # remove VAV box
+        idf$ZoneHVAC_AirDistributionUnit <- NULL
+        idf$AirTerminal_SingleDuct_VAV_NoReheat <- NULL
+        zones <- idf$to_table(class = "ZoneControl:Thermostat")[
+            field == "Zone or ZoneList Name", value]
+        conn <- idf$to_table(class = "ZoneHVAC:EquipmentConnections", wide = TRUE)[`Zone Name` %in% zones]
+        conn[, `:=`(`Zone Air Inlet Node or NodeList Name` = NA_character_)]
+        idf$update(eplusr::dt_to_load(conn))
 
         # save
         idf$save("data/idf/radiant1.idf", overwrite = TRUE)
@@ -64,17 +83,18 @@ targets <- list(
     }),
 
     tar_target(path_radiant2, format = "file", {
-        # read the SBB2 model
-        idf <- eplusr::read_idf(path_fans)
+        # read the radiant model
+        idf <- eplusr::read_idf(path_radiant1)
 
-        # turn off air system
-        turn_off_air_system(idf)
-
-        # # add natural ventilation
-        # add_natural_ventilation(idf, ach = 5, max_oa_temp = 30)
-
-        # add radiant cooling floors and set setpoint temperature to 28-29C
-        add_radiant_floor(idf, core = c(29, 30), perimeter = c(29, 30))
+        # update setpoint
+        idf$set(
+            "Sch_Zone_Cooling_Setpoint_Wo_Solar" = list(field_4 = "29"),
+            "Sch_Zone_Cooling_Setpoint_Solar" = list(field_4 = "29"),
+            "Sch_Zone_RadiantHeating_Setpoint_Core" = list(field_4 = "29"),
+            "Sch_Zone_RadiantCooling_Setpoint_Core" = list(field_4 = "30"),
+            "Sch_Zone_RadiantHeating_Setpoint_Perimeter" = list(field_4 = "29"),
+            "Sch_Zone_RadiantCooling_Setpoint_Perimeter" = list(field_4 = "30")
+        )
 
         # save
         idf$save("data/idf/radiant2.idf", overwrite = TRUE)
