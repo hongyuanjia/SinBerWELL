@@ -1,5 +1,6 @@
 library(targets)
 library(eplusr)
+library(ggplot2)
 eplusr_option(verbose_info = FALSE)
 source("R/functions.R")
 
@@ -160,6 +161,48 @@ targets <- list(
         data.table::fwrite(eui, path["eui"])
         data.table::fwrite(utility, path["utility"])
         data.table::fwrite(end_uses, path["end_uses"])
+        path
+    }),
+
+    tar_target(plot_utility, {
+        ggplot(utility[category %in% c("HVAC", "Total")]) +
+            geom_col(aes(category, electricity, fill = case), position = "dodge") +
+            geom_text(aes(category, electricity, group = case,
+                    label = scales::percent({savings[savings < 0.005] <- NA;savings}, 0.1)),
+                position = position_dodge(width = 0.9), vjust = -0.5, na.rm = TRUE,
+                color = "darkgreen", size = 4) +
+            scale_x_discrete(NULL) +
+            scale_y_continuous(expression("Electricity [ " * "kWh" / (m^2 ~ yr) * " ]")) +
+            scale_fill_manual(values = RColorBrewer::brewer.pal(length(unique(utility$case)) + 1, "Greens")[-1]) +
+            guides(fill = guide_legend("Case")) +
+            theme_minimal()
+    }),
+
+    tar_target(plot_temp, {
+        idf <- eplusr::read_idf(path_baseline)
+        zones <- idf$to_table(class = "ZoneControl:Thermostat")[
+            field == "Zone or ZoneList Name", toupper(value)]
+
+        sim <- eplusr::reload(qs::qread(path_sim))
+        res <- sim$report_data(NULL, zones, name = "zone mean air temperature", all = TRUE,
+            environment_name = "runperiod 1", hour = 8:18)
+
+        ggplot(res, aes(case, value, color = case)) +
+            geom_boxplot() +
+            scale_x_discrete(NULL) +
+            scale_y_continuous(expression("Indoor Temperature [ "~ degree * C *" ]")) +
+            scale_color_manual(values = RColorBrewer::brewer.pal(length(unique(res$case)) + 2, "Greens")[-c(1, 2)]) +
+            guides(color = guide_legend("Case")) +
+            theme_minimal()
+    }),
+
+    tar_target(path_plots, format = "file", {
+        path <- c(
+            utility = "figures/utility.png",
+            temp    = "figures/temp.png"
+        )
+        ggsave(path["utility"], plot_utility, width = 8, height = 4, dpi = 600)
+        ggsave(path["temp"], plot_temp, width = 8, height = 4, dpi = 600)
         path
     })
 )
