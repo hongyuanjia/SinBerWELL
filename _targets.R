@@ -175,7 +175,8 @@ targets <- list(
             scale_y_continuous(expression("Electricity [ " * "kWh" / (m^2 ~ yr) * " ]")) +
             scale_fill_manual(values = RColorBrewer::brewer.pal(length(unique(utility$case)) + 1, "Greens")[-1]) +
             guides(fill = guide_legend("Case")) +
-            theme_minimal()
+            theme_minimal() +
+            theme(legend.position = "top")
     }),
 
     tar_target(plot_temp, {
@@ -193,7 +194,8 @@ targets <- list(
             scale_y_continuous(expression("Indoor Temperature [ "~ degree * C *" ]")) +
             scale_color_manual(values = RColorBrewer::brewer.pal(length(unique(res$case)) + 2, "Greens")[-c(1, 2)]) +
             guides(color = guide_legend("Case")) +
-            theme_minimal()
+            theme_minimal() +
+            theme(legend.position = "top")
     }),
 
     tar_target(path_plots, format = "file", {
