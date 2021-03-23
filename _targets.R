@@ -65,8 +65,14 @@ targets <- list(
         # add deadband thermostat for autosizing radiant system
         set_thermostat_singlecooling(idf, 28, 28)
 
-        # add radiant cooling floors and set setpoint temperature to 28-29C
-        add_radiant_floor(idf, core = c(28, 30), perimeter = c(28, 30))
+        # add radiant cooling floors and set setpoint temperature to 28C
+        add_radiant_floor(idf, core = c(20, 28), perimeter = c(20, 28))
+
+        # set cooling throttling range to 1C to achieve control temperature
+        # range of 28C-30C
+        idf$set("ZoneHVAC:LowTemperatureRadiant:VariableFlow" := list(
+            cooling_control_throttling_range = 2
+        ))
 
         # remove VAV box
         idf$ZoneHVAC_AirDistributionUnit <- NULL
@@ -90,11 +96,15 @@ targets <- list(
         idf$set(
             "Sch_Zone_Cooling_Setpoint_Wo_Solar" = list(field_4 = "29"),
             "Sch_Zone_Cooling_Setpoint_Solar" = list(field_4 = "29"),
-            "Sch_Zone_RadiantHeating_Setpoint_Core" = list(field_4 = "29"),
-            "Sch_Zone_RadiantCooling_Setpoint_Core" = list(field_4 = "30"),
-            "Sch_Zone_RadiantHeating_Setpoint_Perimeter" = list(field_4 = "29"),
-            "Sch_Zone_RadiantCooling_Setpoint_Perimeter" = list(field_4 = "30")
+            "Sch_Zone_RadiantCooling_Setpoint_Core" = list(field_4 = "29"),
+            "Sch_Zone_RadiantCooling_Setpoint_Perimeter" = list(field_4 = "29")
         )
+
+        # set cooling throttling range to 1C to achieve control temperature
+        # range of 29C-30C
+        idf$set("ZoneHVAC:LowTemperatureRadiant:VariableFlow" := list(
+            cooling_control_throttling_range = 1
+        ))
 
         # save
         idf$save("data/idf/radiant2.idf", overwrite = TRUE)

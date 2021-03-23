@@ -248,8 +248,7 @@ add_radiant_floor <- function(idf, core, perimeter) {
         init = TRUE, wide = TRUE)
     rad[, `:=`(
         Name = sprintf("%s_Radiant", zones),
-        `Availability Schedule Name` = "Sch_Always_On",
-        # `Availability Schedule Name` = "Sch_ACMV",
+        `Availability Schedule Name` = "Sch_ACMV",
         `Zone Name` = zones,
         `Surface Name or Radiant Surface Group Name` = sprintf("%s_Radiant_Floor", zones),
         `Heating Design Capacity` = "Autosize",
@@ -588,7 +587,7 @@ add_natural_ventilation <- function(idf, ach = 5, max_oa_temp = 30) {
     idf$add("ZoneVentilation:DesignFlowRate" := list(
         sprintf("NatVent_%s", zones),
         zones,
-        "Sch_Occupancy",
+        "Sch_ACMV",
         "AirChanges/Hour",
         air_changes_per_hour = ach,
         ventilation_type = "natural",

@@ -8,10 +8,10 @@ fans,HVAC,47.84,0.235
 fans,Other,46.38,-0.024
 fans,Total,129.28,0.095
 radiant1,Lighting,35.06,0
-radiant1,HVAC,15.91,0.746
+radiant1,HVAC,8.2,0.869
 radiant1,Other,46.38,-0.024
-radiant1,Total,97.35,0.319
+radiant1,Total,89.64,0.373
 radiant2,Lighting,35.06,0
-radiant2,HVAC,15.85,0.747
+radiant2,HVAC,7.99,0.872
 radiant2,Other,46.38,-0.024
-radiant2,Total,97.28,0.319
+radiant2,Total,89.43,0.374
