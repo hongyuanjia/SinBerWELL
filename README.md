@@ -1,4 +1,4 @@
-# Building energy simulation on radiant cooling floor + natural ventilation
+# Building energy simulation on radiant cooling + ventilation
 
 [![Launch RStudio Cloud](https://img.shields.io/badge/RStudio-Cloud-blue)](https://rstudio.cloud/project/2326226)
 
