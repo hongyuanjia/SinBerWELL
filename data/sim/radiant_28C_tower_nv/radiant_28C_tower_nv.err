@@ -7,9 +7,12 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.24 15:01,
    ** Warning ** CalculateZoneVolume: 6 zones are not fully enclosed. For more details use:  Output:Diagnostics,DisplayExtrawarnings; 
    ** Warning ** CheckUsedConstructions: There are 1 nominally unused constructions in input.
    **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;
-   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="BOT_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
-   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="MID_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
-   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="TOP_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
+   ** Warning ** GetPlant/CondenserLoopData: PlantLoop="HW_LOOP", Invalid choice.
+   **   ~~~   ** ...Load Distribution Scheme="".
+   **   ~~~   ** Will default to SequentialLoad.
+   ** Warning ** GetPlant/CondenserLoopData: CondenserLoop="CNDW_LOOP", Invalid choice.
+   **   ~~~   ** ...Load Distribution Scheme="".
+   **   ~~~   ** Will default to SequentialLoad.
    ** Warning ** Calculated design heating load for zone=CORE_BOT is zero.
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ** Warning ** Calculated design heating load for zone=CORE_MID is zero.
@@ -40,26 +43,15 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.24 15:01,
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ** Warning ** Calculated design heating load for zone=ZONE_TOP_W is zero.
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design cooling load for zone=BOT_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design heating load for zone=BOT_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design cooling load for zone=MID_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design heating load for zone=MID_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design cooling load for zone=TOP_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design heating load for zone=TOP_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ************* Beginning System Sizing Calculations
-   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_BOT is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_MID is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_TOP is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ************* Beginning Plant Sizing Calculations
+   ** Warning ** SizePlantLoop: Calculated Plant Sizing Design Volume Flow Rate=[0.00] is too small. Set to 0.0
+   **   ~~~   ** ..occurs for PlantLoop=HW_LOOP
+   ** Warning ** SizePump: Calculated Pump Nominal Volume Flow Rate=[0.00] is too small. Set to 0.0
+   **   ~~~   ** ..occurs for Pump=HW_PUMP
+   ** Warning ** Check input. Calculated Pump Efficiency=0.00% which is less than 50%, for pump=HW_PUMP
+   **   ~~~   ** Calculated Pump_Efficiency % =Total_Efficiency % [0.0] / Motor_Efficiency % [90.0]
+   **   ~~~   ** Total_Efficiency % =(Rated_Volume_Flow_Rate [0.0] * Rated_Pump_Head [200000.0] / Rated_Power_Use [30000.0]) * 100.
+   ** Warning ** Check input. Pump nominal flow rate is set or calculated = 0, for pump=HW_PUMP
    ** Warning ** FuelFactors: PROPANE already entered. Previous entry will be used.
    ** Warning ** FuelFactors: PROPANE already entered. Previous entry will be used.
    ** Warning ** FuelFactors: PROPANE already entered. Previous entry will be used.
@@ -71,29 +63,23 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.24 15:01,
    ************* All Return Air Paths passed integrity testing
    ************* No node connection errors were found.
    ************* Beginning Simulation
-   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evaporator outlet temperature (10.00 C) is outside the range of evaporator outlet temperatures (X var) given in Cooling Capacity Function of Temperature biquadratic curve = WC_CENT_2010_PB_CAPFT
-   **   ~~~   ** The range specified = 5.00 C to 10.00 C. Environment=SGP_DESIGN_DAY_FEB, at Simulation time=02/21 07:10 - 07:12
-   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evaporator outlet temperature (10.00 C) is outside the range of evaporator outlet temperatures (X var) given in Electric Input to Cooling Output Ratio Function of Temperature biquadratic curve = WC_CENT_2010_PB_EIRFT
-   **   ~~~   ** The range specified = 5.00 C to 10.00 C. Environment=SGP_DESIGN_DAY_FEB, at Simulation time=02/21 07:10 - 07:12
    ************* Simulation Error Summary *************
+   ** Warning ** The following Report Variables were requested but not generated -- check.rdd file
+   **   ~~~   ** Either the IDF did not contain these elements, the variable name is misspelled,
+   **   ~~~   ** or the requested variable is an advanced output which requires Output : Diagnostics, DisplayAdvancedReportVariables;
+   ************* Key=*, VarName=CHILLER PART LOAD RATIO, Frequency=Hourly
+   ************* Key=*, VarName=CHILLER COP, Frequency=Hourly
+   ************* Key=*, VarName=CHILLER ELECTRICITY RATE, Frequency=Hourly
+   ************* Key=*, VarName=CHILLER EVAPORATOR COOLING RATE, Frequency=Hourly
+   ************* Key=*, VarName=CHILLER EVAPORATOR INLET TEMPERATURE, Frequency=Hourly
+   ************* Key=*, VarName=CHILLER EVAPORATOR OUTLET TEMPERATURE, Frequency=Hourly
+   ************* Key=*, VarName=CHILLER EVAPORATOR MASS FLOW RATE, Frequency=Hourly
    ************* There are 1 unused objects in input.
    ************* Use Output:Diagnostics,DisplayUnusedObjects; to see them.
-   *************
-   ************* ===== Recurring Error Summary =====
-   ************* The following recurring error messages occurred.
-   *************
-   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evap outlet temp range in Cooling Capacity Function of Temp curve error continues.
-   *************  **   ~~~   **   This error occurred 592 total times;
-   *************  **   ~~~   **   during Warmup 0 times;
-   *************  **   ~~~   **   during Sizing 0 times.
-   *************  **   ~~~   **   Max=14.57223  Min=10.003376
-   *************
-   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evap outlet temp range in Electric Input to Cooling Output Ratio Function of Temp curve error continues.
-   *************  **   ~~~   **   This error occurred 592 total times;
-   *************  **   ~~~   **   during Warmup 0 times;
-   *************  **   ~~~   **   during Sizing 0 times.
-   *************  **   ~~~   **   Max=14.57223  Min=10.003376
-   *************
+   ************* There are 40 unused schedules in input.
+   ************* There are 36 unused week schedules in input.
+   ************* There are 36 unused day schedules in input.
+   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.
    *************
    ************* ===== Final Error Summary =====
    ************* The following error categories occurred.  Consider correcting or noting.
@@ -103,5 +89,5 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.24 15:01,
    ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
-   ************* EnergyPlus Sizing Error Summary. During Sizing: 31 Warning; 0 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 1220 Warning; 0 Severe Errors; Elapsed Time=00hr 03min 38.29sec
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 21 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 29 Warning; 0 Severe Errors; Elapsed Time=00hr 03min 35.26sec

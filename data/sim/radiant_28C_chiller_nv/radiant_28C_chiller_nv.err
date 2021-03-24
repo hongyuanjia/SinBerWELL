@@ -1,4 +1,4 @@
-Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.23 10:00,
+Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.24 15:01,
    ************* Beginning Zone Sizing Calculations
    ** Warning ** Site:GroundTemperature:BuildingSurface: Some values fall outside the range of 15-25C.
    **   ~~~   ** These values may be inappropriate.  Please consult the Input Output Reference for more details.
@@ -7,15 +7,15 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.23 10:00,
    ** Warning ** CalculateZoneVolume: 6 zones are not fully enclosed. For more details use:  Output:Diagnostics,DisplayExtrawarnings; 
    ** Warning ** CheckUsedConstructions: There are 1 nominally unused constructions in input.
    **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;
+   ** Warning ** GetPlant/CondenserLoopData: PlantLoop="CHW_LOOP", Invalid choice.
+   **   ~~~   ** ...Load Distribution Scheme="".
+   **   ~~~   ** Will default to SequentialLoad.
    ** Warning ** GetPlant/CondenserLoopData: PlantLoop="HW_LOOP", Invalid choice.
    **   ~~~   ** ...Load Distribution Scheme="".
    **   ~~~   ** Will default to SequentialLoad.
-   ** Warning ** GetPlant/CondenserLoopData: CondenserLoop="CNDW_RADIANT_LOOP", Invalid choice.
+   ** Warning ** GetPlant/CondenserLoopData: CondenserLoop="CNDW_LOOP", Invalid choice.
    **   ~~~   ** ...Load Distribution Scheme="".
    **   ~~~   ** Will default to SequentialLoad.
-   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="BOT_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
-   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="MID_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
-   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="TOP_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
    ** Warning ** Calculated design heating load for zone=CORE_BOT is zero.
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ** Warning ** Calculated design heating load for zone=CORE_MID is zero.
@@ -46,18 +46,6 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.23 10:00,
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ** Warning ** Calculated design heating load for zone=ZONE_TOP_W is zero.
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design cooling load for zone=BOT_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design heating load for zone=BOT_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design cooling load for zone=MID_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design heating load for zone=MID_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design cooling load for zone=TOP_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
-   ** Warning ** Calculated design heating load for zone=TOP_TOILET is zero.
-   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ************* Beginning Plant Sizing Calculations
    ** Warning ** SizePlantLoop: Calculated Plant Sizing Design Volume Flow Rate=[0.00] is too small. Set to 0.0
    **   ~~~   ** ..occurs for PlantLoop=HW_LOOP
@@ -78,11 +66,49 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.23 10:00,
    ************* All Return Air Paths passed integrity testing
    ************* No node connection errors were found.
    ************* Beginning Simulation
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SGP_CHILLER": The evaporator outlet temperature (15.00 C) is outside the range of evaporator outlet temperatures (X var) given in Cooling Capacity Function of Temperature biquadratic curve = WC_CENT_2010_PB_CAPFT
+   **   ~~~   ** The range specified = 5.00 C to 10.00 C. Environment=SGP_DESIGN_DAY_FEB, at Simulation time=02/21 07:00 - 07:10
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SGP_CHILLER": The evaporator outlet temperature (15.00 C) is outside the range of evaporator outlet temperatures (X var) given in Electric Input to Cooling Output Ratio Function of Temperature biquadratic curve = WC_CENT_2010_PB_EIRFT
+   **   ~~~   ** The range specified = 5.00 C to 10.00 C. Environment=SGP_DESIGN_DAY_FEB, at Simulation time=02/21 07:00 - 07:10
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SGP_CHILLER": The condenser outlet temperature (30.91 C) is outside the range of condenser outlet temperatures (X var) given in Electric Input to Cooling Output Ratio Function of Part-load Ratio bicubic curve = WC_CENT_GT600_2010_PA_EIRFPLR
+   **   ~~~   ** The range specified = 31.13 C to 36.52 C. Environment=RUNPERIOD 1, at Simulation time=01/06 07:05 - 07:08
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SGP_CHILLER": The part-load ratio (0.147) is outside the range of part-load ratios (Y var) given in Electric Input to Cooling Output Ratio Function of Part-load Ratio bicubic curve = WC_CENT_GT600_2010_PA_EIRFPLR
+   **   ~~~   ** The range specified = 0.190 to 1.030. Environment=RUNPERIOD 1, at Simulation time=01/06 07:05 - 07:08
    ************* Simulation Error Summary *************
    ************* There are 1 unused objects in input.
    ************* Use Output:Diagnostics,DisplayUnusedObjects; to see them.
-   ************* There are 3 unused schedules in input.
+   ************* There are 38 unused schedules in input.
+   ************* There are 36 unused week schedules in input.
+   ************* There are 36 unused day schedules in input.
    ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.
+   *************
+   ************* ===== Recurring Error Summary =====
+   ************* The following recurring error messages occurred.
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SGP_CHILLER": The evap outlet temp range in Cooling Capacity Function of Temp curve error continues.
+   *************  **   ~~~   **   This error occurred 52878 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=24.364299  Min=15.
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SGP_CHILLER": The evap outlet temp range in Electric Input to Cooling Output Ratio Function of Temp curve error continues.
+   *************  **   ~~~   **   This error occurred 52878 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=24.364299  Min=15.
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SGP_CHILLER": The cond outlet temp range in Electric Input to Cooling Output Ratio Function of PLR curve error continues.
+   *************  **   ~~~   **   This error occurred 5788 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=31.129959  Min=29.659569
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SGP_CHILLER": The part-load ratio range in Electric Input to Cooling Output Ratio Function of PLRatio curve error continues.
+   *************  **   ~~~   **   This error occurred 5748 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=0.189918  Min=0.1
+   *************
    *************
    ************* ===== Final Error Summary =====
    ************* The following error categories occurred.  Consider correcting or noting.
@@ -92,5 +118,5 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.23 10:00,
    ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
-   ************* EnergyPlus Sizing Error Summary. During Sizing: 30 Warning; 0 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 37 Warning; 0 Severe Errors; Elapsed Time=00hr 02min 20.20sec
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 22 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 117325 Warning; 0 Severe Errors; Elapsed Time=00hr 03min 37.22sec

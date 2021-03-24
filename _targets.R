@@ -46,75 +46,82 @@ targets <- list(
         "data/idf/fans.idf"
     }),
 
-    tar_target(path_radiant1, format = "file", {
+    tar_target(path_param_radiant, format = "file", {
         # read the SBB2 model
-        idf <- eplusr::read_idf(path_fans)
+        idf <- eplusr::read_idf(tar_read(path_fans))
 
-        # remove existing airloop
-        remove_airloop(idf$AirLoopHVAC$VAV_Bot)
-        remove_airloop(idf$AirLoopHVAC$VAV_Mid)
-        remove_airloop(idf$AirLoopHVAC$VAV_Top)
+        # remove all existing HVAC
+        remove_all_vavbox(idf)
+        remove_all_airloop(idf)
+        remove_all_waterloop(idf)
 
-        # remove existing plant loop
-        remove_waterloop(idf$PlantLoop$ChW)
-        # remove existing condenser loop
-        remove_waterloop(idf$CondenserLoop$CndW)
+        # remove toilet fans
+        # otherwise DOAS cannot be autosized
+        for (fan in idf$Fan_ZoneExhaust) {
+            ref <- fan$value_relation(NULL, depth = NULL, "ref_by")$ref_by
+            del_if_exist(idf, c(ref$object_id, ref$src_object_id))
+        }
 
-        # add natural ventilation
-        add_natural_ventilation(idf, ach = 5, max_oa_temp = 30)
+        idf$save(tempfile(fileext = ".idf"))
 
-        # add deadband thermostat for autosizing radiant system
-        set_thermostat_singlecooling(idf, 28, 28)
+        param <- eplusr::param_job(idf, path_epw)
 
-        # add radiant cooling floors and set setpoint temperature to 28C
-        add_radiant_floor(idf, core = c(20, 28), perimeter = c(20, 28))
+        # explore all possible solutions for the radiant system
+        create_radiant <- function(idf, setpoint, type, throttling_range,
+                                   chilled_water_type, loop_setpoint,
+                                   natvent = TRUE, doas = FALSE) {
 
-        # set cooling throttling range to 1C to achieve control temperature
-        # range of 28C-30C
-        idf$set("ZoneHVAC:LowTemperatureRadiant:VariableFlow" := list(
-            cooling_control_throttling_range = 2
+            # add deadband thermostat for autosizing radiant system
+            set_thermostat_singlecooling(idf, setpoint, setpoint)
+
+            if (natvent) add_natural_ventilation(idf, ach = 5, max_oa_temp = setpoint)
+
+            add_radiant_cooling(idf,
+                core = c(20, setpoint), perimeter = c(20, setpoint),
+                type = type[[1]], control_throttling_range = throttling_range,
+                chilled_water_type = chilled_water_type, loop_setpoint = loop_setpoint
+            )
+
+            if (doas) add_doas(idf, sat = 20)
+
+            idf
+        }
+
+        values <- data.table::rbindlist(list(
+            # 1. radiant cooling cooling supplied by a chiller without ventilation
+            list(.names = "radiant_28C_chiller_nonv", setpoint = 28, chilled_water_type = "chiller", loop_setpoint = 15, natvent = FALSE, doas = FALSE),
+
+            # 2. radiant cooling cooling supplied by a chiller with natural ventilation
+            list(.names = "radiant_28C_chiller_nv", setpoint = 28, chilled_water_type = "chiller", loop_setpoint = 15, natvent = TRUE, doas = FALSE),
+
+            # 3. radiant cooling cooling supplied by a chiller with DOAS
+            list(.names = "radiant_28C_chiller_doas", setpoint = 28, chilled_water_type = "chiller", loop_setpoint = 15, natvent = FALSE, doas = TRUE),
+
+            # 4. radiant cooling cooling supplied by a cooling tower without ventilation
+            list(.names = "radiant_28C_tower_nonv", setpoint = 28, chilled_water_type = "cooling_tower", loop_setpoint = -5, natvent = FALSE, doas = FALSE),
+
+            # 5. radiant cooling cooling supplied by a chiller with natural ventilation
+            list(.names = "radiant_28C_tower_nv", setpoint = 28, chilled_water_type = "cooling_tower", loop_setpoint = -5, natvent = TRUE, doas = FALSE),
+
+            # 6. radiant cooling cooling supplied by a chiller with DOAS
+            list(.names = "radiant_28C_tower_doas", setpoint = 28, chilled_water_type = "cooling_tower", loop_setpoint = -5, natvent = FALSE, doas = TRUE)
         ))
+        values[, `:=`(type = list(c("floor", "ceiling")), throttling_range = 2)]
 
-        # remove VAV box
-        idf$ZoneHVAC_AirDistributionUnit <- NULL
-        idf$AirTerminal_SingleDuct_VAV_NoReheat <- NULL
-        zones <- idf$to_table(class = "ZoneControl:Thermostat")[
-            field == "Zone or ZoneList Name", value]
-        conn <- idf$to_table(class = "ZoneHVAC:EquipmentConnections", wide = TRUE)[`Zone Name` %in% zones]
-        conn[, `:=`(`Zone Air Inlet Node or NodeList Name` = NA_character_)]
-        idf$update(eplusr::dt_to_load(conn))
+        # create parametric models
+        do.call(param$apply_measure, c(create_radiant, values))
 
-        # save
-        idf$save("data/idf/radiant1.idf", overwrite = TRUE)
-        "data/idf/radiant1.idf"
-    }),
+        # save models
+        paths <- param$save("data/idf", separate = FALSE)
+        # remove copied weather file
+        unlink(unique(paths$weather))
 
-    tar_target(path_radiant2, format = "file", {
-        # read the radiant model
-        idf <- eplusr::read_idf(path_radiant1)
-
-        # update setpoint
-        idf$set(
-            "Sch_Zone_Cooling_Setpoint_Wo_Solar" = list(field_4 = "29"),
-            "Sch_Zone_Cooling_Setpoint_Solar" = list(field_4 = "29"),
-            "Sch_Zone_RadiantCooling_Setpoint_Core" = list(field_4 = "29"),
-            "Sch_Zone_RadiantCooling_Setpoint_Perimeter" = list(field_4 = "29")
-        )
-
-        # set cooling throttling range to 1C to achieve control temperature
-        # range of 29C-30C
-        idf$set("ZoneHVAC:LowTemperatureRadiant:VariableFlow" := list(
-            cooling_control_throttling_range = 1
-        ))
-
-        # save
-        idf$save("data/idf/radiant2.idf", overwrite = TRUE)
-        "data/idf/radiant2.idf"
+        paths$model
     }),
 
     tar_target(path_sim, format = "file", {
         grp <- eplusr::group_job(
-            c(path_baseline, path_fans, path_radiant1, path_radiant2),
+            c(path_baseline, path_fans, path_param_radiant),
             "data-raw/SGP_Singapore.486980_IWEC.epw"
         )
         grp$run("data/sim")
@@ -165,16 +172,18 @@ targets <- list(
     }),
 
     tar_target(plot_utility, {
+        cols <- paletteer::paletteer_dynamic("cartography::green.pal", length(unique(utility$case)))
+
         ggplot(utility[category %in% c("HVAC", "Total")]) +
             geom_col(aes(category, electricity, fill = case), position = "dodge") +
             geom_text(aes(category, electricity, group = case,
                     label = scales::percent({savings[savings < 0.005] <- NA;savings}, 0.1)),
                 position = position_dodge(width = 0.9), vjust = -0.5, na.rm = TRUE,
-                color = "darkgreen", size = 4) +
+                color = "darkgreen", size = 3) +
             scale_x_discrete(NULL) +
             scale_y_continuous(expression("Electricity [ " * "kWh" / (m^2 ~ yr) * " ]")) +
-            scale_fill_manual(values = RColorBrewer::brewer.pal(length(unique(utility$case)) + 1, "Greens")[-1]) +
-            guides(fill = guide_legend("Case")) +
+            scale_fill_manual(values = cols) +
+            guides(fill = guide_legend("Case", ncol = 4)) +
             theme_minimal() +
             theme(legend.position = "top")
     }),
@@ -185,17 +194,20 @@ targets <- list(
             field == "Zone or ZoneList Name", toupper(value)]
 
         sim <- eplusr::reload(qs::qread(path_sim))
-        res <- sim$report_data(NULL, zones, name = "zone mean air temperature", all = TRUE,
-            environment_name = "runperiod 1", hour = 8:18)
+        res <- sim$report_data(NULL, zones, name = "zone mean air temperature",
+            environment_name = "runperiod 1", hour = 8:17, day_type = "weekdays")
+
+        cols <- paletteer::paletteer_dynamic("cartography::green.pal", length(unique(res$case)))
 
         ggplot(res, aes(case, value, color = case)) +
             geom_boxplot() +
             scale_x_discrete(NULL) +
             scale_y_continuous(expression("Indoor Temperature [ "~ degree * C *" ]")) +
-            scale_color_manual(values = RColorBrewer::brewer.pal(length(unique(res$case)) + 2, "Greens")[-c(1, 2)]) +
-            guides(color = guide_legend("Case")) +
+            scale_color_manual(values = cols) +
+            guides(color = guide_legend("Case", ncol = 4)) +
             theme_minimal() +
-            theme(legend.position = "top")
+            theme(legend.position = "none", axis.text.x = element_text(angle = 60, hjust = 1))
+
     }),
 
     tar_target(path_plots, format = "file", {

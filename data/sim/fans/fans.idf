@@ -479,23 +479,17 @@ Schedule:Compact,
     Sch_Coil_SAT,            !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: SummerDesignDay,    !- Field 2
+    For: AllOtherDays,       !- Field 2
     Until: 24:00,            !- Field 3
-    16.0,                    !- Field 4
-    For: AllOtherDays,       !- Field 5
-    Until: 24:00,            !- Field 6
-    16.0;                    !- Field 7
+    16.0;                    !- Field 4
 
 Schedule:Compact,
     Sch_ChW_Loop_Temp,       !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: SummerDesignDay,    !- Field 2
+    For: AllOtherDays,       !- Field 2
     Until: 24:00,            !- Field 3
-    10.0,                    !- Field 4
-    For: AllOtherDays,       !- Field 5
-    Until: 24:00,            !- Field 6
-    10.0;                    !- Field 7
+    10.0;                    !- Field 4
 
 Schedule:Compact,
     Sch_CndW_Loop_Temp,      !- Name
