@@ -60,11 +60,15 @@ reference building, including:
   fan for thermal comfort compensation.
   See [`data/idf/fans.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/fans.idf).
 
-For radiant cooling systems, 6 different scenarios are considered:
+For radiant cooling systems, 8 different scenarios are considered:
 
-| # | Name                                                                                                                        | Setpoint   | Raidant chilled water source | Ventilation Type               | Auxiliary cooling |
-|---|-----------------------------------------------------------------------------------------------------------------------------|------------|------------------------------|--------------------------------|-------------------|
-| 1 | [`radiant_natvent_28C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_28C.idf)         | 28°C ± 2°C | Constant COP chiller         | Natural ventilation with 5 ACH | No                |
-| 2 | [`radiant_natvent_29C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_28C.idf)         | 29°C ± 1°C | Constant COP chiller         | Natural ventilation with 5 ACH | No                |
-| 3 | [`radiant_natvent_vav_28C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_vav_29C.idf) | 28°C ± 2°C | Constant COP chiller         | Natural ventilation with 5 ACH | VAV               |
-| 4 | [`radiant_natvent_vav_28C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_vav_29C.idf) | 29°C ± 1°C | Constant COP Chiller         | Natural ventilation with 5 ACH | VAV               |
+| # | Name                                                                                                                                          | Setpoint   | Raidant chilled water source  | Ventilation Type               | Auxiliary cooling |
+|---|-----------------------------------------------------------------------------------------------------------------------------------------------|------------|-------------------------------|--------------------------------|-------------------|
+| 1 | [`radiant_natvent_28C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_28C.idf)                           | 28°C ± 2°C | Constant COP chiller          | Natural ventilation with 5 ACH | No                |
+| 2 | [`radiant_natvent_29C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_28C.idf)                           | 29°C ± 1°C | Constant COP chiller          | Natural ventilation with 5 ACH | No                |
+| 3 | [`radiant_natvent_vav_28C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_vav_29C.idf)                   | 28°C ± 2°C | Constant COP chiller          | Natural ventilation with 5 ACH | VAV               |
+| 4 | [`radiant_natvent_vav_28C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_vav_29C.idf)                   | 29°C ± 1°C | Constant COP Chiller          | Natural ventilation with 5 ACH | VAV               |
+| 5 | [`radiant_natvent_28C_tapwater.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_28C_tapwater.idf)         | 28°C ± 2°C | Using tap water (assumed 25C) | Natural ventilation with 5 ACH | No                |
+| 6 | [`radiant_natvent_29C_tapwater.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_28C_tapwater.idf)         | 29°C ± 1°C | Using tap water (assumed 25C) | Natural ventilation with 5 ACH | No                |
+| 7 | [`radiant_natvent_vav_28C_tapwater.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_vav_29C_tapwater.idf) | 28°C ± 2°C | Using tap water (assumed 25C) | Natural ventilation with 5 ACH | VAV               |
+| 8 | [`radiant_natvent_vav_28C_tapwater.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_vav_29C_tapwater.idf) | 29°C ± 1°C | Using tap water (assumed 25C) | Natural ventilation with 5 ACH | VAV               |
