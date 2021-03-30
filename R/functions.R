@@ -156,6 +156,266 @@ set_thermostat_deadband <- function(idf, core, perimeter) {
 }
 # }}}
 
+# add_radiant_cooling {{{
+add_radiant_cooling <- function(idf, core, perimeter, type = c("floor", "ceiling"),
+                                control_throttling_range = 2,
+                                chilled_water_type = "chiller", loop_setpoint = 20) {
+    checkmate::assert_double(core, lower = 16, upper = 30, any.missing = FALSE,
+        len = 2, sorted = TRUE, unique = TRUE)
+    checkmate::assert_double(perimeter, lower = 16, upper = 30, any.missing = FALSE,
+        len = 2, sorted = TRUE, unique = TRUE)
+    checkmate::assert_subset(type, c("floor", "ceiling"), empty.ok = FALSE)
+    checkmate::assert_choice(chilled_water_type, c("chiller", "cooling_tower"))
+
+    # add control temperature schedules {{{
+    nm_sch <- idf$object_name("Schedule:Compact")[[1]]
+    if ("Sch_Zone_Radiant_Heating_Setpoint_Core" %in% nm_sch) {
+        idf$set("Sch_Zone_Radiant_Heating_Setpoint_Core" = list(
+            field_4 = as.character(core[1])
+        ))
+    } else {
+        idf$add(Schedule_Compact = list(
+            "Sch_Zone_Radiant_Heating_Setpoint_Core",
+            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+            as.character(core[1])
+        ))
+    }
+    if ("Sch_Zone_Radiant_Heating_Setpoint_Perimeter" %in% nm_sch) {
+        idf$set("Sch_Zone_Radiant_Heating_Setpoint_Perimeter" = list(
+            field_4 = as.character(perimeter[1])
+        ))
+    } else {
+        idf$add(Schedule_Compact = list(
+            "Sch_Zone_Radiant_Heating_Setpoint_Perimeter",
+            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+            as.character(perimeter[1])
+        ))
+    }
+    if ("Sch_Zone_Raidant_Cooling_Setpoint_Core" %in% nm_sch) {
+        idf$set("Sch_Zone_Radiant_Cooling_Setpoint_Core" = list(
+            field_4 = as.character(core[2])
+        ))
+    } else {
+        idf$add(Schedule_Compact = list(
+            "Sch_Zone_Radiant_Cooling_Setpoint_Core",
+            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+            as.character(core[2])
+        ))
+    }
+    if ("Sch_Zone_Radiant_Cooling_Setpoint_Perimeter" %in% nm_sch) {
+        idf$set("Sch_Zone_Radiant_Cooling_Setpoint_Perimeter" = list(
+            field_4 = as.character(perimeter[2])
+        ))
+    } else {
+        idf$add(Schedule_Compact = list(
+            "Sch_Zone_Radiant_Cooling_Setpoint_Perimeter",
+            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
+            as.character(perimeter[2])
+        ))
+    }
+    # }}}
+
+    # add radiant surfaces {{{
+    # get conditioned zones
+    zones <- idf$to_table(class = "ZoneControl:Thermostat")[
+        field == "Zone or ZoneList Name", value]
+
+    type[type == "floor"] <- "Floor"
+    type[type == "ceiling"] <- "Ceiling"
+    # get surf
+    surf <- idf$to_table(class = "BuildingSurface:Detailed", wide = TRUE)[
+        `Surface Type` %in% type & `Zone Name` %in% zones,
+        .(id, name, zone = `Zone Name`, type = `Surface Type`)]
+
+    # get surface areas in order to calculate flow fraction for each surface
+    surf[, area := idf$geometry()$area(object = surf$name)$area]
+    surf[, fraction := round(area / sum(area), 3), by = "zone"]
+    surf[, area := NULL]
+
+    # create radiant floor construction
+    if ("Floor" %in% type) {
+        idf$add(
+            Material = list(
+                "SGP_Floor_Finishing", "Smooth",
+                0.0016, 0.17, 1922, 1250, 0.9, 0.5, 0.5
+            ),
+
+            Construction_InternalSource = list(
+                "SGP_Floor_Radiant",
+                source_present_after_layer_number = 2,
+                temperature_calculation_requested_after_layer_number = 2,
+                dimensions_for_the_ctf_calculation = 1,
+                tube_spacing = 0.1524,
+                two_dimensional_temperature_calculation_position = 0,
+                outside_layer = "SGP_Concrete_100mm",
+                layer_2 = "SGP_Gypsum_Board_15mm",
+                layer_3 = "SGP_Floor_Finishing"
+            )
+        )
+        idf$set(.(surf[type == "Floor", id]) := list(construction_name = "SGP_Floor_Radiant"))
+    }
+    if ("Ceiling" %in% type) {
+        # add metal panel
+        idf$load("
+            Material,
+                Metal_Panel,             !- Name
+                MediumSmooth,            !- Roughness
+                0.005,                   !- Thickness {m}
+                62,                      !- Conductivity {W/m-K}
+                7580,                    !- Density {kg/m3}
+                485,                     !- Specific Heat {J/kg-K}
+                0.9,                     !- Thermal Absorptance
+                0.5,                     !- Solar Absorptance
+                0.5;                     !- Visible Absorptance
+        ")
+
+        idf$add(Construction_InternalSource = list(
+            "SGP_Drop_Ceiling_Radiant",
+            source_present_after_layer_number = 1,
+            temperature_calculation_requested_after_layer_number = 1,
+            dimensions_for_the_ctf_calculation = 1,
+            tube_spacing = 0.1524,
+            two_dimensional_temperature_calculation_position = 0,
+            outside_layer = "SGP_Semi_Rigid_Insulation_75mm",
+            layer_2 = "Metal_Panel"
+        ))
+        idf$set(.(surf[type == "Ceiling", id]) := list(construction_name = "SGP_Drop_Ceiling_Radiant"))
+    }
+
+    # group surfaces by zone and type to create radiant surface groups
+    rad_surf <- surf[, by = c("zone", "type"), {
+        val <- mapply(function(surf, frac) c(surf, frac), name, fraction, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+        val <- c(sprintf("%s_Radiant_%s_Surfaces", .BY$zone, .BY$type), unlist(val))
+        list(class = "ZoneHVAC:LowTemperatureRadiant:SurfaceGroup", index = seq_along(val), value = val)
+    }]
+    rad_surf[, `:=`(id = data.table::rleid(zone, type))]
+    idf$load(rad_surf)
+    # }}}
+
+    # create low temperature radiant {{{
+    rad_meta <- rad_surf[, list(surface = value[1L]), by = c("id", "zone", "type")]
+    rad_meta[, name := sprintf("%s_Radiant_%s", zone, type)]
+    rad <- idf$to_table(class = rep("ZoneHVAC:LowTemperatureRadiant:VariableFlow", nrow(rad_meta)),
+        init = TRUE, wide = TRUE)
+    rad[, `:=`(
+        Name = rad_meta$name,
+        `Availability Schedule Name` = "Sch_ACMV",
+        `Zone Name` = rad_meta$zone,
+        `Surface Name or Radiant Surface Group Name` = rad_meta$surface,
+        `Heating Design Capacity` = "Autosize",
+        `Heating Water Inlet Node Name` = sprintf("%s_Heating_Water_Inlet_Node", rad_meta$name),
+        `Heating Water Outlet Node Name` = sprintf("%s_Heating_Water_Outlet_Node", rad_meta$name),
+        `Heating Control Temperature Schedule Name` = sprintf("Sch_Zone_Radiant_Heating_Setpoint_%s",
+            ifelse(grepl("^Core", rad_meta$zone), "Core", "Perimeter")),
+        `Maximum Hot Water Flow` = "Autosize",
+        `Cooling Design Capacity` = "Autosize",
+        `Cooling Water Inlet Node Name` = sprintf("%s_Cooling_Water_Inlet_Node", rad_meta$name),
+        `Cooling Water Outlet Node Name` = sprintf("%s_Cooling_Water_Outlet_Node", rad_meta$name),
+        `Cooling Control Temperature Schedule Name` = sprintf("Sch_Zone_Radiant_Cooling_Setpoint_%s",
+            ifelse(grepl("^Core", rad_meta$zone), "Core", "Perimeter")),
+        `Condensation Control Type` = "Off",
+        `Condensation Control Dewpoint Offset` = 1,
+        `Maximum Cold Water Flow` = "Autosize",
+        `Cooling Control Throttling Range` = control_throttling_range
+    )]
+    idf$load(eplusr::dt_to_load(rad))
+    rad_meta[rad, on = c(name = "Name"), `:=`(
+        heating_inlet = `Heating Water Inlet Node Name`,
+        heating_outlet = `Heating Water Outlet Node Name`,
+        cooling_inlet = `Cooling Water Inlet Node Name`,
+        cooling_outlet = `Cooling Water Outlet Node Name`
+    )]
+    # }}}
+
+    # update zone equipment list {{{
+    equiplist <- rad_meta[, by = "zone", {
+        val <- mapply(function(name, sequence) {
+            c("ZoneHVAC:LowTemperatureRadiant:VariableFlow", name, sequence, sequence, NA, NA)
+        }, name, seq_len(.N))
+        val <- c(sprintf("%s_Equipment", .BY$zone), "SequentialLoad", unlist(val))
+        list(name = val[1], class = "ZoneHVAC:EquipmentList", index = seq_along(val), value = val)
+    }]
+    equiplist[unique(idf$to_table(class = "ZoneHVAC:EquipmentList"), by = "id"),
+        on = "name", id := i.id]
+    eplusr::without_checking(idf$update(equiplist))
+    # }}}
+
+    # update zone equipment connections {{{
+    equipconn <- idf$to_table(class = "ZoneHVAC:EquipmentConnections", wide = TRUE)
+    equipconn <- equipconn[match(unique(rad_meta$zone), `Zone Name`)]
+    equipconn[, `:=`(
+        `Zone Conditioning Equipment List Name` = paste(unique(rad_meta$zone), "Equipment", sep = "_")
+    )]
+    idf$update(eplusr::dt_to_load(equipconn))
+    # }}}
+
+    # create one branch for each radiant cooling floor {{{
+    branch_clg <- idf$to_table(class = rep("Branch", nrow(rad_meta)), wide = TRUE, init = TRUE)
+    branch_htg <- idf$to_table(class = rep("Branch", nrow(rad_meta)), wide = TRUE, init = TRUE)
+    branch_clg[, `:=`(
+        Name = sprintf("%s_Cooling_Branch", rad_meta$name),
+        `Component 1 Object Type` = "ZoneHVAC:LowTemperatureRadiant:VariableFlow",
+        `Component 1 Name` = rad_meta$name,
+        `Component 1 Inlet Node Name` = rad_meta$cooling_inlet,
+        `Component 1 Outlet Node Name` = rad_meta$cooling_outlet
+    )]
+    branch_htg[, `:=`(
+        Name = sprintf("%s_Heating_Branch", rad_meta$name),
+        `Component 1 Object Type` = "ZoneHVAC:LowTemperatureRadiant:VariableFlow",
+        `Component 1 Name` = rad_meta$name,
+        `Component 1 Inlet Node Name` = rad_meta$heating_inlet,
+        `Component 1 Outlet Node Name` = rad_meta$heating_outlet
+    )]
+    idf$load(eplusr::dt_to_load(branch_clg), eplusr::dt_to_load(branch_htg))
+    rad_meta[, cooling_branch := sprintf("%s_Cooling_Branch", name)]
+    rad_meta[, heating_branch := sprintf("%s_Heating_Branch", name)]
+    # }}}
+
+    # add water loops {{{
+    if (chilled_water_type == "chiller") {
+        create_chilled_water_loop(idf, loop_setpoint = loop_setpoint, rad_meta$cooling_branch)
+        create_condensed_water_loop(idf, loop_setpoint = 30, "CndW_Demand_Equipment_Branch")
+    # use a cooling tower for radiant system
+    } else {
+        create_condensed_water_loop(idf, loop_setpoint = loop_setpoint, rad_meta$cooling_branch)
+        idf$object("CndW_Loop")$ref_by_object(class = "Sizing:Plant")[[1]]$set(
+            loop_type = "Cooling", design_loop_exit_temperature = loop_setpoint
+        )
+    }
+
+    # in order to make a full HVAC typology, should add heating loop
+    create_hot_water_loop(idf, loop_setpoint = 40, rad_meta$heating_branch)
+    # }}}
+
+    # add outputs {{{
+    idf$load("
+        Output:Variable,*,Zone Radiant HVAC Cooling Rate,hourly; !- HVAC Average [W]
+        Output:Variable,*,Zone Radiant HVAC Cooling Energy,hourly; !- HVAC Sum [J]
+        Output:Variable,*,Zone Radiant HVAC Mass Flow Rate,hourly; !- HVAC Average [kg/s]
+        Output:Variable,*,Zone Radiant HVAC Inlet Temperature,hourly; !- HVAC Average [C]
+        Output:Variable,*,Zone Radiant HVAC Outlet Temperature,hourly; !- HVAC Average [C]
+        Output:Variable,*,Zone Radiant HVAC Moisture Condensation Time,hourly; !- HVAC Sum [s]
+        Output:Variable,*,Zone Radiant HVAC Operation Mode,hourly; !- HVAC Average []
+
+        Output:Variable,*,Chiller Part Load Ratio,hourly; !- HVAC Average []
+        Output:Variable,*,Chiller COP,hourly; !- HVAC Average [W/W]
+        Output:Variable,*,Chiller Electricity Rate,hourly; !- HVAC Average [W]
+        Output:Variable,*,Chiller Evaporator Cooling Rate,hourly; !- HVAC Average [W]
+        Output:Variable,*,Chiller Evaporator Inlet Temperature,hourly; !- HVAC Average [C]
+        Output:Variable,*,Chiller Evaporator Outlet Temperature,hourly; !- HVAC Average [C]
+        Output:Variable,*,Chiller Evaporator Mass Flow Rate,hourly; !- HVAC Average [kg/s]
+
+        Output:Variable,*,Cooling Tower Inlet Temperature,hourly; !- HVAC Average [C]
+        Output:Variable,*,Cooling Tower Outlet Temperature,hourly; !- HVAC Average [C]
+        Output:Variable,*,Cooling Tower Mass Flow Rate,hourly; !- HVAC Average [kg/s]
+        Output:Variable,*,Cooling Tower Heat Transfer Rate,hourly; !- HVAC Average [W]
+    ")
+    # }}}
+
+    idf
+}
+# }}}
+
 # get_conditioned_zones {{{
 get_conditioned_zones <- function(idf) {
     checkmate::assert_r6(idf, "Idf")
@@ -180,6 +440,91 @@ get_conditioned_zones <- function(idf) {
     }
 
     stats::setNames(ids, idf_env$object[J(ids), on = "object_id", object_name])
+}
+# }}}
+
+# add_equipment_to_zone {{{
+add_equipment_to_zone <- function(idf, ids, ids_zone, seq_cooling = NULL, seq_heating = NULL, reorder = TRUE) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+    checkmate::assert_integer(ids_zone, any.missing = FALSE, unique = TRUE, null.ok = TRUE, len = length(ids))
+    checkmate::assert_count(seq_cooling, positive = TRUE, null.ok = TRUE)
+    checkmate::assert_count(seq_heating, positive = TRUE, null.ok = TRUE)
+    checkmate::assert_flag(reorder)
+
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    # get equipment connections
+    conn <- get_zone_equipment_connections(idf, ids_zone)
+
+    obj_equip <- eplusr::get_idf_object(idd_env, idf_env, NULL, ids)
+
+    val_list <- eplusr::get_idf_value(idd_env, idf_env, "ZoneHVAC:EquipmentList",
+        conn$id_list, property = "extensible_group")
+
+    # add new fields
+    new_equip <- val_list[extensible_group == 1L][, `:=`(value_chr = NA_character_, value_num = NA_real_)]
+
+    # remove empty extensible group from original
+    grp_emp <- val_list[extensible_group > 0L, by = c("object_id", "extensible_group"),
+        list(empty = all(is.na(value_chr)))][empty == TRUE]
+    if (nrow(grp_emp)) {
+        val_list <- val_list[!grp_emp, on = c("object_id", "extensible_group")]
+    }
+
+    # get maximum cooling and heating sequence
+    seq_max <- val_list[, list(extensible_group = max(extensible_group)), by = "object_id"]
+    if (is.null(seq_cooling)) {
+        seq_cooling <- seq_max$extensible_group + 1L
+    } else {
+        seq_cooling <- pmin(seq_cooling, seq_max$extensible_group + 1L)
+    }
+    if (is.null(seq_heating)) {
+        seq_heating <- seq_max$extensible_group + 1L
+    } else {
+        seq_heating <- pmin(seq_heating, seq_max$extensible_group + 1L)
+    }
+
+    # add inputs
+    conn[, `:=`(
+        equip_type = obj_equip$class_name, equip_name = obj_equip$object_name,
+        seq_cooling = seq_cooling, seq_heating = seq_heating
+    )]
+
+    # update new input
+    new_equip[conn, on = c("object_id" = "id_list"), by = .EACHI, c("value_chr", "value_num") := {
+        value_chr[1L:4L] <- c(i.equip_type, i.equip_name, i.seq_cooling, i.seq_heating)
+        value_num[3L:4L] <- c(i.seq_cooling, i.seq_heating)
+        list(value_chr, value_num)
+    }]
+
+    # update extensible_group
+    new_equip[seq_max, on = "object_id", extensible_group := i.extensible_group + 1L]
+
+    # update existing cooling sequential
+    val_list[conn, on = c("object_id" = "id_list"), `:=`(seq_cooling = i.seq_cooling, seq_heating = i.seq_heating)]
+    val_list[extensible_group > 0L, by = c("object_id", "extensible_group"), c("value_chr", "value_num") := {
+        if (value_num[3L] >= seq_cooling[1L]) value_num[3L] <- value_num[3L] + 1L
+        if (value_num[4L] >= seq_heating[1L]) value_num[4L] <- value_num[4L] + 1L
+        value_chr[3L:4L] <- as.character(value_num[3L:4L])
+        list(value_chr, value_num)
+    }]
+    val_list[, c("seq_cooling", "seq_heating") := NULL]
+
+    # combine
+    val_list <- data.table::rbindlist(list(val_list, new_equip), use.names = TRUE)
+
+    if (reorder) {
+        val_list[extensible_group > 0L, by = c("object_id", "extensible_group"), extensible_group := value_num[3L]]
+        data.table::setorderv(val_list, c("object_id", "extensible_group"))
+    }
+
+    val <- val_list[, list(id = object_id, class = class_name, index = seq_len(.N), value = value_chr), by = "object_id"]
+
+    chk <- eplusr::level_checks()
+    chk$extensible <- FALSE
+    eplusr::with_option(list(validate_level = chk), idf$update(val))
 }
 # }}}
 
