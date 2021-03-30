@@ -15503,8 +15503,8 @@ Branch,
 Branch,
     Radiant_Chiller_Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
-    Chiller:ConstantCOP,     !- Component 1 Object Type
-    Radiant_Chiller,         !- Component 1 Name
+    DistrictCooling,         !- Component 1 Object Type
+    Purchased_Cooling,       !- Component 1 Name
     Radiant_Chiller_Inlet_Node,  !- Component 1 Inlet Node Name
     Radiant_Chiller_Outlet_Node;  !- Component 1 Outlet Node Name
 
@@ -16296,21 +16296,13 @@ Chiller:Electric:ReformulatedEIR,
     1.15;                    !- Sizing Factor
 
 
-!-   ===========  ALL OBJECTS IN CLASS: CHILLER:CONSTANTCOP ===========
+!-   ===========  ALL OBJECTS IN CLASS: DISTRICTCOOLING ===========
 
-Chiller:ConstantCOP,
-    Radiant_Chiller,         !- Name
-    Autosize,                !- Nominal Capacity {W}
-    6.2,                     !- Nominal COP {W/W}
-    Autosize,                !- Design Chilled Water Flow Rate {m3/s}
-    Autosize,                !- Design Condenser Water Flow Rate {m3/s}
+DistrictCooling,
+    Purchased_Cooling,       !- Name
     Radiant_Chiller_Inlet_Node,  !- Chilled Water Inlet Node Name
     Radiant_Chiller_Outlet_Node,  !- Chilled Water Outlet Node Name
-    ,                        !- Condenser Inlet Node Name
-    ,                        !- Condenser Outlet Node Name
-    AirCooled,               !- Condenser Type
-    NotModulated,            !- Chiller Flow Mode
-    1.15;                    !- Sizing Factor
+    1e+10;                   !- Nominal Capacity {W}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: DISTRICTHEATING ===========
@@ -16503,8 +16495,8 @@ PlantEquipmentList,
 
 PlantEquipmentList,
     RadCooling_Equipment_List,  !- Name
-    Chiller:ConstantCOP,     !- Equipment 1 Object Type
-    Radiant_Chiller;         !- Equipment 1 Name
+    DistrictCooling,         !- Equipment 1 Object Type
+    Purchased_Cooling;       !- Equipment 1 Name
 
 PlantEquipmentList,
     HW_Equipment_List,       !- Name

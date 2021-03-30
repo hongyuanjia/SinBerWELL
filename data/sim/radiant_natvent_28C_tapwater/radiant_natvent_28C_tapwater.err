@@ -17,7 +17,6 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.30 23:05,
    ** Warning ** GetPlant/CondenserLoopData: PlantLoop="HW_LOOP", Invalid choice.
    **   ~~~   ** ...Load Distribution Scheme="".
    **   ~~~   ** Will default to SequentialLoad.
-   ** Warning ** Chiller:ConstantCOP, Adding OutdoorAir:DataLoopNode::Node=RADIANT_CHILLER CONDENSER INLET NODE
    ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="BOT_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
    ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="MID_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
    ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="TOP_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
@@ -102,5 +101,5 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.30 23:05,
    ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
-   ************* EnergyPlus Sizing Error Summary. During Sizing: 34 Warning; 1 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 41 Warning; 1 Severe Errors; Elapsed Time=00hr 05min 55.33sec
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 33 Warning; 1 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 40 Warning; 1 Severe Errors; Elapsed Time=00hr 05min 50.06sec

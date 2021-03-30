@@ -31,22 +31,50 @@ radiant_natvent_28C,Interior Equipment,Personal Fans,1.08,0
 radiant_natvent_28C,Fans,Ventilation (simple),0.84,0
 radiant_natvent_28C,Fans,AHU,0,1
 radiant_natvent_28C,Fans,Toilet_Exhaust_Fan,1.05,0
-radiant_natvent_28C,Pumps,General,3.48,0.54
+radiant_natvent_28C,Pumps,General,0,1
+radiant_natvent_28C,Pumps,Radiant,3.48,0
 radiant_natvent_28C,Heat Rejection,General,0,1
 radiant_natvent_28C,Heat Recovery,General,0,
-radiant_natvent_vav_28C,Cooling,General,29.04,0.199
+radiant_natvent_28C_tapwater,Cooling,General,0,1
+radiant_natvent_28C_tapwater,Interior Lighting,General_Lights,28.96,0
+radiant_natvent_28C_tapwater,Interior Lighting,Parking_Lights,3.96,0
+radiant_natvent_28C_tapwater,Exterior Lighting,ExteriorLights,2.13,0
+radiant_natvent_28C_tapwater,Interior Equipment,MiscPlug,31.16,0
+radiant_natvent_28C_tapwater,Interior Equipment,Personal Fans,1.08,0
+radiant_natvent_28C_tapwater,Fans,Ventilation (simple),0.84,0
+radiant_natvent_28C_tapwater,Fans,AHU,0,1
+radiant_natvent_28C_tapwater,Fans,Toilet_Exhaust_Fan,1.05,0
+radiant_natvent_28C_tapwater,Pumps,General,0,1
+radiant_natvent_28C_tapwater,Pumps,Radiant,3.48,0
+radiant_natvent_28C_tapwater,Heat Rejection,General,0,1
+radiant_natvent_28C_tapwater,Heat Recovery,General,0,
+radiant_natvent_vav_28C,Cooling,General,19.55,0.461
 radiant_natvent_vav_28C,Interior Lighting,General_Lights,28.96,0
 radiant_natvent_vav_28C,Interior Lighting,Parking_Lights,3.96,0
 radiant_natvent_vav_28C,Exterior Lighting,ExteriorLights,2.13,0
 radiant_natvent_vav_28C,Interior Equipment,MiscPlug,31.16,0
 radiant_natvent_vav_28C,Interior Equipment,Personal Fans,1.08,0
 radiant_natvent_vav_28C,Fans,Ventilation (simple),0.84,0
-radiant_natvent_vav_28C,Fans,AHU,7.23,0.454
+radiant_natvent_vav_28C,Fans,AHU,13.71,-0.036
 radiant_natvent_vav_28C,Fans,Toilet_Exhaust_Fan,1.05,0
-radiant_natvent_vav_28C,Pumps,General,9.3,-0.23
-radiant_natvent_vav_28C,Heat Rejection,General,2.39,0.338
+radiant_natvent_vav_28C,Pumps,General,0.57,0.925
+radiant_natvent_vav_28C,Pumps,Radiant,3.49,-0.003
+radiant_natvent_vav_28C,Heat Rejection,General,0.18,0.95
 radiant_natvent_vav_28C,Heat Recovery,General,0,
-radiant_natvent_29C,Cooling,General,14.47,0.601
+radiant_natvent_vav_28C_tapwater,Cooling,General,3.92,0.892
+radiant_natvent_vav_28C_tapwater,Interior Lighting,General_Lights,28.96,0
+radiant_natvent_vav_28C_tapwater,Interior Lighting,Parking_Lights,3.96,0
+radiant_natvent_vav_28C_tapwater,Exterior Lighting,ExteriorLights,2.13,0
+radiant_natvent_vav_28C_tapwater,Interior Equipment,MiscPlug,31.16,0
+radiant_natvent_vav_28C_tapwater,Interior Equipment,Personal Fans,1.08,0
+radiant_natvent_vav_28C_tapwater,Fans,Ventilation (simple),0.84,0
+radiant_natvent_vav_28C_tapwater,Fans,AHU,13.7,-0.036
+radiant_natvent_vav_28C_tapwater,Fans,Toilet_Exhaust_Fan,1.05,0
+radiant_natvent_vav_28C_tapwater,Pumps,General,0.57,0.925
+radiant_natvent_vav_28C_tapwater,Pumps,Radiant,3.67,-0.055
+radiant_natvent_vav_28C_tapwater,Heat Rejection,General,0.18,0.95
+radiant_natvent_vav_28C_tapwater,Heat Recovery,General,0,
+radiant_natvent_29C,Cooling,General,14.39,0.603
 radiant_natvent_29C,Interior Lighting,General_Lights,28.96,0
 radiant_natvent_29C,Interior Lighting,Parking_Lights,3.96,0
 radiant_natvent_29C,Exterior Lighting,ExteriorLights,2.13,0
@@ -55,18 +83,46 @@ radiant_natvent_29C,Interior Equipment,Personal Fans,1.08,0
 radiant_natvent_29C,Fans,Ventilation (simple),0.84,0
 radiant_natvent_29C,Fans,AHU,0,1
 radiant_natvent_29C,Fans,Toilet_Exhaust_Fan,1.05,0
-radiant_natvent_29C,Pumps,General,3.06,0.595
+radiant_natvent_29C,Pumps,General,0,1
+radiant_natvent_29C,Pumps,Radiant,2.93,0.158
 radiant_natvent_29C,Heat Rejection,General,0,1
 radiant_natvent_29C,Heat Recovery,General,0,
-radiant_natvent_vav_29C,Cooling,General,26.3,0.274
+radiant_natvent_29C_tapwater,Cooling,General,0,1
+radiant_natvent_29C_tapwater,Interior Lighting,General_Lights,28.96,0
+radiant_natvent_29C_tapwater,Interior Lighting,Parking_Lights,3.96,0
+radiant_natvent_29C_tapwater,Exterior Lighting,ExteriorLights,2.13,0
+radiant_natvent_29C_tapwater,Interior Equipment,MiscPlug,31.16,0
+radiant_natvent_29C_tapwater,Interior Equipment,Personal Fans,1.08,0
+radiant_natvent_29C_tapwater,Fans,Ventilation (simple),0.84,0
+radiant_natvent_29C_tapwater,Fans,AHU,0,1
+radiant_natvent_29C_tapwater,Fans,Toilet_Exhaust_Fan,1.05,0
+radiant_natvent_29C_tapwater,Pumps,General,0,1
+radiant_natvent_29C_tapwater,Pumps,Radiant,2.93,0.158
+radiant_natvent_29C_tapwater,Heat Rejection,General,0,1
+radiant_natvent_29C_tapwater,Heat Recovery,General,0,
+radiant_natvent_vav_29C,Cooling,General,16.71,0.539
 radiant_natvent_vav_29C,Interior Lighting,General_Lights,28.96,0
 radiant_natvent_vav_29C,Interior Lighting,Parking_Lights,3.96,0
 radiant_natvent_vav_29C,Exterior Lighting,ExteriorLights,2.13,0
 radiant_natvent_vav_29C,Interior Equipment,MiscPlug,31.16,0
 radiant_natvent_vav_29C,Interior Equipment,Personal Fans,1.08,0
 radiant_natvent_vav_29C,Fans,Ventilation (simple),0.84,0
-radiant_natvent_vav_29C,Fans,AHU,7.23,0.454
+radiant_natvent_vav_29C,Fans,AHU,5.41,0.591
 radiant_natvent_vav_29C,Fans,Toilet_Exhaust_Fan,1.05,0
-radiant_natvent_vav_29C,Pumps,General,9.77,-0.292
-radiant_natvent_vav_29C,Heat Rejection,General,1.64,0.546
+radiant_natvent_vav_29C,Pumps,General,0.34,0.955
+radiant_natvent_vav_29C,Pumps,Radiant,2.85,0.181
+radiant_natvent_vav_29C,Heat Rejection,General,0.11,0.97
 radiant_natvent_vav_29C,Heat Recovery,General,0,
+radiant_natvent_vav_29C_tapwater,Cooling,General,2.34,0.935
+radiant_natvent_vav_29C_tapwater,Interior Lighting,General_Lights,28.96,0
+radiant_natvent_vav_29C_tapwater,Interior Lighting,Parking_Lights,3.96,0
+radiant_natvent_vav_29C_tapwater,Exterior Lighting,ExteriorLights,2.13,0
+radiant_natvent_vav_29C_tapwater,Interior Equipment,MiscPlug,31.16,0
+radiant_natvent_vav_29C_tapwater,Interior Equipment,Personal Fans,1.08,0
+radiant_natvent_vav_29C_tapwater,Fans,Ventilation (simple),0.84,0
+radiant_natvent_vav_29C_tapwater,Fans,AHU,5.41,0.591
+radiant_natvent_vav_29C_tapwater,Fans,Toilet_Exhaust_Fan,1.05,0
+radiant_natvent_vav_29C_tapwater,Pumps,General,0.34,0.955
+radiant_natvent_vav_29C_tapwater,Pumps,Radiant,2.96,0.149
+radiant_natvent_vav_29C_tapwater,Heat Rejection,General,0.11,0.97
+radiant_natvent_vav_29C_tapwater,Heat Recovery,General,0,

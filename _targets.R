@@ -145,8 +145,8 @@ targets <- list(
             nominal_cop = 6.2,
             design_chilled_water_flow_rate = "Autosize",
             design_condenser_water_flow_rate = "Autosize",
-            chilled_water_inlet_node_name = "Radiant_Cooling_Tower_Inlet_Node",
-            chilled_water_outlet_node_name = "Radiant_Cooling_Tower_Outlet_Node",
+            chilled_water_inlet_node_name = "Radiant_Chiller_Inlet_Node",
+            chilled_water_outlet_node_name = "Radiant_Chiller_Outlet_Node",
             condenser_type = "AirCooled",
             sizing_factor = 1.15
         )))
@@ -155,8 +155,10 @@ targets <- list(
         radiant_pump <- get_named_id(idf$dup("Radiant_Cooling_Pump" = "ChW_Pump"))
         # rename the nodes and capacity
         idf$set(c(radiant_pump) := list(
+            design_power_consumption = "Autosize",
             inlet_node_name = "Radiant_Cooling_Supply_Inlet_Node",
-            outlet_node_name = "Radiant_Cooling_Pump_Outlet_Node"
+            outlet_node_name = "Radiant_Cooling_Pump_Outlet_Node",
+            end_use_subcategory = "Radiant"
         ))
 
         # create a new chilled water loop for the radiant cooling system
@@ -187,9 +189,6 @@ targets <- list(
         # at 30C
         add_natural_ventilation(idf, ach = 5, max_oa_temp = 30)
 
-        # add outputs
-        idf$add(Output_Variable = list("*", "Cooling Tower Outlet Temperature", "Hourly"))
-
         # save model
         idf$save("data/idf/radiant_natvent_28C.idf", overwrite = TRUE)
         "data/idf/radiant_natvent_28C.idf"
@@ -199,8 +198,41 @@ targets <- list(
         # read the radiant model
         idf <- eplusr::read_idf(targets::tar_read(path_radiant_natvent_28C))
 
+        # using the sizing information to get a proper ratio of cooling loads
+        # that the VAV system should serve
+        set_vav_system_load_ratio(idf)
+
         # turn on VAV system
         idf$set(AirLoopHVAC := list(availability_manager_list_name = NULL))
+
+        # auto size all vav system components
+        idf$set(
+            Coil_Cooling_Water := list(
+                "Design Water Flow Rate" = "Autosize",
+                "Design Air Flow Rate" = "Autosize",
+                "Design Inlet Water Temperature" = "Autosize",
+                "Design Inlet Air Temperature" = "Autosize",
+                "Design Outlet Air Temperature" = "Autosize",
+                "Design Inlet Air Humidity Ratio" = "Autosize",
+                "Design Outlet Air Humidity Ratio" = "Autosize"
+            ),
+            Fan_VariableVolume := list(
+                "Maximum Flow Rate" = "Autosize"
+            ),
+            HeaderedPumps_ConstantSpeed := list(
+                "Total Design Flow Rate" = "Autosize",
+                "Design Power Consumption" = "Autosize"
+            ),
+            HeaderedPumps_VariableSpeed := list(
+                "Total Design Flow Rate" = "Autosize",
+                "Design Power Consumption" = "Autosize"
+            ),
+            Chiller_Electric_ReformulatedEIR := list(
+                "Reference Capacity" = "Autosize",
+                "Reference Chilled Water Flow Rate" = "Autosize",
+                "Reference Condenser Water Flow Rate" = "Autosize"
+            )
+        )
 
         # add hybrid ventilation
         zones <- get_conditioned_zones(idf)
@@ -224,6 +256,50 @@ targets <- list(
         "data/idf/radiant_natvent_vav_28C.idf"
     }),
 
+    tar_target(path_radiant_natvent_28C_tapwater, format = "file", {
+        # read the radiant model
+        idf <- eplusr::read_idf(targets::tar_read(path_radiant_natvent_28C))
+
+        # use district cooling
+        idf$add(
+            DistrictCooling = list(
+                "Purchased_Cooling",
+                "Radiant_Chiller_Inlet_Node",
+                "Radiant_Chiller_Outlet_Node",
+                1E10
+            )
+        )
+        idf$del(idf$Chiller_ConstantCOP$Radiant_Chiller$id(), .force = TRUE)
+        eplusr::without_checking(idf$replace_value("Chiller:ConstantCOP", "DistrictCooling"))
+        eplusr::without_checking(idf$replace_value("^Radiant_Chiller$", "Purchased_Cooling"))
+
+        # save model
+        idf$save("data/idf/radiant_natvent_28C_tapwater.idf", overwrite = TRUE)
+        "data/idf/radiant_natvent_28C_tapwater.idf"
+    }),
+
+    tar_target(path_radiant_natvent_vav_28C_tapwater, format = "file", {
+        # read the radiant model with VAV
+        idf <- eplusr::read_idf(path_radiant_natvent_vav_28C)
+
+        # use district cooling
+        idf$add(
+            DistrictCooling = list(
+                "Purchased_Cooling",
+                "Radiant_Chiller_Inlet_Node",
+                "Radiant_Chiller_Outlet_Node",
+                1E10
+            )
+        )
+        idf$del(idf$Chiller_ConstantCOP$Radiant_Chiller$id(), .force = TRUE)
+        eplusr::without_checking(idf$replace_value("Chiller:ConstantCOP", "DistrictCooling"))
+        eplusr::without_checking(idf$replace_value("^Radiant_Chiller$", "Purchased_Cooling"))
+
+        # save model
+        idf$save("data/idf/radiant_natvent_vav_28C_tapwater.idf", overwrite = TRUE)
+        "data/idf/radiant_natvent_vav_28C_tapwater.idf"
+    }),
+
     # change to higher setpoint
     tar_target(path_radiant_natvent_29C, format = "file", {
         # read the radiant model
@@ -232,8 +308,8 @@ targets <- list(
         # change setpoint and throttling range
         idf$set(
             Sch_Zone_Radiant_Cooling_Setpoint = list(field_4 = "29"),
-            Sch_Zone_Cooling_Setpoint_Wo_Solar = list(field_4 = "29"),
-            Sch_Zone_Cooling_Setpoint_Solar = list(field_4 = "29"),
+            Sch_Zone_Cooling_Setpoint_Wo_Solar = list(field_4 = "30"),
+            Sch_Zone_Cooling_Setpoint_Solar = list(field_4 = "30"),
             ZoneHVAC_LowTemperatureRadiant_VariableFlow := list(cooling_control_throttling_range = 1)
         )
 
@@ -250,8 +326,8 @@ targets <- list(
         # change setpoint and throttling range
         idf$set(
             Sch_Zone_Radiant_Cooling_Setpoint = list(field_4 = "29"),
-            Sch_Zone_Cooling_Setpoint_Wo_Solar = list(field_4 = "29"),
-            Sch_Zone_Cooling_Setpoint_Solar = list(field_4 = "29"),
+            Sch_Zone_Cooling_Setpoint_Wo_Solar = list(field_4 = "30"),
+            Sch_Zone_Cooling_Setpoint_Solar = list(field_4 = "30"),
             ZoneHVAC_LowTemperatureRadiant_VariableFlow := list(cooling_control_throttling_range = 1)
         )
 
@@ -260,13 +336,61 @@ targets <- list(
         "data/idf/radiant_natvent_vav_29C.idf"
     }),
 
+    tar_target(path_radiant_natvent_29C_tapwater, format = "file", {
+        # read the radiant model with VAV
+        idf <- eplusr::read_idf(path_radiant_natvent_29C)
+
+        # use district cooling
+        idf$add(
+            DistrictCooling = list(
+                "Purchased_Cooling",
+                "Radiant_Chiller_Inlet_Node",
+                "Radiant_Chiller_Outlet_Node",
+                1E10
+            )
+        )
+        idf$del(idf$Chiller_ConstantCOP$Radiant_Chiller$id(), .force = TRUE)
+        eplusr::without_checking(idf$replace_value("Chiller:ConstantCOP", "DistrictCooling"))
+        eplusr::without_checking(idf$replace_value("^Radiant_Chiller$", "Purchased_Cooling"))
+
+        # save model
+        idf$save("data/idf/radiant_natvent_29C_tapwater.idf", overwrite = TRUE)
+        "data/idf/radiant_natvent_29C_tapwater.idf"
+    }),
+
+    tar_target(path_radiant_natvent_vav_29C_tapwater, format = "file", {
+        # read the radiant model with VAV
+        idf <- eplusr::read_idf(path_radiant_natvent_vav_29C)
+
+        # use district cooling
+        idf$add(
+            DistrictCooling = list(
+                "Purchased_Cooling",
+                "Radiant_Chiller_Inlet_Node",
+                "Radiant_Chiller_Outlet_Node",
+                1E10
+            )
+        )
+        idf$del(idf$Chiller_ConstantCOP$Radiant_Chiller$id(), .force = TRUE)
+        eplusr::without_checking(idf$replace_value("Chiller:ConstantCOP", "DistrictCooling"))
+        eplusr::without_checking(idf$replace_value("^Radiant_Chiller$", "Purchased_Cooling"))
+
+        # save model
+        idf$save("data/idf/radiant_natvent_vav_29C_tapwater.idf", overwrite = TRUE)
+        "data/idf/radiant_natvent_vav_29C_tapwater.idf"
+    }),
+
     tar_target(path_sim, format = "file", {
         grp <- eplusr::group_job(
             c(path_baseline, path_fans,
               path_radiant_natvent_28C,
+              path_radiant_natvent_28C_tapwater,
               path_radiant_natvent_vav_28C,
+              path_radiant_natvent_vav_28C_tapwater,
               path_radiant_natvent_29C,
-              path_radiant_natvent_vav_29C
+              path_radiant_natvent_29C_tapwater,
+              path_radiant_natvent_vav_29C,
+              path_radiant_natvent_vav_29C_tapwater
             ),
             "data-raw/SGP_Singapore.486980_IWEC.epw"
         )
@@ -317,19 +441,34 @@ targets <- list(
         path
     }),
 
-    tar_target(plot_utility, {
-        cols <- paletteer::paletteer_dynamic("cartography::green.pal", length(unique(utility$case)))
+    tar_target(colors, {
+        cases <- unique(utility$case)
+        cols <- paletteer::paletteer_dynamic("cartography::green.pal", length(cases))
+        names(cols) <- cases
+        cols["baseline"] <- paletteer::paletteer_dynamic("cartography::red.pal", 5)[2]
+        cols["fans"] <- paletteer::paletteer_dynamic("cartography::blue.pal", 5)[2]
+        cols[grepl("vav", names(cols))] <- paletteer::paletteer_dynamic("cartography::sand.pal", 5)[1:2]
+        cols[grepl("tapwater", names(cols))] <- paletteer::paletteer_dynamic("cartography::turquoise.pal", 5)[1:2]
+        cols
+    }),
 
-        ggplot(utility[category %in% c("HVAC", "Total")]) +
-            geom_col(aes(category, electricity, fill = case), position = "dodge") +
+    tar_target(plot_utility, {
+        # relevel
+        d <- utility[category %in% c("HVAC", "Total")]
+        d[, case := forcats::fct_inorder(case)]
+        d[, case := forcats::fct_relevel(case, function(x) grep("tapwater", x, value = TRUE), after = Inf)]
+        d[, case := forcats::fct_relevel(case, function(x) grep("vav", x, value = TRUE), after = Inf)]
+
+        ggplot(d) +
+            geom_col(aes(category, electricity, fill = case), position = "dodge", color = "darkgreen") +
             geom_text(aes(category, electricity, group = case,
                     label = scales::percent({savings[savings < 0.005] <- NA;savings}, 0.1)),
                 position = position_dodge(width = 0.9), vjust = -0.5, na.rm = TRUE,
-                color = "darkgreen", size = 3) +
+                color = "darkgreen", size = 2.5) +
             scale_x_discrete(NULL) +
             scale_y_continuous(expression("Electricity [ " * "kWh" / (m^2 ~ yr) * " ]")) +
-            scale_fill_manual(values = cols) +
-            guides(fill = guide_legend("Case", ncol = 4)) +
+            scale_fill_manual(values = colors) +
+            guides(fill = guide_legend("Case", ncol = 3)) +
             theme_minimal() +
             theme(legend.position = "top")
     }),
@@ -343,16 +482,19 @@ targets <- list(
         res <- sim$report_data(NULL, zones, name = "zone mean air temperature",
             environment_name = "runperiod 1", hour = 8:17, day_type = "weekdays")
 
-        cols <- paletteer::paletteer_dynamic("cartography::green.pal", length(unique(res$case)))
+        # relevel
+        res[, case := forcats::fct_inorder(case)]
+        res[, case := forcats::fct_relevel(case, function(x) grep("tapwater", x, value = TRUE), after = Inf)]
+        res[, case := forcats::fct_relevel(case, function(x) grep("vav", x, value = TRUE), after = Inf)]
 
         ggplot(res, aes(case, value, color = case)) +
             geom_boxplot() +
             scale_x_discrete(NULL) +
             scale_y_continuous(expression("Indoor Temperature [ "~ degree * C *" ]")) +
-            scale_color_manual(values = cols) +
+            scale_color_manual(values = colors) +
             guides(color = guide_legend("Case", ncol = 4)) +
             theme_minimal() +
-            theme(legend.position = "none", axis.text.x = element_text(angle = 60, hjust = 1))
+            theme(legend.position = "none", axis.text.x = element_text(angle = 30, hjust = 1))
 
     }),
 

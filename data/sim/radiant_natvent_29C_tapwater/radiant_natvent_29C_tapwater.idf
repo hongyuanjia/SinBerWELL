@@ -2598,16 +2598,6 @@ Schedule:Constant,
     On/Off,                  !- Schedule Type Limits Name
     0;                       !- Hourly Value
 
-Schedule:Constant,
-    Sch_Mode_HybridVent,     !- Name
-    Control Type,            !- Schedule Type Limits Name
-    1;                       !- Hourly Value
-
-Schedule:Constant,
-    Sch_Min_OutAirVent,      !- Name
-    On/Off,                  !- Schedule Type Limits Name
-    0;                       !- Hourly Value
-
 
 !-   ===========  ALL OBJECTS IN CLASS: MATERIAL ===========
 
@@ -11875,10 +11865,10 @@ Sizing:System,
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
     ZoneSum,                 !- System Outdoor Air Method
     1,                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    FractionOfAutosizedCoolingCapacity,  !- Cooling Design Capacity Method
+    CoolingDesignCapacity,   !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
-    0.105,                   !- Fraction of Autosized Cooling Design Capacity
+    ,                        !- Fraction of Autosized Cooling Design Capacity
     HeatingDesignCapacity,   !- Heating Design Capacity Method
     autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
@@ -11914,10 +11904,10 @@ Sizing:System,
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
     ZoneSum,                 !- System Outdoor Air Method
     1,                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    FractionOfAutosizedCoolingCapacity,  !- Cooling Design Capacity Method
+    CoolingDesignCapacity,   !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
-    0.049,                   !- Fraction of Autosized Cooling Design Capacity
+    ,                        !- Fraction of Autosized Cooling Design Capacity
     HeatingDesignCapacity,   !- Heating Design Capacity Method
     autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
@@ -11953,10 +11943,10 @@ Sizing:System,
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
     ZoneSum,                 !- System Outdoor Air Method
     1,                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    FractionOfAutosizedCoolingCapacity,  !- Cooling Design Capacity Method
+    CoolingDesignCapacity,   !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
-    0.082,                   !- Fraction of Autosized Cooling Design Capacity
+    ,                        !- Fraction of Autosized Cooling Design Capacity
     HeatingDesignCapacity,   !- Heating Design Capacity Method
     autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
@@ -14171,7 +14161,7 @@ Fan:VariableVolume,
     Sch_ACMV,                !- Availability Schedule Name
     0.61,                    !- Fan Total Efficiency
     1000,                    !- Pressure Rise {Pa}
-    Autosize,                !- Maximum Flow Rate {m3/s}
+    7.07,                    !- Maximum Flow Rate {m3/s}
     Fraction,                !- Fan Power Minimum Flow Rate Input Method
     0.5,                     !- Fan Power Minimum Flow Fraction
     ,                        !- Fan Power Minimum Air Flow Rate {m3/s}
@@ -14191,7 +14181,7 @@ Fan:VariableVolume,
     Sch_ACMV,                !- Availability Schedule Name
     0.61,                    !- Fan Total Efficiency
     1000,                    !- Pressure Rise {Pa}
-    Autosize,                !- Maximum Flow Rate {m3/s}
+    91.76,                   !- Maximum Flow Rate {m3/s}
     Fraction,                !- Fan Power Minimum Flow Rate Input Method
     0.5,                     !- Fan Power Minimum Flow Fraction
     ,                        !- Fan Power Minimum Air Flow Rate {m3/s}
@@ -14211,7 +14201,7 @@ Fan:VariableVolume,
     Sch_ACMV,                !- Availability Schedule Name
     0.61,                    !- Fan Total Efficiency
     1000,                    !- Pressure Rise {Pa}
-    Autosize,                !- Maximum Flow Rate {m3/s}
+    6.65,                    !- Maximum Flow Rate {m3/s}
     Fraction,                !- Fan Power Minimum Flow Rate Input Method
     0.5,                     !- Fan Power Minimum Flow Fraction
     ,                        !- Fan Power Minimum Air Flow Rate {m3/s}
@@ -14277,13 +14267,13 @@ Fan:ZoneExhaust,
 Coil:Cooling:Water,
     VAV_Bot_Coil,            !- Name
     Sch_Always_On,           !- Availability Schedule Name
-    Autosize,                !- Design Water Flow Rate {m3/s}
-    Autosize,                !- Design Air Flow Rate {m3/s}
-    Autosize,                !- Design Inlet Water Temperature {C}
-    Autosize,                !- Design Inlet Air Temperature {C}
-    Autosize,                !- Design Outlet Air Temperature {C}
-    Autosize,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
-    Autosize,                !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
+    0.006708,                !- Design Water Flow Rate {m3/s}
+    7.07,                    !- Design Air Flow Rate {m3/s}
+    6.7,                     !- Design Inlet Water Temperature {C}
+    24.34,                   !- Design Inlet Air Temperature {C}
+    11.47,                   !- Design Outlet Air Temperature {C}
+    0.01,                    !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
+    0.008,                   !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
     VAV_Bot_Coil_W_Inlet_Node,  !- Water Inlet Node Name
     VAV_Bot_Coil_W_Outlet_Node,  !- Water Outlet Node Name
     VAV_Bot_Coil_Air_Inlet_Node,  !- Air Inlet Node Name
@@ -14294,13 +14284,13 @@ Coil:Cooling:Water,
 Coil:Cooling:Water,
     VAV_Mid_Coil,            !- Name
     Sch_Always_On,           !- Availability Schedule Name
-    Autosize,                !- Design Water Flow Rate {m3/s}
-    Autosize,                !- Design Air Flow Rate {m3/s}
-    Autosize,                !- Design Inlet Water Temperature {C}
-    Autosize,                !- Design Inlet Air Temperature {C}
-    Autosize,                !- Design Outlet Air Temperature {C}
-    Autosize,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
-    Autosize,                !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
+    0.090853,                !- Design Water Flow Rate {m3/s}
+    91.76,                   !- Design Air Flow Rate {m3/s}
+    6.7,                     !- Design Inlet Water Temperature {C}
+    24.46,                   !- Design Inlet Air Temperature {C}
+    11.47,                   !- Design Outlet Air Temperature {C}
+    0.010264,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
+    0.008,                   !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
     VAV_Mid_Coil_W_Inlet_Node,  !- Water Inlet Node Name
     VAV_Mid_Coil_W_Outlet_Node,  !- Water Outlet Node Name
     VAV_Mid_Coil_Air_Inlet_Node,  !- Air Inlet Node Name
@@ -14311,13 +14301,13 @@ Coil:Cooling:Water,
 Coil:Cooling:Water,
     VAV_Top_Coil,            !- Name
     Sch_Always_On,           !- Availability Schedule Name
-    Autosize,                !- Design Water Flow Rate {m3/s}
-    Autosize,                !- Design Air Flow Rate {m3/s}
-    Autosize,                !- Design Inlet Water Temperature {C}
-    Autosize,                !- Design Inlet Air Temperature {C}
-    Autosize,                !- Design Outlet Air Temperature {C}
-    Autosize,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
-    Autosize,                !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
+    0.006418,                !- Design Water Flow Rate {m3/s}
+    6.65,                    !- Design Air Flow Rate {m3/s}
+    6.7,                     !- Design Inlet Water Temperature {C}
+    24.39,                   !- Design Inlet Air Temperature {C}
+    11.47,                   !- Design Outlet Air Temperature {C}
+    0.010107,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
+    0.008,                   !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
     VAV_Top_Coil_W_Inlet_Node,  !- Water Inlet Node Name
     VAV_Top_Coil_W_Outlet_Node,  !- Water Outlet Node Name
     VAV_Top_Coil_Air_Inlet_Node,  !- Air Inlet Node Name
@@ -14538,7 +14528,7 @@ AirLoopHVAC:ControllerList,
 AirLoopHVAC,
     VAV_Bot,                 !- Name
     VAV_Bot_Controllers,     !- Controller List Name
-    ,                        !- Availability Manager List Name
+    Availability_List_Always_Off,  !- Availability Manager List Name
     Autosize,                !- Design Supply Air Flow Rate {m3/s}
     VAV_Bot_Air_Loop_Branches,  !- Branch List Name
     ,                        !- Connector List Name
@@ -14550,7 +14540,7 @@ AirLoopHVAC,
 AirLoopHVAC,
     VAV_Mid,                 !- Name
     VAV_Mid_Controllers,     !- Controller List Name
-    ,                        !- Availability Manager List Name
+    Availability_List_Always_Off,  !- Availability Manager List Name
     Autosize,                !- Design Supply Air Flow Rate {m3/s}
     VAV_Mid_Air_Loop_Branches,  !- Branch List Name
     ,                        !- Connector List Name
@@ -14562,7 +14552,7 @@ AirLoopHVAC,
 AirLoopHVAC,
     VAV_Top,                 !- Name
     VAV_Top_Controllers,     !- Controller List Name
-    ,                        !- Availability Manager List Name
+    Availability_List_Always_Off,  !- Availability Manager List Name
     Autosize,                !- Design Supply Air Flow Rate {m3/s}
     VAV_Top_Air_Loop_Branches,  !- Branch List Name
     ,                        !- Connector List Name
@@ -15503,8 +15493,8 @@ Branch,
 Branch,
     Radiant_Chiller_Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
-    Chiller:ConstantCOP,     !- Component 1 Object Type
-    Radiant_Chiller,         !- Component 1 Name
+    DistrictCooling,         !- Component 1 Object Type
+    Purchased_Cooling,       !- Component 1 Name
     Radiant_Chiller_Inlet_Node,  !- Component 1 Inlet Node Name
     Radiant_Chiller_Outlet_Node;  !- Component 1 Outlet Node Name
 
@@ -16202,11 +16192,11 @@ HeaderedPumps:ConstantSpeed,
     CndW_Pump,               !- Name
     CndW_Supply_Inlet_Node,  !- Inlet Node Name
     CndW_Pump_Outlet_Node,   !- Outlet Node Name
-    Autosize,                !- Total Design Flow Rate {m3/s}
+    0.165759890027,          !- Total Design Flow Rate {m3/s}
     2,                       !- Number of Pumps in Bank
     Sequential,              !- Flow Sequencing Control Scheme
     150000,                  !- Design Pump Head {Pa}
-    Autosize,                !- Design Power Consumption {W}
+    34424.3,                 !- Design Power Consumption {W}
     0.926,                   !- Motor Efficiency
     0,                       !- Fraction of Motor Inefficiencies to Fluid Stream
     Intermittent;            !- Pump Control Type
@@ -16218,11 +16208,11 @@ HeaderedPumps:VariableSpeed,
     ChW_Pump,                !- Name
     ChW_Supply_Inlet_Node,   !- Inlet Node Name
     ChW_Pump_Outlet_Node,    !- Outlet Node Name
-    Autosize,                !- Total Design Flow Rate {m3/s}
+    0.12288,                 !- Total Design Flow Rate {m3/s}
     2,                       !- Number of Pumps in Bank
     Sequential,              !- Flow Sequencing Control Scheme
     2e+05,                   !- Design Pump Head {Pa}
-    Autosize,                !- Design Power Consumption {W}
+    33806.54,                !- Design Power Consumption {W}
     0.932,                   !- Motor Efficiency
     0,                       !- Fraction of Motor Inefficiencies to Fluid Stream
     0.0205,                  !- Coefficient 1 of the Part Load Performance Curve
@@ -16236,7 +16226,7 @@ HeaderedPumps:VariableSpeed,
     Radiant_Cooling_Pump,    !- Name
     Radiant_Cooling_Supply_Inlet_Node,  !- Inlet Node Name
     Radiant_Cooling_Pump_Outlet_Node,  !- Outlet Node Name
-    Autosize,                !- Total Design Flow Rate {m3/s}
+    0.12288,                 !- Total Design Flow Rate {m3/s}
     2,                       !- Number of Pumps in Bank
     Sequential,              !- Flow Sequencing Control Scheme
     2e+05,                   !- Design Pump Head {Pa}
@@ -16269,12 +16259,12 @@ HeaderedPumps:VariableSpeed,
 !
 Chiller:Electric:ReformulatedEIR,
     SG_Chiller_1,            !- Name
-    Autosize,                !- Reference Capacity {W}
+    2287872.01,              !- Reference Capacity {W}
     6.286,                   !- Reference COP {W/W}
     6.67,                    !- Reference Leaving Chilled Water Temperature {C}
     31.74,                   !- Reference Leaving Condenser Water Temperature {C}
-    Autosize,                !- Reference Chilled Water Flow Rate {m3/s}
-    Autosize,                !- Reference Condenser Water Flow Rate {m3/s}
+    0.119575,                !- Reference Chilled Water Flow Rate {m3/s}
+    0.141168,                !- Reference Condenser Water Flow Rate {m3/s}
     WC_Cent_2010_Pb_CapFT,   !- Cooling Capacity Function of Temperature Curve Name
     WC_Cent_2010_Pb_EIRFT,   !- Electric Input to Cooling Output Ratio Function of Temperature Curve Name
     LeavingCondenserWaterTemperature,  !- Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Type
@@ -16296,21 +16286,13 @@ Chiller:Electric:ReformulatedEIR,
     1.15;                    !- Sizing Factor
 
 
-!-   ===========  ALL OBJECTS IN CLASS: CHILLER:CONSTANTCOP ===========
+!-   ===========  ALL OBJECTS IN CLASS: DISTRICTCOOLING ===========
 
-Chiller:ConstantCOP,
-    Radiant_Chiller,         !- Name
-    Autosize,                !- Nominal Capacity {W}
-    6.2,                     !- Nominal COP {W/W}
-    Autosize,                !- Design Chilled Water Flow Rate {m3/s}
-    Autosize,                !- Design Condenser Water Flow Rate {m3/s}
+DistrictCooling,
+    Purchased_Cooling,       !- Name
     Radiant_Chiller_Inlet_Node,  !- Chilled Water Inlet Node Name
     Radiant_Chiller_Outlet_Node,  !- Chilled Water Outlet Node Name
-    ,                        !- Condenser Inlet Node Name
-    ,                        !- Condenser Outlet Node Name
-    AirCooled,               !- Condenser Type
-    NotModulated,            !- Chiller Flow Mode
-    1.15;                    !- Sizing Factor
+    1e+10;                   !- Nominal Capacity {W}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: DISTRICTHEATING ===========
@@ -16503,8 +16485,8 @@ PlantEquipmentList,
 
 PlantEquipmentList,
     RadCooling_Equipment_List,  !- Name
-    Chiller:ConstantCOP,     !- Equipment 1 Object Type
-    Radiant_Chiller;         !- Equipment 1 Name
+    DistrictCooling,         !- Equipment 1 Object Type
+    Purchased_Cooling;       !- Equipment 1 Name
 
 PlantEquipmentList,
     HW_Equipment_List,       !- Name
@@ -16592,294 +16574,6 @@ CondenserEquipmentOperationSchemes,
 AvailabilityManager:Scheduled,
     Availability_Always_Off, !- Name
     Sch_Always_Off;          !- Schedule Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: AVAILABILITYMANAGER:HYBRIDVENTILATION ===========
-
-AvailabilityManager:HybridVentilation,
-    Core_Bot_HybridVent,     !- Name
-    ,                        !- HVAC Air Loop Name
-    Core_Bot,                !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Core_Bot;        !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Core_Mid_HybridVent,     !- Name
-    ,                        !- HVAC Air Loop Name
-    Core_Mid,                !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Core_Mid;        !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Core_Top_HybridVent,     !- Name
-    ,                        !- HVAC Air Loop Name
-    Core_Top,                !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Core_Top;        !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Bot_N_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Bot_N,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Bot_N;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Bot_E_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Bot_E,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Bot_E;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Bot_S_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Bot_S,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Bot_S;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Bot_W_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Bot_W,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Bot_W;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Mid_N_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Mid_N,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Mid_N;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Mid_E_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Mid_E,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Mid_E;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Mid_S_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Mid_S,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Mid_S;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Mid_W_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Mid_W,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Mid_W;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Top_N_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Top_N,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Top_N;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Top_E_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Top_E,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Top_E;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Top_S_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Top_S,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Top_S;      !- ZoneVentilation Object Name
-
-AvailabilityManager:HybridVentilation,
-    Zone_Top_W_HybridVent,   !- Name
-    ,                        !- HVAC Air Loop Name
-    Zone_Top_W,              !- Control Zone Name
-    Sch_Mode_HybridVent,     !- Ventilation Control Mode Schedule Name
-    Yes,                     !- Use Weather File Rain Indicators
-    40,                      !- Maximum Wind Speed {m/s}
-    -100,                    !- Minimum Outdoor Temperature {C}
-    30,                      !- Maximum Outdoor Temperature {C}
-    ,                        !- Minimum Outdoor Enthalpy {J/kg}
-    290000,                  !- Maximum Outdoor Enthalpy {J/kg}
-    -100,                    !- Minimum Outdoor Dewpoint {C}
-    100,                     !- Maximum Outdoor Dewpoint {C}
-    Sch_Min_OutAirVent,      !- Minimum Outdoor Ventilation Air Schedule Name
-    ,                        !- Opening Factor Function of Wind Speed Curve Name
-    ,                        !- AirflowNetwork Control Type Schedule Name
-    Sch_Always_On,           !- Simple Airflow Control Type Schedule Name
-    NatVent_Zone_Top_W;      !- ZoneVentilation Object Name
 
 
 !-   ===========  ALL OBJECTS IN CLASS: AVAILABILITYMANAGERASSIGNMENTLIST ===========

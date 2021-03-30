@@ -2,6 +2,10 @@ case,eui,savings
 baseline,142.89,0
 fans,129.28,0.095
 radiant_natvent_28C,101.93,0.287
-radiant_natvent_vav_28C,131.29,0.081
-radiant_natvent_29C,100.86,0.294
-radiant_natvent_vav_29C,128.26,0.102
+radiant_natvent_28C_tapwater,180.57,-0.264
+radiant_natvent_vav_28C,120.83,0.154
+radiant_natvent_vav_28C_tapwater,202.4,-0.416
+radiant_natvent_29C,100.65,0.296
+radiant_natvent_29C_tapwater,175.45,-0.228
+radiant_natvent_vav_29C,108.75,0.239
+radiant_natvent_vav_29C_tapwater,183.71,-0.286

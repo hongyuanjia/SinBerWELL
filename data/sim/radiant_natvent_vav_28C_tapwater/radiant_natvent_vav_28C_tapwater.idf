@@ -505,7 +505,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    30;                      !- Field 4
+    28;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Thermostat_Control_Type,  !- Name
@@ -2360,7 +2360,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    30;                      !- Field 4
+    28;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Radiant_Heating_Setpoint,  !- Name
@@ -2376,7 +2376,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    29;                      !- Field 4
+    28;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Radiant_Heating_Setpoint_1,  !- Name
@@ -12192,7 +12192,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Core_Bot_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Core_Bot_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12227,7 +12227,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Core_Mid_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Core_Mid_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12262,7 +12262,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Core_Top_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Core_Top_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12297,7 +12297,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_N_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_N_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12332,7 +12332,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_E_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_E_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12367,7 +12367,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_S_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_S_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12402,7 +12402,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_W_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_W_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12437,7 +12437,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_N_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_N_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12472,7 +12472,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_E_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_E_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12507,7 +12507,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_S_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_S_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12542,7 +12542,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_W_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_W_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12577,7 +12577,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_N_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_N_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12612,7 +12612,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_E_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_E_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12647,7 +12647,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_S_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_S_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12682,7 +12682,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_W_Radiant_Floor_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_W_Radiant_Floor_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12717,7 +12717,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Core_Bot_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Core_Bot_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12752,7 +12752,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Core_Mid_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Core_Mid_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12787,7 +12787,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Core_Top_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Core_Top_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12822,7 +12822,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_N_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_N_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12857,7 +12857,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_E_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_E_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12892,7 +12892,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_S_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_S_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12927,7 +12927,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Bot_W_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Bot_W_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12962,7 +12962,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_N_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_N_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -12997,7 +12997,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_E_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_E_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -13032,7 +13032,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_S_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_S_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -13067,7 +13067,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Mid_W_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Mid_W_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -13102,7 +13102,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_N_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_N_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -13137,7 +13137,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_E_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_E_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -13172,7 +13172,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_S_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_S_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -13207,7 +13207,7 @@ ZoneHVAC:LowTemperatureRadiant:VariableFlow,
     Autosize,                !- Maximum Cold Water Flow {m3/s}
     Zone_Top_W_Radiant_Ceiling_Cooling_Water_Inlet_Node,  !- Cooling Water Inlet Node Name
     Zone_Top_W_Radiant_Ceiling_Cooling_Water_Outlet_Node,  !- Cooling Water Outlet Node Name
-    1,                       !- Cooling Control Throttling Range {deltaC}
+    2,                       !- Cooling Control Throttling Range {deltaC}
     Sch_Zone_Radiant_Cooling_Setpoint_1,  !- Cooling Control Temperature Schedule Name
     Off,                     !- Condensation Control Type
     1,                       !- Condensation Control Dewpoint Offset {C}
@@ -15503,8 +15503,8 @@ Branch,
 Branch,
     Radiant_Chiller_Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
-    Chiller:ConstantCOP,     !- Component 1 Object Type
-    Radiant_Chiller,         !- Component 1 Name
+    DistrictCooling,         !- Component 1 Object Type
+    Purchased_Cooling,       !- Component 1 Name
     Radiant_Chiller_Inlet_Node,  !- Component 1 Inlet Node Name
     Radiant_Chiller_Outlet_Node;  !- Component 1 Outlet Node Name
 
@@ -16296,21 +16296,13 @@ Chiller:Electric:ReformulatedEIR,
     1.15;                    !- Sizing Factor
 
 
-!-   ===========  ALL OBJECTS IN CLASS: CHILLER:CONSTANTCOP ===========
+!-   ===========  ALL OBJECTS IN CLASS: DISTRICTCOOLING ===========
 
-Chiller:ConstantCOP,
-    Radiant_Chiller,         !- Name
-    Autosize,                !- Nominal Capacity {W}
-    6.2,                     !- Nominal COP {W/W}
-    Autosize,                !- Design Chilled Water Flow Rate {m3/s}
-    Autosize,                !- Design Condenser Water Flow Rate {m3/s}
+DistrictCooling,
+    Purchased_Cooling,       !- Name
     Radiant_Chiller_Inlet_Node,  !- Chilled Water Inlet Node Name
     Radiant_Chiller_Outlet_Node,  !- Chilled Water Outlet Node Name
-    ,                        !- Condenser Inlet Node Name
-    ,                        !- Condenser Outlet Node Name
-    AirCooled,               !- Condenser Type
-    NotModulated,            !- Chiller Flow Mode
-    1.15;                    !- Sizing Factor
+    1e+10;                   !- Nominal Capacity {W}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: DISTRICTHEATING ===========
@@ -16503,8 +16495,8 @@ PlantEquipmentList,
 
 PlantEquipmentList,
     RadCooling_Equipment_List,  !- Name
-    Chiller:ConstantCOP,     !- Equipment 1 Object Type
-    Radiant_Chiller;         !- Equipment 1 Name
+    DistrictCooling,         !- Equipment 1 Object Type
+    Purchased_Cooling;       !- Equipment 1 Name
 
 PlantEquipmentList,
     HW_Equipment_List,       !- Name

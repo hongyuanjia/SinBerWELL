@@ -505,7 +505,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    29;                      !- Field 4
+    30;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Thermostat_Control_Type,  !- Name
@@ -2360,7 +2360,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    29;                      !- Field 4
+    30;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Radiant_Heating_Setpoint,  !- Name
@@ -15495,8 +15495,8 @@ Branch,
     ,                        !- Pressure Drop Curve Name
     Chiller:ConstantCOP,     !- Component 1 Object Type
     Radiant_Chiller,         !- Component 1 Name
-    Radiant_Cooling_Tower_Inlet_Node,  !- Component 1 Inlet Node Name
-    Radiant_Cooling_Tower_Outlet_Node;  !- Component 1 Outlet Node Name
+    Radiant_Chiller_Inlet_Node,  !- Component 1 Inlet Node Name
+    Radiant_Chiller_Outlet_Node;  !- Component 1 Outlet Node Name
 
 Branch,
     HW_Demand_Inlet_Pipe_Branch,  !- Name
@@ -16230,7 +16230,7 @@ HeaderedPumps:VariableSpeed,
     2,                       !- Number of Pumps in Bank
     Sequential,              !- Flow Sequencing Control Scheme
     2e+05,                   !- Design Pump Head {Pa}
-    33806.54,                !- Design Power Consumption {W}
+    Autosize,                !- Design Power Consumption {W}
     0.932,                   !- Motor Efficiency
     0,                       !- Fraction of Motor Inefficiencies to Fluid Stream
     0.0205,                  !- Coefficient 1 of the Part Load Performance Curve
@@ -16238,7 +16238,14 @@ HeaderedPumps:VariableSpeed,
     0.5753,                  !- Coefficient 3 of the Part Load Performance Curve
     0,                       !- Coefficient 4 of the Part Load Performance Curve
     0,                       !- Minimum Flow Rate Fraction
-    Intermittent;            !- Pump Control Type
+    Intermittent,            !- Pump Control Type
+    ,                        !- Pump Flow Rate Schedule Name
+    ,                        !- Zone Name
+    ,                        !- Skin Loss Radiative Fraction
+    ,                        !- Design Power Sizing Method
+    ,                        !- Design Electric Power per Unit Flow Rate {W/(m3/s)}
+    ,                        !- Design Shaft Power per Unit Flow Rate per Unit Head {W/((m3/s)-Pa)}
+    Radiant;                 !- End-Use Subcategory
 
 
 !-   ===========  ALL OBJECTS IN CLASS: CHILLER:ELECTRIC:REFORMULATEDEIR ===========
@@ -16287,8 +16294,8 @@ Chiller:ConstantCOP,
     6.2,                     !- Nominal COP {W/W}
     Autosize,                !- Design Chilled Water Flow Rate {m3/s}
     Autosize,                !- Design Condenser Water Flow Rate {m3/s}
-    Radiant_Cooling_Tower_Inlet_Node,  !- Chilled Water Inlet Node Name
-    Radiant_Cooling_Tower_Outlet_Node,  !- Chilled Water Outlet Node Name
+    Radiant_Chiller_Inlet_Node,  !- Chilled Water Inlet Node Name
+    Radiant_Chiller_Outlet_Node,  !- Chilled Water Outlet Node Name
     ,                        !- Condenser Inlet Node Name
     ,                        !- Condenser Outlet Node Name
     AirCooled,               !- Condenser Type
@@ -17612,11 +17619,6 @@ Output:Variable,
 Output:Variable,
     *,                       !- Key Value
     Zone Mean Air Temperature,  !- Variable Name
-    Hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Cooling Tower Outlet Temperature,  !- Variable Name
     Hourly;                  !- Reporting Frequency
 
 

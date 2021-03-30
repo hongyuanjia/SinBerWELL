@@ -505,7 +505,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    29;                      !- Field 4
+    30;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Thermostat_Control_Type,  !- Name
@@ -2360,7 +2360,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
     Until: 24:00,            !- Field 3
-    29;                      !- Field 4
+    30;                      !- Field 4
 
 Schedule:Compact,
     Sch_Zone_Radiant_Heating_Setpoint,  !- Name
@@ -11875,10 +11875,10 @@ Sizing:System,
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
     ZoneSum,                 !- System Outdoor Air Method
     1,                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    CoolingDesignCapacity,   !- Cooling Design Capacity Method
+    FractionOfAutosizedCoolingCapacity,  !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
-    ,                        !- Fraction of Autosized Cooling Design Capacity
+    0.105,                   !- Fraction of Autosized Cooling Design Capacity
     HeatingDesignCapacity,   !- Heating Design Capacity Method
     autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
@@ -11914,10 +11914,10 @@ Sizing:System,
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
     ZoneSum,                 !- System Outdoor Air Method
     1,                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    CoolingDesignCapacity,   !- Cooling Design Capacity Method
+    FractionOfAutosizedCoolingCapacity,  !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
-    ,                        !- Fraction of Autosized Cooling Design Capacity
+    0.049,                   !- Fraction of Autosized Cooling Design Capacity
     HeatingDesignCapacity,   !- Heating Design Capacity Method
     autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
@@ -11953,10 +11953,10 @@ Sizing:System,
     ,                        !- Heating Supply Air Flow Rate Per Unit Heating Capacity {m3/s-W}
     ZoneSum,                 !- System Outdoor Air Method
     1,                       !- Zone Maximum Outdoor Air Fraction {dimensionless}
-    CoolingDesignCapacity,   !- Cooling Design Capacity Method
+    FractionOfAutosizedCoolingCapacity,  !- Cooling Design Capacity Method
     autosize,                !- Cooling Design Capacity {W}
     ,                        !- Cooling Design Capacity Per Floor Area {W/m2}
-    ,                        !- Fraction of Autosized Cooling Design Capacity
+    0.082,                   !- Fraction of Autosized Cooling Design Capacity
     HeatingDesignCapacity,   !- Heating Design Capacity Method
     autosize,                !- Heating Design Capacity {W}
     ,                        !- Heating Design Capacity Per Floor Area {W/m2}
@@ -14171,7 +14171,7 @@ Fan:VariableVolume,
     Sch_ACMV,                !- Availability Schedule Name
     0.61,                    !- Fan Total Efficiency
     1000,                    !- Pressure Rise {Pa}
-    7.07,                    !- Maximum Flow Rate {m3/s}
+    Autosize,                !- Maximum Flow Rate {m3/s}
     Fraction,                !- Fan Power Minimum Flow Rate Input Method
     0.5,                     !- Fan Power Minimum Flow Fraction
     ,                        !- Fan Power Minimum Air Flow Rate {m3/s}
@@ -14191,7 +14191,7 @@ Fan:VariableVolume,
     Sch_ACMV,                !- Availability Schedule Name
     0.61,                    !- Fan Total Efficiency
     1000,                    !- Pressure Rise {Pa}
-    91.76,                   !- Maximum Flow Rate {m3/s}
+    Autosize,                !- Maximum Flow Rate {m3/s}
     Fraction,                !- Fan Power Minimum Flow Rate Input Method
     0.5,                     !- Fan Power Minimum Flow Fraction
     ,                        !- Fan Power Minimum Air Flow Rate {m3/s}
@@ -14211,7 +14211,7 @@ Fan:VariableVolume,
     Sch_ACMV,                !- Availability Schedule Name
     0.61,                    !- Fan Total Efficiency
     1000,                    !- Pressure Rise {Pa}
-    6.65,                    !- Maximum Flow Rate {m3/s}
+    Autosize,                !- Maximum Flow Rate {m3/s}
     Fraction,                !- Fan Power Minimum Flow Rate Input Method
     0.5,                     !- Fan Power Minimum Flow Fraction
     ,                        !- Fan Power Minimum Air Flow Rate {m3/s}
@@ -14277,13 +14277,13 @@ Fan:ZoneExhaust,
 Coil:Cooling:Water,
     VAV_Bot_Coil,            !- Name
     Sch_Always_On,           !- Availability Schedule Name
-    0.006708,                !- Design Water Flow Rate {m3/s}
-    7.07,                    !- Design Air Flow Rate {m3/s}
-    6.7,                     !- Design Inlet Water Temperature {C}
-    24.34,                   !- Design Inlet Air Temperature {C}
-    11.47,                   !- Design Outlet Air Temperature {C}
-    0.01,                    !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
-    0.008,                   !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
+    Autosize,                !- Design Water Flow Rate {m3/s}
+    Autosize,                !- Design Air Flow Rate {m3/s}
+    Autosize,                !- Design Inlet Water Temperature {C}
+    Autosize,                !- Design Inlet Air Temperature {C}
+    Autosize,                !- Design Outlet Air Temperature {C}
+    Autosize,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
+    Autosize,                !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
     VAV_Bot_Coil_W_Inlet_Node,  !- Water Inlet Node Name
     VAV_Bot_Coil_W_Outlet_Node,  !- Water Outlet Node Name
     VAV_Bot_Coil_Air_Inlet_Node,  !- Air Inlet Node Name
@@ -14294,13 +14294,13 @@ Coil:Cooling:Water,
 Coil:Cooling:Water,
     VAV_Mid_Coil,            !- Name
     Sch_Always_On,           !- Availability Schedule Name
-    0.090853,                !- Design Water Flow Rate {m3/s}
-    91.76,                   !- Design Air Flow Rate {m3/s}
-    6.7,                     !- Design Inlet Water Temperature {C}
-    24.46,                   !- Design Inlet Air Temperature {C}
-    11.47,                   !- Design Outlet Air Temperature {C}
-    0.010264,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
-    0.008,                   !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
+    Autosize,                !- Design Water Flow Rate {m3/s}
+    Autosize,                !- Design Air Flow Rate {m3/s}
+    Autosize,                !- Design Inlet Water Temperature {C}
+    Autosize,                !- Design Inlet Air Temperature {C}
+    Autosize,                !- Design Outlet Air Temperature {C}
+    Autosize,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
+    Autosize,                !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
     VAV_Mid_Coil_W_Inlet_Node,  !- Water Inlet Node Name
     VAV_Mid_Coil_W_Outlet_Node,  !- Water Outlet Node Name
     VAV_Mid_Coil_Air_Inlet_Node,  !- Air Inlet Node Name
@@ -14311,13 +14311,13 @@ Coil:Cooling:Water,
 Coil:Cooling:Water,
     VAV_Top_Coil,            !- Name
     Sch_Always_On,           !- Availability Schedule Name
-    0.006418,                !- Design Water Flow Rate {m3/s}
-    6.65,                    !- Design Air Flow Rate {m3/s}
-    6.7,                     !- Design Inlet Water Temperature {C}
-    24.39,                   !- Design Inlet Air Temperature {C}
-    11.47,                   !- Design Outlet Air Temperature {C}
-    0.010107,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
-    0.008,                   !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
+    Autosize,                !- Design Water Flow Rate {m3/s}
+    Autosize,                !- Design Air Flow Rate {m3/s}
+    Autosize,                !- Design Inlet Water Temperature {C}
+    Autosize,                !- Design Inlet Air Temperature {C}
+    Autosize,                !- Design Outlet Air Temperature {C}
+    Autosize,                !- Design Inlet Air Humidity Ratio {kgWater/kgDryAir}
+    Autosize,                !- Design Outlet Air Humidity Ratio {kgWater/kgDryAir}
     VAV_Top_Coil_W_Inlet_Node,  !- Water Inlet Node Name
     VAV_Top_Coil_W_Outlet_Node,  !- Water Outlet Node Name
     VAV_Top_Coil_Air_Inlet_Node,  !- Air Inlet Node Name
@@ -15505,8 +15505,8 @@ Branch,
     ,                        !- Pressure Drop Curve Name
     Chiller:ConstantCOP,     !- Component 1 Object Type
     Radiant_Chiller,         !- Component 1 Name
-    Radiant_Cooling_Tower_Inlet_Node,  !- Component 1 Inlet Node Name
-    Radiant_Cooling_Tower_Outlet_Node;  !- Component 1 Outlet Node Name
+    Radiant_Chiller_Inlet_Node,  !- Component 1 Inlet Node Name
+    Radiant_Chiller_Outlet_Node;  !- Component 1 Outlet Node Name
 
 Branch,
     HW_Demand_Inlet_Pipe_Branch,  !- Name
@@ -16202,11 +16202,11 @@ HeaderedPumps:ConstantSpeed,
     CndW_Pump,               !- Name
     CndW_Supply_Inlet_Node,  !- Inlet Node Name
     CndW_Pump_Outlet_Node,   !- Outlet Node Name
-    0.165759890027,          !- Total Design Flow Rate {m3/s}
+    Autosize,                !- Total Design Flow Rate {m3/s}
     2,                       !- Number of Pumps in Bank
     Sequential,              !- Flow Sequencing Control Scheme
     150000,                  !- Design Pump Head {Pa}
-    34424.3,                 !- Design Power Consumption {W}
+    Autosize,                !- Design Power Consumption {W}
     0.926,                   !- Motor Efficiency
     0,                       !- Fraction of Motor Inefficiencies to Fluid Stream
     Intermittent;            !- Pump Control Type
@@ -16218,11 +16218,11 @@ HeaderedPumps:VariableSpeed,
     ChW_Pump,                !- Name
     ChW_Supply_Inlet_Node,   !- Inlet Node Name
     ChW_Pump_Outlet_Node,    !- Outlet Node Name
-    0.12288,                 !- Total Design Flow Rate {m3/s}
+    Autosize,                !- Total Design Flow Rate {m3/s}
     2,                       !- Number of Pumps in Bank
     Sequential,              !- Flow Sequencing Control Scheme
     2e+05,                   !- Design Pump Head {Pa}
-    33806.54,                !- Design Power Consumption {W}
+    Autosize,                !- Design Power Consumption {W}
     0.932,                   !- Motor Efficiency
     0,                       !- Fraction of Motor Inefficiencies to Fluid Stream
     0.0205,                  !- Coefficient 1 of the Part Load Performance Curve
@@ -16236,11 +16236,11 @@ HeaderedPumps:VariableSpeed,
     Radiant_Cooling_Pump,    !- Name
     Radiant_Cooling_Supply_Inlet_Node,  !- Inlet Node Name
     Radiant_Cooling_Pump_Outlet_Node,  !- Outlet Node Name
-    0.12288,                 !- Total Design Flow Rate {m3/s}
+    Autosize,                !- Total Design Flow Rate {m3/s}
     2,                       !- Number of Pumps in Bank
     Sequential,              !- Flow Sequencing Control Scheme
     2e+05,                   !- Design Pump Head {Pa}
-    33806.54,                !- Design Power Consumption {W}
+    Autosize,                !- Design Power Consumption {W}
     0.932,                   !- Motor Efficiency
     0,                       !- Fraction of Motor Inefficiencies to Fluid Stream
     0.0205,                  !- Coefficient 1 of the Part Load Performance Curve
@@ -16248,7 +16248,14 @@ HeaderedPumps:VariableSpeed,
     0.5753,                  !- Coefficient 3 of the Part Load Performance Curve
     0,                       !- Coefficient 4 of the Part Load Performance Curve
     0,                       !- Minimum Flow Rate Fraction
-    Intermittent;            !- Pump Control Type
+    Intermittent,            !- Pump Control Type
+    ,                        !- Pump Flow Rate Schedule Name
+    ,                        !- Zone Name
+    ,                        !- Skin Loss Radiative Fraction
+    ,                        !- Design Power Sizing Method
+    ,                        !- Design Electric Power per Unit Flow Rate {W/(m3/s)}
+    ,                        !- Design Shaft Power per Unit Flow Rate per Unit Head {W/((m3/s)-Pa)}
+    Radiant;                 !- End-Use Subcategory
 
 
 !-   ===========  ALL OBJECTS IN CLASS: CHILLER:ELECTRIC:REFORMULATEDEIR ===========
@@ -16262,12 +16269,12 @@ HeaderedPumps:VariableSpeed,
 !
 Chiller:Electric:ReformulatedEIR,
     SG_Chiller_1,            !- Name
-    2287872.01,              !- Reference Capacity {W}
+    Autosize,                !- Reference Capacity {W}
     6.286,                   !- Reference COP {W/W}
     6.67,                    !- Reference Leaving Chilled Water Temperature {C}
     31.74,                   !- Reference Leaving Condenser Water Temperature {C}
-    0.119575,                !- Reference Chilled Water Flow Rate {m3/s}
-    0.141168,                !- Reference Condenser Water Flow Rate {m3/s}
+    Autosize,                !- Reference Chilled Water Flow Rate {m3/s}
+    Autosize,                !- Reference Condenser Water Flow Rate {m3/s}
     WC_Cent_2010_Pb_CapFT,   !- Cooling Capacity Function of Temperature Curve Name
     WC_Cent_2010_Pb_EIRFT,   !- Electric Input to Cooling Output Ratio Function of Temperature Curve Name
     LeavingCondenserWaterTemperature,  !- Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Type
@@ -16297,8 +16304,8 @@ Chiller:ConstantCOP,
     6.2,                     !- Nominal COP {W/W}
     Autosize,                !- Design Chilled Water Flow Rate {m3/s}
     Autosize,                !- Design Condenser Water Flow Rate {m3/s}
-    Radiant_Cooling_Tower_Inlet_Node,  !- Chilled Water Inlet Node Name
-    Radiant_Cooling_Tower_Outlet_Node,  !- Chilled Water Outlet Node Name
+    Radiant_Chiller_Inlet_Node,  !- Chilled Water Inlet Node Name
+    Radiant_Chiller_Outlet_Node,  !- Chilled Water Outlet Node Name
     ,                        !- Condenser Inlet Node Name
     ,                        !- Condenser Outlet Node Name
     AirCooled,               !- Condenser Type
@@ -17910,11 +17917,6 @@ Output:Variable,
 Output:Variable,
     *,                       !- Key Value
     Zone Mean Air Temperature,  !- Variable Name
-    Hourly;                  !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Cooling Tower Outlet Temperature,  !- Variable Name
     Hourly;                  !- Reporting Frequency
 
 

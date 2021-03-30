@@ -528,6 +528,44 @@ add_equipment_to_zone <- function(idf, ids, ids_zone, seq_cooling = NULL, seq_he
 }
 # }}}
 
+# set_vav_system_load_ratio {{{
+set_vav_system_load_ratio <- function(idf) {
+    checkmate::assert_r6(idf, "Idf")
+
+    # using the sizing information to get a proper ratio of cooling loads
+    # that the VAV system should serve
+    job <- idf$run(NULL, tempdir(), echo = FALSE)
+    sizes <- job$read_table("ComponentSizes")
+
+    # get radiant cooling capacity
+    sizes_rad <- sizes[
+        comp_type == "ZoneHVAC:LowTemperatureRadiant:VariableFlow" &
+        description == "Design Size Cooling Design Capacity"
+    ][, value := as.numeric(value)]
+
+    # get radiant cooling loads per floor
+    sizes_rad[, floor := gsub(".+(BOT|MID|TOP).+", "\\1", comp_name)]
+    sizes_rad_per_floor <- sizes_rad[, .(value = sum(value)), by = "floor"]
+    sizes_rad_per_floor[, coil := sprintf("VAV_%s_COIL", floor)]
+
+    # get the coil sized capacity
+    sizes_coil <- job$tabular_data(report_name = "HVACSizingSummary",
+        table_name = "Coil Sizing Summary", wide = TRUE, string_value = FALSE)[[1]]
+
+    # get the sizing ratio for coils
+    ratio_coil <- sizes_coil[sizes_rad_per_floor, on = c("row_name" = "coil"),
+        round(1 - (i.value / `Coil Final Gross Total Capacity [W]`), 3)]
+
+    # change VAV system sizing method and apply the cooling load ratios
+    idf$set(
+        Sizing_System := list(
+            "Cooling Design Capacity Method" = "FractionOfAutosizedCoolingCapacity",
+            "Fraction of Autosized Cooling Design Capacity" = ratio_coil
+        )
+    )
+}
+# }}}
+
 # get_zone_equipment_connections {{{
 get_zone_equipment_connections <- function(idf, ids) {
     checkmate::assert_r6(idf, "Idf")
