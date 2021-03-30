@@ -22,65 +22,51 @@ fans,Fans,Toilet_Exhaust_Fan,1.05,0
 fans,Pumps,General,6.78,0.103
 fans,Heat Rejection,General,3.3,0.086
 fans,Heat Recovery,General,0,
-radiant_28C_chiller_nonv,Cooling,General,17.23,0.525
-radiant_28C_chiller_nonv,Interior Lighting,General_Lights,28.96,0
-radiant_28C_chiller_nonv,Interior Lighting,Parking_Lights,3.96,0
-radiant_28C_chiller_nonv,Exterior Lighting,ExteriorLights,2.13,0
-radiant_28C_chiller_nonv,Interior Equipment,MiscPlug,31.16,0
-radiant_28C_chiller_nonv,Interior Equipment,Personal Fans,1.08,0
-radiant_28C_chiller_nonv,Fans,Ventilation (simple),0.84,0
-radiant_28C_chiller_nonv,Pumps,General,6.77,0.104
-radiant_28C_chiller_nonv,Heat Rejection,General,1.36,0.623
-radiant_28C_chiller_nonv,Heat Recovery,General,0,
-radiant_28C_chiller_nv,Cooling,General,15.99,0.559
-radiant_28C_chiller_nv,Interior Lighting,General_Lights,28.96,0
-radiant_28C_chiller_nv,Interior Lighting,Parking_Lights,3.96,0
-radiant_28C_chiller_nv,Exterior Lighting,ExteriorLights,2.13,0
-radiant_28C_chiller_nv,Interior Equipment,MiscPlug,31.16,0
-radiant_28C_chiller_nv,Interior Equipment,Personal Fans,1.08,0
-radiant_28C_chiller_nv,Fans,Ventilation (simple),0.84,0
-radiant_28C_chiller_nv,Pumps,General,6.32,0.164
-radiant_28C_chiller_nv,Heat Rejection,General,1.27,0.648
-radiant_28C_chiller_nv,Heat Recovery,General,0,
-radiant_28C_chiller_doas,Cooling,General,17.41,0.52
-radiant_28C_chiller_doas,Interior Lighting,General_Lights,28.96,0
-radiant_28C_chiller_doas,Interior Lighting,Parking_Lights,3.96,0
-radiant_28C_chiller_doas,Exterior Lighting,ExteriorLights,2.13,0
-radiant_28C_chiller_doas,Interior Equipment,MiscPlug,31.16,0
-radiant_28C_chiller_doas,Interior Equipment,Personal Fans,1.08,0
-radiant_28C_chiller_doas,Fans,Ventilation (simple),0.84,0
-radiant_28C_chiller_doas,Fans,DOAS Fan,6.01,0
-radiant_28C_chiller_doas,Pumps,General,6.57,0.131
-radiant_28C_chiller_doas,Heat Rejection,General,1.27,0.648
-radiant_28C_chiller_doas,Heat Recovery,General,0,
-radiant_28C_tower_nonv,Cooling,General,0,1
-radiant_28C_tower_nonv,Interior Lighting,General_Lights,28.96,0
-radiant_28C_tower_nonv,Interior Lighting,Parking_Lights,3.96,0
-radiant_28C_tower_nonv,Exterior Lighting,ExteriorLights,2.13,0
-radiant_28C_tower_nonv,Interior Equipment,MiscPlug,31.16,0
-radiant_28C_tower_nonv,Interior Equipment,Personal Fans,1.08,0
-radiant_28C_tower_nonv,Fans,Ventilation (simple),0.84,0
-radiant_28C_tower_nonv,Pumps,General,3.99,0.472
-radiant_28C_tower_nonv,Heat Rejection,General,1.77,0.51
-radiant_28C_tower_nonv,Heat Recovery,General,0,
-radiant_28C_tower_nv,Cooling,General,0,1
-radiant_28C_tower_nv,Interior Lighting,General_Lights,28.96,0
-radiant_28C_tower_nv,Interior Lighting,Parking_Lights,3.96,0
-radiant_28C_tower_nv,Exterior Lighting,ExteriorLights,2.13,0
-radiant_28C_tower_nv,Interior Equipment,MiscPlug,31.16,0
-radiant_28C_tower_nv,Interior Equipment,Personal Fans,1.08,0
-radiant_28C_tower_nv,Fans,Ventilation (simple),0.84,0
-radiant_28C_tower_nv,Pumps,General,3.76,0.503
-radiant_28C_tower_nv,Heat Rejection,General,1.75,0.515
-radiant_28C_tower_nv,Heat Recovery,General,0,
-radiant_28C_tower_doas,Cooling,General,0,1
-radiant_28C_tower_doas,Interior Lighting,General_Lights,28.96,0
-radiant_28C_tower_doas,Interior Lighting,Parking_Lights,3.96,0
-radiant_28C_tower_doas,Exterior Lighting,ExteriorLights,2.13,0
-radiant_28C_tower_doas,Interior Equipment,MiscPlug,31.16,0
-radiant_28C_tower_doas,Interior Equipment,Personal Fans,1.08,0
-radiant_28C_tower_doas,Fans,Ventilation (simple),0.84,0
-radiant_28C_tower_doas,Fans,DOAS Fan,6.01,0
-radiant_28C_tower_doas,Pumps,General,3.59,0.525
-radiant_28C_tower_doas,Heat Rejection,General,1.6,0.557
-radiant_28C_tower_doas,Heat Recovery,General,0,
+radiant_natvent_28C,Cooling,General,15.12,0.583
+radiant_natvent_28C,Interior Lighting,General_Lights,28.96,0
+radiant_natvent_28C,Interior Lighting,Parking_Lights,3.96,0
+radiant_natvent_28C,Exterior Lighting,ExteriorLights,2.13,0
+radiant_natvent_28C,Interior Equipment,MiscPlug,31.16,0
+radiant_natvent_28C,Interior Equipment,Personal Fans,1.08,0
+radiant_natvent_28C,Fans,Ventilation (simple),0.84,0
+radiant_natvent_28C,Fans,AHU,0,1
+radiant_natvent_28C,Fans,Toilet_Exhaust_Fan,1.05,0
+radiant_natvent_28C,Pumps,General,3.48,0.54
+radiant_natvent_28C,Heat Rejection,General,0,1
+radiant_natvent_28C,Heat Recovery,General,0,
+radiant_natvent_vav_28C,Cooling,General,29.04,0.199
+radiant_natvent_vav_28C,Interior Lighting,General_Lights,28.96,0
+radiant_natvent_vav_28C,Interior Lighting,Parking_Lights,3.96,0
+radiant_natvent_vav_28C,Exterior Lighting,ExteriorLights,2.13,0
+radiant_natvent_vav_28C,Interior Equipment,MiscPlug,31.16,0
+radiant_natvent_vav_28C,Interior Equipment,Personal Fans,1.08,0
+radiant_natvent_vav_28C,Fans,Ventilation (simple),0.84,0
+radiant_natvent_vav_28C,Fans,AHU,7.23,0.454
+radiant_natvent_vav_28C,Fans,Toilet_Exhaust_Fan,1.05,0
+radiant_natvent_vav_28C,Pumps,General,9.3,-0.23
+radiant_natvent_vav_28C,Heat Rejection,General,2.39,0.338
+radiant_natvent_vav_28C,Heat Recovery,General,0,
+radiant_natvent_29C,Cooling,General,14.47,0.601
+radiant_natvent_29C,Interior Lighting,General_Lights,28.96,0
+radiant_natvent_29C,Interior Lighting,Parking_Lights,3.96,0
+radiant_natvent_29C,Exterior Lighting,ExteriorLights,2.13,0
+radiant_natvent_29C,Interior Equipment,MiscPlug,31.16,0
+radiant_natvent_29C,Interior Equipment,Personal Fans,1.08,0
+radiant_natvent_29C,Fans,Ventilation (simple),0.84,0
+radiant_natvent_29C,Fans,AHU,0,1
+radiant_natvent_29C,Fans,Toilet_Exhaust_Fan,1.05,0
+radiant_natvent_29C,Pumps,General,3.06,0.595
+radiant_natvent_29C,Heat Rejection,General,0,1
+radiant_natvent_29C,Heat Recovery,General,0,
+radiant_natvent_vav_29C,Cooling,General,26.3,0.274
+radiant_natvent_vav_29C,Interior Lighting,General_Lights,28.96,0
+radiant_natvent_vav_29C,Interior Lighting,Parking_Lights,3.96,0
+radiant_natvent_vav_29C,Exterior Lighting,ExteriorLights,2.13,0
+radiant_natvent_vav_29C,Interior Equipment,MiscPlug,31.16,0
+radiant_natvent_vav_29C,Interior Equipment,Personal Fans,1.08,0
+radiant_natvent_vav_29C,Fans,Ventilation (simple),0.84,0
+radiant_natvent_vav_29C,Fans,AHU,7.23,0.454
+radiant_natvent_vav_29C,Fans,Toilet_Exhaust_Fan,1.05,0
+radiant_natvent_vav_29C,Pumps,General,9.77,-0.292
+radiant_natvent_vav_29C,Heat Rejection,General,1.64,0.546
+radiant_natvent_vav_29C,Heat Recovery,General,0,

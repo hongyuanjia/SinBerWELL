@@ -62,11 +62,9 @@ reference building, including:
 
 For radiant cooling systems, 6 different scenarios are considered:
 
-| # | Name                                                                                                                          | Setpoint   | Chilled water source | Ventilation Type                |
-|---|-------------------------------------------------------------------------------------------------------------------------------|------------|----------------------|---------------------------------|
-| 1 | [`radiant_28C_chiller_nonv.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_28C_chiller_nonv.idf) | 28°C ± 2°C | Water cooled chiller | No ventilation                  |
-| 2 | [`radiant_28C_chiller_nv.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_28C_chiller_nv.idf)     | 28°C ± 2°C | Water cooled chiller | Natural ventilation with 5 ACH  |
-| 3 | [`radiant_28C_chiller_doas.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_28C_chiller_doas.idf) | 28°C ± 2°C | Water cooled chiller | DOAS with one DX coil per floor |
-| 4 | [`radiant_28C_tower_nonv.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_28C_tower_nonv.idf)     | 28°C ± 2°C | Cooling tower        | No ventilation                  |
-| 5 | [`radiant_28C_tower_nv.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_28C_tower_nv.idf)         | 28°C ± 2°C | Cooling tower        | Natural ventilation with 5 ACH  |
-| 6 | [`radiant_28C_tower_doas.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_28C_tower_doas.idf)     | 28°C ± 2°C | Cooling tower        | DOAS with one DX coil per floor |
+| # | Name                                                                                                                        | Setpoint   | Raidant chilled water source | Ventilation Type               | Auxiliary cooling |
+|---|-----------------------------------------------------------------------------------------------------------------------------|------------|------------------------------|--------------------------------|-------------------|
+| 1 | [`radiant_natvent_28C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_28C.idf)         | 28°C ± 2°C | Constant COP chiller         | Natural ventilation with 5 ACH | No                |
+| 2 | [`radiant_natvent_29C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_28C.idf)         | 29°C ± 1°C | Constant COP chiller         | Natural ventilation with 5 ACH | No                |
+| 3 | [`radiant_natvent_vav_28C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_vav_29C.idf) | 28°C ± 2°C | Constant COP chiller         | Natural ventilation with 5 ACH | VAV               |
+| 4 | [`radiant_natvent_vav_28C.idf`](https://github.com/hongyuanjia/SinBerWELL/blob/master/data/idf/radiant_natvent_vav_29C.idf) | 29°C ± 1°C | Constant COP Chiller         | Natural ventilation with 5 ACH | VAV               |

@@ -416,473 +416,1393 @@ add_radiant_cooling <- function(idf, core, perimeter, type = c("floor", "ceiling
 }
 # }}}
 
-# create_chilled_water_loop {{{
-create_chilled_water_loop <- function(idf, loop_setpoint = 6.7, demand_branches = NULL) {
-    checkmate::assert_number(loop_setpoint)
-    checkmate::assert_character(demand_branches, any.missing = FALSE, unique = TRUE,
-        null.ok = TRUE)
+# get_conditioned_zones {{{
+get_conditioned_zones <- function(idf) {
+    checkmate::assert_r6(idf, "Idf")
 
-    idf$add(
-        # demand inlet pipe
-        Pipe_Adiabatic = list("ChW_Demand_Inlet_Pipe",
-            "ChW_Demand_Inlet_Node", "ChW_Demand_Inlet_Pipe_Outlet_Node"),
-        Branch = list("ChW_Demand_Inlet_Branch", NULL, "Pipe:Adiabatic", "ChW_Demand_Inlet_Pipe",
-            "ChW_Demand_Inlet_Node", "ChW_Demand_Inlet_Pipe_Outlet_Node"
-        ),
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
 
-        # demand bypass pipe
-        Pipe_Adiabatic = list("ChW_Demand_Bypass_Pipe",
-            "ChW_Demand_Bypass_Pipe_Inlet_Node", "ChW_Demand_Bypass_Pipe_Outlet_Node"),
-        Branch = list("ChW_Demand_Bypass_Branch", NULL, "Pipe:Adiabatic", "ChW_Demand_Bypass_Pipe",
-            "ChW_Demand_Bypass_Pipe_Inlet_Node", "ChW_Demand_Bypass_Pipe_Outlet_Node"
-        ),
+    cls_thermo <- "ZoneControl:Thermostat"
+    if (!idf$is_valid_class(cls_thermo)) {
+        stop(sprintf("No '%s' objects were found which are needed when getting conditioned zones.", cls_thermo))
+    }
 
-        # demand outlet pipe
-        Pipe_Adiabatic = list("ChW_Demand_Outlet_Pipe",
-            "ChW_Demand_Outlet_Pipe_Inlet_Node", "ChW_Demand_Outlet_Node"),
-        Branch = list("ChW_Demand_Outlet_Branch", NULL, "Pipe:Adiabatic", "ChW_Demand_Outlet_Pipe",
-            "ChW_Demand_Outlet_Pipe_Inlet_Node", "ChW_Demand_Outlet_Node"
-        ),
+    val_thermo <- eplusr::get_idf_value(idd_env, idf_env, class = cls_thermo, field = "Zone or ZoneList Name")
 
-        # branch list
-        BranchList = as.list(c("ChW_Demand_Branches",
-            "ChW_Demand_Inlet_Branch",
-            demand_branches,
-            "ChW_Demand_Bypass_Branch",
-            "ChW_Demand_Outlet_Branch"
-        )),
+    # expand zone list
+    rel_thermo <- eplusr::get_idf_relation(idd_env, idf_env, NULL, val_thermo$value_id,
+        "ref_to", depth = 1L, class = "Zone")
 
-        # splitter and mixer
-        Connector_Splitter = as.list(c("ChW_Demand_Splitter",
-            "ChW_Demand_Inlet_Branch",
-            demand_branches,
-            "ChW_Demand_Bypass_Branch"
-        )),
-        Connector_Mixer = as.list(c("ChW_Demand_Mixer",
-            "ChW_Demand_Outlet_Branch",
-            demand_branches,
-            "ChW_Demand_Bypass_Branch"
-        )),
-        ConnectorList = list("ChW_Demand_Connectors",
-            "Connector:Splitter", "ChW_Demand_Splitter",
-            "Connector:Mixer", "ChW_Demand_Mixer"
-        ),
+    ids <- unique(rel_thermo$src_object_id)
+    if (idf$is_valid_class("ZoneList")) {
+        ids <- setdiff(ids, idf$object_id("ZoneList")$ZoneList)
+    }
 
-        # supply inlet pump
-        Pump_VariableSpeed = list("ChW_Pump",
-            "ChW_Supply_Inlet_Node", "ChW_Pump_Outlet_Node",
-            "Autosize", 3.5E5, "Autosize", 0.9, 0,
-            0, 1, 0, 0, 0, "Intermittent"
-        ),
-        Branch = list("ChW_Supply_Inlet_Branch", NULL, "Pump:VariableSpeed", "ChW_Pump",
-            "ChW_Supply_Inlet_Node", "ChW_Pump_Outlet_Node"
-        ),
-
-        # chiller
-        Curve_Biquadratic = list(
-            "WC_Cent_2010_Pb_CapFT",
-            0.536234, 0.005581, -0.0013654, 0.0488966, -0.0012018, 0.0010523,
-            5, 10, 17.78, 46.11
-        ),
-        Curve_Biquadratic = list(
-            "WC_Cent_2010_Pb_EIRFT",
-            1.0821822, 0.0042977, -0.0013182, -0.0260781, 0.0008256, -0.0006013,
-            5, 10, 17.78, 46.11
-        ),
-        Curve_Bicubic = list(
-            "WC_Cent_Gt600_2010_Pa_EIRFPLR",
-            -0.1360532, 0.008642703, 0.000003855583, 1.024034, 0.06047444, -0.00894786,
-            0, 0.05706602, 0, 0,
-            31.13, 36.52, 0.19, 1.03
-        ),
-        Chiller_Electric_ReformulatedEIR = list("SGP_Chiller",
-            reference_capacity = "Autosize",
-            reference_cop = 6.286,
-            reference_leaving_chilled_water_temperature = 6.7,
-            reference_leaving_condenser_water_temperature = 32,
-            reference_chilled_water_flow_rate = "Autosize",
-            reference_condenser_water_flow_rate = "Autosize",
-            "WC_Cent_2010_Pb_CapFT", "WC_Cent_2010_Pb_EIRFT",
-            "LeavingCondenserWaterTemperature", "WC_Cent_Gt600_2010_Pa_EIRFPLR",
-            0.1, 1, 1, 0.1,
-            "ChW_Chiller_Inlet_Node", "ChW_Chiller_Outlet_Node",
-            "CndW_Chiller_Inlet_Node", "CndW_Chiller_Outlet_Node"
-        ),
-        Branch = list("ChW_Supply_Equipment_Branch", NULL, "Chiller:Electric:ReformulatedEIR",
-            "SGP_Chiller",
-            "ChW_Chiller_Inlet_Node", "ChW_Chiller_Outlet_Node"
-        ),
-        Branch = list("CndW_Demand_Equipment_Branch", NULL, "Chiller:Electric:ReformulatedEIR",
-            "SGP_Chiller",
-            "CndW_Chiller_Inlet_Node", "CndW_Chiller_Outlet_Node"
-        ),
-
-        # supply bypass pipe
-        Pipe_Adiabatic = list("ChW_Supply_Bypass_Pipe",
-            "ChW_Supply_Bypass_Pipe_Inlet_Node", "ChW_Supply_Bypass_Pipe_Outlet_Node"),
-        Branch = list("ChW_Supply_Bypass_Branch", NULL, "Pipe:Adiabatic", "ChW_Supply_Bypass_Pipe",
-            "ChW_Supply_Bypass_Pipe_Inlet_Node", "ChW_Supply_Bypass_Pipe_Outlet_Node"
-        ),
-
-        # supply outlet pipe
-        Pipe_Adiabatic = list("ChW_Supply_Outlet_Pipe",
-            "ChW_Supply_Outlet_Pipe_Inlet_Node", "ChW_Supply_Outlet_Node"),
-        Branch = list("ChW_Supply_Outlet_Branch", NULL, "Pipe:Adiabatic", "ChW_Supply_Outlet_Pipe",
-            "ChW_Supply_Outlet_Pipe_Inlet_Node", "ChW_Supply_Outlet_Node"
-        ),
-
-        # branch list
-        BranchList = list("ChW_Supply_Branches",
-            "ChW_Supply_Inlet_Branch",
-            "ChW_Supply_Equipment_Branch", "ChW_Supply_Bypass_Branch",
-            "ChW_Supply_Outlet_Branch"
-        ),
-
-        # splitter and mixer
-        Connector_Splitter = list("ChW_Supply_Splitter",
-            "ChW_Supply_Inlet_Branch",
-            "ChW_Supply_Equipment_Branch", "ChW_Supply_Bypass_Branch"
-        ),
-        Connector_Mixer = list("ChW_Supply_Mixer",
-            "ChW_Supply_Outlet_Branch",
-            "ChW_Supply_Equipment_Branch", "ChW_Supply_Bypass_Branch"
-        ),
-        ConnectorList = list("ChW_Supply_Connectors",
-            "Connector:Splitter", "ChW_Supply_Splitter",
-            "Connector:Mixer", "ChW_Supply_Mixer"
-        ),
-
-        # plant equipment list
-        PlantEquipmentList = list("ChW_Equipment_List", "Chiller:Electric:ReformulatedEIR", "SGP_Chiller"),
-
-        # plant equipment operation
-        PlantEquipmentOperation_CoolingLoad = list("ChW_Operation_Scheme", 0, 1E9, "ChW_Equipment_List"),
-        PlantEquipmentOperationSchemes = list(
-            "ChW_Loop_Operation_Scheme_List",
-            "PlantEquipmentOperation:CoolingLoad",
-            "ChW_Operation_Scheme", "Sch_Always_On"
-        ),
-
-        # plant loop
-        PlantLoop = list("ChW_Loop", "Water", NULL,
-            "ChW_Loop_Operation_Scheme_List", "ChW_Supply_Outlet_Node",
-            98, 1, "Autosize", 0, "Autocalculate",
-            "ChW_Supply_Inlet_Node", "ChW_Supply_Outlet_Node",
-            "ChW_Supply_Branches", "ChW_Supply_Connectors",
-            "ChW_Demand_Inlet_Node", "ChW_Demand_Outlet_Node",
-            "ChW_Demand_Branches", "ChW_Demand_Connectors"
-        ),
-
-        SetpointManager_Scheduled = list(
-            "ChW_Loop_Setpoint_Manager", "Temperature",
-            "Sch_ChW_Loop_Temp", "ChW_Supply_Outlet_Node"
-        ),
-
-        Sizing_Plant = list("ChW_Loop", "Cooling", loop_setpoint, 5)
-    )
-
-    idf$set(Sch_ChW_Loop_Temp = list(field_4 = as.character(loop_setpoint)))
-
-    idf
+    stats::setNames(ids, idf_env$object[J(ids), on = "object_id", object_name])
 }
 # }}}
 
-# create_condensed_water_loop {{{
-create_condensed_water_loop <- function(idf, loop_setpoint = 30, demand_branches = NULL) {
-    checkmate::assert_number(loop_setpoint)
-    checkmate::assert_character(demand_branches, any.missing = FALSE, unique = TRUE,
-        null.ok = TRUE)
+# add_equipment_to_zone {{{
+add_equipment_to_zone <- function(idf, ids, ids_zone, seq_cooling = NULL, seq_heating = NULL, reorder = TRUE) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+    checkmate::assert_integer(ids_zone, any.missing = FALSE, unique = TRUE, null.ok = TRUE, len = length(ids))
+    checkmate::assert_count(seq_cooling, positive = TRUE, null.ok = TRUE)
+    checkmate::assert_count(seq_heating, positive = TRUE, null.ok = TRUE)
+    checkmate::assert_flag(reorder)
 
-    idf$add(
-        # demand inlet pipe
-        Pipe_Adiabatic = list("CndW_Demand_Inlet_Pipe",
-            "CndW_Demand_Inlet_Node", "CndW_Demand_Inlet_Pipe_Outlet_Node"),
-        Branch = list("CndW_Demand_Inlet_Branch", NULL, "Pipe:Adiabatic", "CndW_Demand_Inlet_Pipe",
-            "CndW_Demand_Inlet_Node", "CndW_Demand_Inlet_Pipe_Outlet_Node"
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    # get equipment connections
+    conn <- get_zone_equipment_connections(idf, ids_zone)
+
+    obj_equip <- eplusr::get_idf_object(idd_env, idf_env, NULL, ids)
+
+    val_list <- eplusr::get_idf_value(idd_env, idf_env, "ZoneHVAC:EquipmentList",
+        conn$id_list, property = "extensible_group")
+
+    # add new fields
+    new_equip <- val_list[extensible_group == 1L][, `:=`(value_chr = NA_character_, value_num = NA_real_)]
+
+    # remove empty extensible group from original
+    grp_emp <- val_list[extensible_group > 0L, by = c("object_id", "extensible_group"),
+        list(empty = all(is.na(value_chr)))][empty == TRUE]
+    if (nrow(grp_emp)) {
+        val_list <- val_list[!grp_emp, on = c("object_id", "extensible_group")]
+    }
+
+    # get maximum cooling and heating sequence
+    seq_max <- val_list[, list(extensible_group = max(extensible_group)), by = "object_id"]
+    if (is.null(seq_cooling)) {
+        seq_cooling <- seq_max$extensible_group + 1L
+    } else {
+        seq_cooling <- pmin(seq_cooling, seq_max$extensible_group + 1L)
+    }
+    if (is.null(seq_heating)) {
+        seq_heating <- seq_max$extensible_group + 1L
+    } else {
+        seq_heating <- pmin(seq_heating, seq_max$extensible_group + 1L)
+    }
+
+    # add inputs
+    conn[, `:=`(
+        equip_type = obj_equip$class_name, equip_name = obj_equip$object_name,
+        seq_cooling = seq_cooling, seq_heating = seq_heating
+    )]
+
+    # update new input
+    new_equip[conn, on = c("object_id" = "id_list"), by = .EACHI, c("value_chr", "value_num") := {
+        value_chr[1L:4L] <- c(i.equip_type, i.equip_name, i.seq_cooling, i.seq_heating)
+        value_num[3L:4L] <- c(i.seq_cooling, i.seq_heating)
+        list(value_chr, value_num)
+    }]
+
+    # update extensible_group
+    new_equip[seq_max, on = "object_id", extensible_group := i.extensible_group + 1L]
+
+    # update existing cooling sequential
+    val_list[conn, on = c("object_id" = "id_list"), `:=`(seq_cooling = i.seq_cooling, seq_heating = i.seq_heating)]
+    val_list[extensible_group > 0L, by = c("object_id", "extensible_group"), c("value_chr", "value_num") := {
+        if (value_num[3L] >= seq_cooling[1L]) value_num[3L] <- value_num[3L] + 1L
+        if (value_num[4L] >= seq_heating[1L]) value_num[4L] <- value_num[4L] + 1L
+        value_chr[3L:4L] <- as.character(value_num[3L:4L])
+        list(value_chr, value_num)
+    }]
+    val_list[, c("seq_cooling", "seq_heating") := NULL]
+
+    # combine
+    val_list <- data.table::rbindlist(list(val_list, new_equip), use.names = TRUE)
+
+    if (reorder) {
+        val_list[extensible_group > 0L, by = c("object_id", "extensible_group"), extensible_group := value_num[3L]]
+        data.table::setorderv(val_list, c("object_id", "extensible_group"))
+    }
+
+    val <- val_list[, list(id = object_id, class = class_name, index = seq_len(.N), value = value_chr), by = "object_id"]
+
+    chk <- eplusr::level_checks()
+    chk$extensible <- FALSE
+    eplusr::with_option(list(validate_level = chk), idf$update(val))
+}
+# }}}
+
+# get_zone_equipment_connections {{{
+get_zone_equipment_connections <- function(idf, ids) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    obj_zone <- eplusr::get_idf_object(idd_env, idf_env, "Zone", ids)
+
+    # get zone equipment connection
+    rel_conn <- eplusr::get_idf_relation(idd_env, idf_env, obj_zone$object_id, NULL,
+        "ref_by", class_ref = "none", class = "ZoneHVAC:EquipmentConnections")
+    rel_conn <- rel_conn[J(obj_zone$object_id), on = "src_object_id"]
+
+    # create equipment connection if not exist
+    if (anyNA(rel_conn$object_id)) {
+        mis <- rel_conn[is.na(object_id)]
+
+        # get zone names without equipment connection
+        nm_zone <- obj_zone[J(mis$src_object_id), on = "object_id", object_name]
+
+        # create equipment connection
+        nm_node <- new_node_name(idf, sprintf("%s_Air_Node", nm_zone))
+        obj_conn <- eplusr::without_checking(idf$add("ZoneHVAC:EquipmentConnections" := list(
+            zone_name = nm_zone, zone_air_node_name = nm_node
+        ), .all = TRUE))
+        equipconn <- get_named_id(obj_conn)
+        rel_conn[is.na(object_id), object_id := equipconn]
+    }
+
+    # get zone equipment list
+    rel_list <- eplusr::get_idf_relation(idd_env, idf_env, rel_conn$object_id, NULL,
+        "ref_to", class_ref = "none", class = "ZoneHVAC:EquipmentList")
+    rel_list <- rel_list[J(rel_conn$object_id), on = "object_id"]
+
+    # create equipment list if not exist
+    if (anyNA(rel_list$src_object_id)) {
+        mis <- rel_conn[J(rel_list[is.na(src_object_id), object_id]), on = "object_id"]
+
+        # get zone names without equipment list
+        nm_zone <- obj_zone[J(mis$src_object_id), on = "object_id", object_name]
+
+        # create equipment list
+        nm_list <- new_object_name(idf, "ZoneHVAC:EquipmentList", sprintf("%s_Equipment_List", nm_zone))
+        obj_list <- eplusr::without_checking(idf$add("ZoneHVAC:EquipmentList" := list(name = nm_list)))
+        equiplist <- get_named_id(obj_list)
+        rel_list[is.na(src_object_id), src_object_id := equiplist]
+
+        # assign to zone equipment connections
+        obj <- idf$set(c(mis$object_id) := list(zone_conditioning_equipment_list_name = names(equiplist)))
+    }
+
+    data.table::setnames(rel_conn, c("object_id", "src_object_id"), c("id_conn", "id_zone"))
+    data.table::setnames(rel_list, c("object_id", "src_object_id"), c("id_conn", "id_list"))
+    data.table::set(rel_list, NULL, setdiff(names(rel_list), c("id_conn", "id_list")), NULL)
+
+    rel <- rel_list[rel_conn, on = "id_conn", id_zone := i.id_zone][J(ids), on = "id_zone"]
+    rel[idf_env$object, on = c("id_zone" = "object_id"), name_zone := i.object_name]
+    rel[idf_env$object, on = c("id_list" = "object_id"), name_list := i.object_name]
+
+    data.table::setcolorder(rel, c("id_zone", "name_zone", "id_list", "name_list", "id_conn"))[]
+}
+# }}}
+
+# new_radiant_cooling {{{
+new_radiant_cooling <- function(idf, ids_zone, id_const, type = "floor",
+                                setpoint = c(20, 28), throttling_range = 2) {
+    checkmate::assert_integer(ids_zone, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+    checkmate::assert_int(id_const)
+    checkmate::assert_double(setpoint, lower = 10, upper = 40, any.missing = FALSE,
+        len = 2, sorted = TRUE, unique = TRUE)
+    checkmate::assert_number(throttling_range, lower = 0, upper = 100)
+    checkmate::assert_choice(type, c("floor", "ceiling"))
+    type <- switch(type, floor = "Floor", ceiling = "Ceiling")
+
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    obj_zone <- eplusr::get_idf_object(idd_env, idf_env, "Zone", ids_zone)
+    obj_const <- eplusr::get_idf_object(idd_env, idf_env, "Construction:InternalSource", id_const)
+
+    # get update zone surface construction {{{
+    geom <- idf$geometry()
+    surf <- eplusr::get_priv_env(geom)$m_geoms$surface
+    surf <- surf[J(obj_zone$object_name), on = "zone_name"][surface_type %in% type,
+        .SD, .SDcols = c("id", "name", "surface_type", "construction_name", "zone_name")]
+    # get surface areas in order to calculate flow fraction for each surface
+    surf[, area := geom$area(object = surf$name)$area]
+    surf[, flow_fraction := round(area / sum(area), 3), by = c("zone_name", "surface_type")]
+    surf[, area := NULL]
+
+    idf$set(.(surf[surface_type == type, id]) := list(construction_name = obj_const$object_name))
+    # }}}
+
+    # group surfaces by zone and type to create radiant surface groups {{{
+    dt_zone <- unique(surf[, .SD, .SDcols = c("zone_name", "surface_type")], by = "zone_name")
+    nm_grp <- new_object_name(idf, "ZoneHVAC:LowTemperatureRadiant:SurfaceGroup",
+        sprintf("%s_Radiant_%s_Surfaces", dt_zone$zone_name, dt_zone$surface_type))
+    dt_zone[, group_surface := nm_grp]
+    surf[dt_zone, on = "zone_name", `:=`(group_surface = i.group_surface)]
+    rad_surf <- surf[, by = c("zone_name", "surface_type"), {
+        val <- mapply(function(surf, frac) c(surf, frac), name, flow_fraction, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+        val <- c(group_surface[1L], unlist(val))
+        list(class = "ZoneHVAC:LowTemperatureRadiant:SurfaceGroup", index = seq_along(val), value = val)
+    }]
+    rad_surf[, `:=`(id = data.table::rleid(zone_name, surface_type))]
+    idf$load(rad_surf)
+    # }}}
+
+    # create low temperature radiant {{{
+    # control setpoint schedules
+    sch_heating <- new_schedule_compact(idf, "Sch_Zone_Radiant_Heating_Setpoint",
+        "Temperature", allday = list(..24 = setpoint[1L]))
+    sch_cooling <- new_schedule_compact(idf, "Sch_Zone_Radiant_Cooling_Setpoint",
+        "Temperature", allday = list(..24 = setpoint[2L]))
+
+    dt_zone[, radiant := new_object_name(idf, "ZoneHVAC:LowTemperatureRadiant:VariableFlow",
+        sprintf("%s_Radiant_%s", zone_name, surface_type))]
+
+    rad <- idf$to_table(class = rep("ZoneHVAC:LowTemperatureRadiant:VariableFlow", nrow(dt_zone)),
+        init = TRUE, wide = TRUE)
+    rad[, `:=`(
+        Name = dt_zone$radiant,
+        `Zone Name` = dt_zone$zone_name,
+        `Surface Name or Radiant Surface Group Name` = dt_zone$group_surface,
+        `Heating Design Capacity` = "Autosize",
+        `Heating Water Inlet Node Name` = new_node_name(idf, sprintf("%s_Heating_Water_Inlet_Node", dt_zone$radiant)),
+        `Heating Water Outlet Node Name` = new_node_name(idf, sprintf("%s_Heating_Water_Outlet_Node", dt_zone$radiant)),
+        `Heating Control Temperature Schedule Name` = names(sch_heating),
+        `Maximum Hot Water Flow` = "Autosize",
+        `Cooling Design Capacity` = "Autosize",
+        `Cooling Water Inlet Node Name` = new_node_name(idf, sprintf("%s_Cooling_Water_Inlet_Node", dt_zone$radiant)),
+        `Cooling Water Outlet Node Name` = new_node_name(idf, sprintf("%s_Cooling_Water_Outlet_Node", dt_zone$radiant)),
+        `Cooling Control Temperature Schedule Name` = names(sch_cooling),
+        `Condensation Control Type` = "Off",
+        `Condensation Control Dewpoint Offset` = 1,
+        `Maximum Cold Water Flow` = "Autosize",
+        `Cooling Control Throttling Range` = throttling_range
+    )]
+    obj <- idf$load(eplusr::dt_to_load(rad))
+    # }}}
+
+    get_named_id(obj)
+}
+# }}}
+# new_chilled_water_loop {{{
+new_chilled_water_loop <- function(idf, name_prefix = "ChW", supply_setpoint = 6.7,
+                                   id_chiller, id_pump, ids_equip = NULL,
+                                   use_equip_branch = FALSE) {
+    checkmate::assert_string(name_prefix)
+    checkmate::assert_number(supply_setpoint)
+    checkmate::assert_int(id_chiller, null.ok = TRUE)
+    checkmate::assert_int(id_pump, null.ok = TRUE)
+    checkmate::assert_integer(ids_equip, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+    checkmate::assert_flag(use_equip_branch)
+
+    node_dict <- get_pair_node_dict(idf)
+
+    obj_pump <- idf$object(id_pump)
+    if (!obj_pump$class_name() %in% idf$definition()$class_name(by_group = TRUE)$Pumps) {
+        stop(sprintf("'id_pump' (%i) should be an object ID for pump object, but is binded to an object in class %s.",
+            id_pump, obj_pump$class_name()
+        ))
+    }
+
+    cls_chiller <- idf$definition()$class_name(by_group = TRUE)[["Plant Heating and Cooling Equipment"]]
+    cls_chiller <- c("DistrictCooling", cls_chiller[startsWith(cls_chiller, "Chiller")])
+
+    cls_tower <- idf$definition()$class_name(by_group = TRUE)[["Condenser Equipment and Heat Exchangers"]]
+    cls_tower <- cls_tower[grepl("CoolingTower:|FluidCooler:|HeatExchanger:|", cls_tower)]
+    cls_tower <- cls_tower[!cls_tower %in% paste0("GroundHeatExchanger:", c("Vertical:Properties", "Vertical:Array", "Vertical:Single", "ResponseFactors"))]
+
+    obj_chiller <- idf$object(id_chiller)
+    if (!obj_chiller$class_name() %in% c(cls_chiller, cls_tower)) {
+        stop(sprintf("'id_chiller' (%i) should be an object ID for district cooling or chiller object, but is binded to an object in class %s.",
+            id_chiller, obj_chiller$class_name()
+        ))
+    }
+
+    # demand pipes
+    demand_inlet <- sprintf("%s_Demand_Inlet_Pipe", name_prefix)
+    demand_bypass <- sprintf("%s_Demand_Bypass_Pipe", name_prefix)
+    demand_outlet <- sprintf("%s_Demand_Outlet_Pipe", name_prefix)
+    demand_pipes <- new_pipe_adiabatic(idf, c(demand_inlet, demand_bypass, demand_outlet))
+    demand_pipes_branch <- new_branch(idf, demand_pipes, NULL, "water", node_dict)
+
+    # demand equipment
+    demand_equip_branch <- NULL
+    if (!is.null(ids_equip)) {
+        # create new branches
+        if (!use_equip_branch) {
+            dt_equip <- idf$to_table(ids_equip)[, list(name = name[1]), by = "id"]
+            demand_equip_branch <- new_branch(idf, dt_equip$id, NULL, "water", node_dict)
+        # else directly treat input ID as branches
+        } else {
+            dt_equip <- idf$to_table(ids_equip, "Branch", wide = TRUE)
+            demand_equip_branch <- setNames(dt_equip$id, dt_equip$name)
+        }
+    }
+
+    # demand branches
+    demand_branches <- c(demand_pipes_branch[1L], demand_equip_branch, demand_pipes_branch[-1L])
+
+    # demand branchlist
+    demand_branchlist <- new_branchlist(idf, sprintf("%s_Demand", name_prefix), demand_branches)
+
+    # demand connectors
+    demand_connectors <- new_connectors(idf, sprintf("%s_Demand", name_prefix), demand_branches)
+
+    # supply pipes
+    supply_bypass <- sprintf("%s_Supply_Bypass_Pipe", name_prefix)
+    supply_outlet <- sprintf("%s_Supply_Outlet_Pipe", name_prefix)
+    supply_pipes <- new_pipe_adiabatic(idf, c(supply_bypass, supply_outlet))
+    supply_pipes_branch <- new_branch(idf, supply_pipes, NULL, "water", node_dict)
+
+    # supply pump
+    supply_pump_branch <- new_branch(idf, obj_pump$id(), NULL, "water", node_dict)
+
+    # supply chiller
+    supply_chiller_branch <- new_branch(idf, obj_chiller$id(), NULL, "water",
+        node_dict[class == obj_chiller$class_name() & !grepl("Condenser", inlet)])
+
+    # supply branches
+    supply_branches <- c(supply_pump_branch, supply_chiller_branch, supply_pipes_branch)
+
+    # supply branchlist
+    supply_branchlist <- new_branchlist(idf, sprintf("%s_Supply", name_prefix), supply_branches)
+
+    # supply connectors
+    supply_connectors <- new_connectors(idf, sprintf("%s_Supply", name_prefix), supply_branches)
+
+    # plant equipment operation
+    plant_equiplist <- new_plant_equipment_list(idf, sprintf("%s_Equipment_List", name_prefix), obj_chiller$id())
+    plant_equipopt <- new_plant_equipment_operation(idf, sprintf("%s_Equipment_Operation", name_prefix), "cooling_load", plant_equiplist, 0, 1E9)
+    plant_equipoptsch <- new_plant_equipment_operation_schemes(idf, sprintf("%s_Equipment_Operation_Schemes", name_prefix),
+        plant_equipopt, idf$object("Sch_Always_On")$id())
+
+    # plant nodes
+    supply_inlet <- idf$object(supply_pump_branch)$Component_1_Inlet_Node_Name
+    supply_outlet <- idf$object(supply_pipes_branch[2])$Component_1_Outlet_Node_Name
+    demand_inlet <- idf$object(demand_pipes_branch[1])$Component_1_Inlet_Node_Name
+    demand_outlet <- idf$object(demand_pipes_branch[3])$Component_1_Outlet_Node_Name
+
+    nm_loop <- new_object_name(idf, "PlantLoop", sprintf("%s_Loop", name_prefix))
+
+    obj <- idf$add(
+        # plant loop
+        PlantLoop = list(
+            name = nm_loop,
+            fluid_type = "Water",
+            plant_equipment_operation_scheme_name = names(plant_equipoptsch),
+            loop_temperature_setpoint_node_name = supply_outlet,
+            maximum_loop_temperature = 99,
+            minimum_loop_temperature = 1,
+            maximum_loop_flow_rate = "Autosize",
+            minimum_loop_flow_rate = 0,
+            plant_loop_volume = "Autocalculate",
+            plant_side_inlet_node_name = supply_inlet,
+            plant_side_outlet_node_name = supply_outlet,
+            plant_side_branch_list_name = names(supply_branchlist),
+            plant_side_connector_list_name = names(supply_connectors[3L]),
+            demand_side_inlet_node_name = demand_inlet,
+            demand_side_outlet_node_name = demand_outlet,
+            demand_side_branch_list_name = names(demand_branchlist),
+            demand_side_connector_list_name = names(demand_connectors[3L])
         ),
 
-        # demand bypass pipe
-        Pipe_Adiabatic = list("CndW_Demand_Bypass_Pipe",
-            "CndW_Demand_Bypass_Pipe_Inlet_Node", "CndW_Demand_Bypass_Pipe_Outlet_Node"),
-        Branch = list("CndW_Demand_Bypass_Branch", NULL, "Pipe:Adiabatic", "CndW_Demand_Bypass_Pipe",
-            "CndW_Demand_Bypass_Pipe_Inlet_Node", "CndW_Demand_Bypass_Pipe_Outlet_Node"
-        ),
-
-        # demand outlet pipe
-        Pipe_Adiabatic = list("CndW_Demand_Outlet_Pipe",
-            "CndW_Demand_Outlet_Pipe_Inlet_Node", "CndW_Demand_Outlet_Node"),
-        Branch = list("CndW_Demand_Outlet_Branch", NULL, "Pipe:Adiabatic", "CndW_Demand_Outlet_Pipe",
-            "CndW_Demand_Outlet_Pipe_Inlet_Node", "CndW_Demand_Outlet_Node"
-        ),
-
-        # branch list
-        BranchList = as.list(c("CndW_Demand_Branches",
-            "CndW_Demand_Inlet_Branch",
-            demand_branches,
-            "CndW_Demand_Bypass_Branch",
-            "CndW_Demand_Outlet_Branch"
-        )),
-
-        # splitter and mixer
-        Connector_Splitter = as.list(c("CndW_Demand_Splitter",
-            "CndW_Demand_Inlet_Branch",
-            demand_branches,
-            "CndW_Demand_Bypass_Branch"
-        )),
-        Connector_Mixer = as.list(c("CndW_Demand_Mixer",
-            "CndW_Demand_Outlet_Branch",
-            demand_branches,
-            "CndW_Demand_Bypass_Branch"
-        )),
-        ConnectorList = list("CndW_Demand_Connectors",
-            "Connector:Splitter", "CndW_Demand_Splitter",
-            "Connector:Mixer", "CndW_Demand_Mixer"
-        ),
-
-        # supply inlet pump
-        Pump_VariableSpeed = list("CndW_Pump",
-            "CndW_Supply_Inlet_Node", "CndW_Pump_Outlet_Node",
-            "Autosize", 3.5E5, "Autosize", 0.9, 0,
-            0, 1, 0, 0, 0, "Intermittent"
-        ),
-        Branch = list("CndW_Supply_Inlet_Branch", NULL, "Pump:VariableSpeed", "CndW_Pump",
-            "CndW_Supply_Inlet_Node", "CndW_Pump_Outlet_Node"
-        ),
-
-        # cooling tower
-        CoolingTower_SingleSpeed = list("SGP_CoolingTower",
-            "CndW_Tower_Inlet_Node", "CndW_Tower_Outlet_Node",
-            design_water_flow_rate = "Autosize",
-            design_air_flow_rate = "Autosize",
-            design_fan_power = "Autosize",
-            design_u_factor_times_area_value = 114900,
-            free_convection_regime_air_flow_rate = "Autocalculate",
-            free_convection_regime_air_flow_rate_sizing_factor = 0.125,
-            free_convection_regime_u_factor_times_area_value = 11480,
-            free_convection_u_factor_times_area_value_sizing_factor = 0.1,
-            "UFactorTimesAreaAndDesignWaterFlowRate", 1.25,
-            NULL, NULL, 0.1, NULL, NULL, NULL, NULL, 0, 2,
-            NULL, NULL, 0.2, 0.008, NULL, 3, NULL, NULL, NULL, "FanCycling",
-            3, "MinimalCell", 0.33, 2.5, 1
-        ),
-        Branch = list("CndW_Supply_Equipment_Branch", NULL, "CoolingTower:SingleSpeed",
-            "SGP_CoolingTower",
-            "CndW_Tower_Inlet_Node", "CndW_Tower_Outlet_Node"
-        ),
-
-        # supply bypass pipe
-        Pipe_Adiabatic = list("CndW_Supply_Bypass_Pipe",
-            "CndW_Supply_Bypass_Pipe_Inlet_Node", "CndW_Supply_Bypass_Pipe_Outlet_Node"),
-        Branch = list("CndW_Supply_Bypass_Branch", NULL, "Pipe:Adiabatic", "CndW_Supply_Bypass_Pipe",
-            "CndW_Supply_Bypass_Pipe_Inlet_Node", "CndW_Supply_Bypass_Pipe_Outlet_Node"
-        ),
-
-        # supply outlet pipe
-        Pipe_Adiabatic = list("CndW_Supply_Outlet_Pipe",
-            "CndW_Supply_Outlet_Pipe_Inlet_Node", "CndW_Supply_Outlet_Node"),
-        Branch = list("CndW_Supply_Outlet_Branch", NULL, "Pipe:Adiabatic", "CndW_Supply_Outlet_Pipe",
-            "CndW_Supply_Outlet_Pipe_Inlet_Node", "CndW_Supply_Outlet_Node"
-        ),
-
-        # branch list
-        BranchList = list("CndW_Supply_Branches",
-            "CndW_Supply_Inlet_Branch",
-            "CndW_Supply_Equipment_Branch", "CndW_Supply_Bypass_Branch",
-            "CndW_Supply_Outlet_Branch"
-        ),
-
-        # splitter and mixer
-        Connector_Splitter = list("CndW_Supply_Splitter",
-            "CndW_Supply_Inlet_Branch",
-            "CndW_Supply_Equipment_Branch", "CndW_Supply_Bypass_Branch"
-        ),
-        Connector_Mixer = list("CndW_Supply_Mixer",
-            "CndW_Supply_Outlet_Branch",
-            "CndW_Supply_Equipment_Branch", "CndW_Supply_Bypass_Branch"
-        ),
-        ConnectorList = list("CndW_Supply_Connectors",
-            "Connector:Splitter", "CndW_Supply_Splitter",
-            "Connector:Mixer", "CndW_Supply_Mixer"
-        ),
-
-        # plant equipment list
-        CondenserEquipmentList = list("CndW_Equipment_List", "CoolingTower:SingleSpeed", "SGP_CoolingTower"),
-
-        # plant equipment operation
-        PlantEquipmentOperation_CoolingLoad = list("CndW_Operation_Scheme", 0, 1E9, "CndW_Equipment_List"),
-        CondenserEquipmentOperationSchemes = list("CndW_Loop_Operation_Scheme_List", "PlantEquipmentOperation:CoolingLoad",
-            "CndW_Operation_Scheme", "Sch_Always_On"
-        ),
-
-        # condenser loop
-        CondenserLoop = list("CndW_Loop", "Water", NULL,
-            "CndW_Loop_Operation_Scheme_List", "CndW_Supply_Outlet_Node",
-            80, 5, "Autosize", 0, "Autocalculate",
-            "CndW_Supply_Inlet_Node", "CndW_Supply_Outlet_Node",
-            "CndW_Supply_Branches", "CndW_Supply_Connectors",
-            "CndW_Demand_Inlet_Node", "CndW_Demand_Outlet_Node",
-            "CndW_Demand_Branches", "CndW_Demand_Connectors"
-        )
+        Sizing_Plant = list(nm_loop, "Cooling", supply_setpoint, 5)
     )
 
-    checkmate::assert_vector(loop_setpoint, any.missing = FALSE, len = 1L)
-    if (loop_setpoint > 0) {
-        idf$add(
-            SetpointManager_Scheduled = list(
-                "CndW_Loop_Setpoint_Manager", "Temperature",
-                "Sch_CndW_Loop_Temp", "CndW_Supply_Outlet_Node"
-            )
-        )
+    loop <- get_named_id(obj[1L])
 
-        idf$set(Sch_CndW_Loop_Temp = list(field_4 = as.character(loop_setpoint)))
+    sch <- new_schedule_compact(idf,
+        sprintf("%s_Loop_Supply_Temp", name_prefix),
+        "Temperature", allday = list(..24 = supply_setpoint)
+    )
 
-        idf$add(Sizing_Plant = list("CndW_Loop", "Cooling", loop_setpoint, 5))
+    nm_spm <- new_object_name(idf, "SetpointManager:Scheduled", sprintf("%s_Loop_SPM_Scheduled", name_prefix))
+    spm <- get_named_id(idf$add(
+        SetpointManager_Scheduled = list(nm_spm, "Temperature", names(sch), supply_outlet)
+    ))
 
+    list(plant_loop = loop,
+         operation_schemes = plant_equipoptsch,
+         setpoint_manager = spm,
+         supply = list(branch_list = supply_branches, splitter = supply_connectors[1], mixer = supply_connectors[2]),
+         demand = list(branch_list = demand_branches, splitter = demand_connectors[1], mixer = demand_connectors[2])
+    )
+}
+# }}}
+# new_condenser_water_loop {{{
+new_condenser_water_loop <- function(idf, name_prefix = "CndW", supply_setpoint = 29.5,
+                                     id_tower, id_pump, ids_equip = NULL,
+                                     use_equip_branch = FALSE) {
+    checkmate::assert_string(name_prefix)
+    checkmate::assert_number(supply_setpoint)
+    checkmate::assert_int(id_tower, null.ok = TRUE)
+    checkmate::assert_int(id_pump, null.ok = TRUE)
+    checkmate::assert_integer(ids_equip, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+    checkmate::assert_flag(use_equip_branch)
+
+    node_dict <- get_pair_node_dict(idf)
+
+    obj_pump <- idf$object(id_pump)
+    if (!obj_pump$class_name() %in% idf$definition()$class_name(by_group = TRUE)$Pumps) {
+        stop(sprintf("'id_pump' (%i) should be an object ID for pump object, but is binded to an object in class %s.",
+            id_pump, obj_pump$class_name()
+        ))
+    }
+
+    cls_tower <- idf$definition()$class_name(by_group = TRUE)[["Condenser Equipment and Heat Exchangers"]]
+    cls_tower <- cls_tower[grepl("CoolingTower:|FluidCooler:|HeatExchanger:|", cls_tower)]
+    cls_tower <- cls_tower[!cls_tower %in% paste0("GroundHeatExchanger:", c("Vertical:Properties", "Vertical:Array", "Vertical:Single", "ResponseFactors"))]
+    obj_tower <- idf$object(id_tower)
+    if (!obj_tower$class_name() %in% cls_tower) {
+        stop(sprintf("'id_pump' (%i) should be an object ID for condenser equipment, but is binded to an object in class '%s'.",
+            id_tower, obj_tower$class_name()
+        ))
+    }
+
+    # demand pipes
+    demand_inlet <- sprintf("%s_Demand_Inlet_Pipe", name_prefix)
+    demand_bypass <- sprintf("%s_Demand_Bypass_Pipe", name_prefix)
+    demand_outlet <- sprintf("%s_Demand_Outlet_Pipe", name_prefix)
+    demand_pipes <- new_pipe_adiabatic(idf, c(demand_inlet, demand_bypass, demand_outlet))
+    demand_pipes_branch <- new_branch(idf, demand_pipes, NULL, "water", node_dict)
+
+    # demand equipment
+    demand_equip_branch <- NULL
+    if (!is.null(ids_equip)) {
+        # create new branches
+        if (!use_equip_branch) {
+            dt_equip <- idf$to_table(ids_equip)[, list(name = name[1]), by = "id"]
+            demand_equip_branch <- new_branch(idf, dt_equip$id, NULL, "water", node_dict)
+        # else directly treat input ID as branches
+        } else {
+            dt_equip <- idf$to_table(ids_equip, "Branch", wide = TRUE)
+            demand_equip_branch <- setNames(dt_equip$id, dt_equip$name)
+        }
+    }
+
+    # demand branches
+    demand_branches <- c(demand_pipes_branch[1L], demand_equip_branch, demand_pipes_branch[-1L])
+
+    # demand branchlist
+    demand_branchlist <- new_branchlist(idf, sprintf("%s_Demand", name_prefix), demand_branches)
+
+    # demand connectors
+    demand_connectors <- new_connectors(idf, sprintf("%s_Demand", name_prefix), demand_branches)
+
+    # supply pipes
+    supply_bypass <- sprintf("%s_Supply_Bypass_Pipe", name_prefix)
+    supply_outlet <- sprintf("%s_Supply_Outlet_Pipe", name_prefix)
+    supply_pipes <- new_pipe_adiabatic(idf, c(supply_bypass, supply_outlet))
+    supply_pipes_branch <- new_branch(idf, supply_pipes, NULL, "water", node_dict)
+
+    # supply pump
+    supply_pump_branch <- new_branch(idf, obj_pump$id(), NULL, "water", node_dict)
+
+    # supply tower
+    supply_tower_branch <- new_branch(idf, obj_tower$id(), NULL, "water")
+
+    # supply branches
+    supply_branches <- c(supply_pump_branch, supply_tower_branch, supply_pipes_branch)
+
+    # supply branchlist
+    supply_branchlist <- new_branchlist(idf, sprintf("%s_Supply", name_prefix), supply_branches)
+
+    # supply connectors
+    supply_connectors <- new_connectors(idf, sprintf("%s_Supply", name_prefix), supply_branches)
+
+    # plant equipment operation
+    plant_equiplist <- new_condenser_equipment_list(idf, sprintf("%s_Equipment_List", name_prefix), obj_tower$id())
+    plant_equipopt <- new_plant_equipment_operation(idf, sprintf("%s_Equipment_Operation", name_prefix), "cooling_load", plant_equiplist, 0, 1E9)
+    plant_equipoptsch <- new_condenser_equipment_operation_schemes(idf, sprintf("%s_Equipment_Operation_Schemes", name_prefix),
+        plant_equipopt, idf$object("Sch_Always_On")$id())
+
+    # plant nodes
+    supply_inlet <- idf$object(supply_pump_branch)$Component_1_Inlet_Node_Name
+    supply_outlet <- idf$object(supply_pipes_branch[2])$Component_1_Outlet_Node_Name
+    demand_inlet <- idf$object(demand_pipes_branch[1])$Component_1_Inlet_Node_Name
+    demand_outlet <- idf$object(demand_pipes_branch[3])$Component_1_Outlet_Node_Name
+
+    nm_loop <- new_object_name(idf, "CondenserLoop", sprintf("%s_Loop", name_prefix))
+
+    obj <- idf$add(
+        # condenser loop
+        CondenserLoop = list(
+            name = nm_loop,
+            fluid_type = "Water",
+            condenser_equipment_operation_scheme_name = names(plant_equipoptsch),
+            condenser_loop_temperature_setpoint_node_name = supply_outlet,
+            maximum_loop_temperature = 99,
+            minimum_loop_temperature = 1,
+            maximum_loop_flow_rate = "Autosize",
+            minimum_loop_flow_rate = 0,
+            condenser_loop_volume = "Autocalculate",
+            condenser_side_inlet_node_name = supply_inlet,
+            condenser_side_outlet_node_name = supply_outlet,
+            condenser_side_branch_list_name = names(supply_branchlist),
+            condenser_side_connector_list_name = names(supply_connectors[3L]),
+            demand_side_inlet_node_name = demand_inlet,
+            demand_side_outlet_node_name = demand_outlet,
+            condenser_demand_side_branch_list_name = names(demand_branchlist),
+            condenser_demand_side_connector_list_name = names(demand_connectors[3L])
+        ),
+
+        Sizing_Plant = list(nm_loop, "Condenser", supply_setpoint, 5)
+    )
+
+    loop <- get_named_id(obj[1L])
+
+    sch <- new_schedule_compact(idf,
+        sprintf("%s_Loop_Supply_Temp", name_prefix),
+        "Temperature", allday = list(..24 = supply_setpoint)
+    )
+
+    nm_spm <- new_object_name(idf, "SetpointManager:Scheduled", sprintf("%s_Loop_SPM_Scheduled", name_prefix))
+    spm <- get_named_id(idf$add(
+        SetpointManager_Scheduled = list(nm_spm, "Temperature", names(sch), supply_outlet)
+    ))
+
+    list(condenser_loop = loop,
+         operation_schemes = plant_equipoptsch,
+         setpoint_manager = spm,
+         supply = list(branch_list = supply_branches, splitter = supply_connectors[1], mixer = supply_connectors[2]),
+         demand = list(branch_list = demand_branches, splitter = demand_connectors[1], mixer = demand_connectors[2])
+    )
+}
+# }}}
+# new_hot_water_loop {{{
+new_hot_water_loop <- function(idf, name_prefix = "HW", supply_setpoint = 60,
+                               id_boiler, id_pump, ids_equip = NULL,
+                               use_equip_branch = FALSE) {
+    checkmate::assert_string(name_prefix)
+    checkmate::assert_number(supply_setpoint)
+    checkmate::assert_int(id_boiler, null.ok = TRUE)
+    checkmate::assert_int(id_pump, null.ok = TRUE)
+    checkmate::assert_integer(ids_equip, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+    checkmate::assert_flag(use_equip_branch)
+
+    node_dict <- get_pair_node_dict(idf)
+
+    obj_pump <- idf$object(id_pump)
+    if (!obj_pump$class_name() %in% idf$definition()$class_name(by_group = TRUE)$Pumps) {
+        stop(sprintf("'id_pump' (%i) should be an object ID for pump object, but is binded to an object in class %s.",
+            id_pump, obj_pump$class_name()
+        ))
+    }
+
+    cls_boiler <- idf$definition()$class_name(by_group = TRUE)[["Plant Heating and Cooling Equipment"]]
+    cls_boiler <- c("DistrictHeating", cls_boiler[startsWith(cls_boiler, "Boiler")])
+
+    cls_ex <- idf$definition()$class_name(by_group = TRUE)[["Condenser Equipment and Heat Exchangers"]]
+    cls_ex <- cls_ex[grepl("HeatExchanger:", cls_ex)]
+    cls_ex <- cls_ex[!cls_ex %in% paste0("GroundHeatExchanger:", c("Vertical:Properties", "Vertical:Array", "Vertical:Single", "ResponseFactors"))]
+
+    obj_boiler <- idf$object(id_boiler)
+    if (!obj_boiler$class_name() %in% c(cls_boiler, cls_ex)) {
+        stop(sprintf("'id_pump' (%i) should be an object ID for district heating or boiler object or heat exchanger, but is binded to an object in class %s.",
+            id_boiler, obj_boiler$class_name()
+        ))
+    }
+
+    # demand pipes
+    demand_inlet <- sprintf("%s_Demand_Inlet_Pipe", name_prefix)
+    demand_bypass <- sprintf("%s_Demand_Bypass_Pipe", name_prefix)
+    demand_outlet <- sprintf("%s_Demand_Outlet_Pipe", name_prefix)
+    demand_pipes <- new_pipe_adiabatic(idf, c(demand_inlet, demand_bypass, demand_outlet))
+    demand_pipes_branch <- new_branch(idf, demand_pipes, NULL, "water", node_dict)
+
+    # demand equipment
+    demand_equip_branch <- NULL
+    if (!is.null(ids_equip)) {
+        # create new branches
+        if (!use_equip_branch) {
+            dt_equip <- idf$to_table(ids_equip)[, list(name = name[1]), by = "id"]
+            demand_equip_branch <- new_branch(idf, dt_equip$id, NULL, "water", node_dict)
+        # else directly treat input ID as branches
+        } else {
+            dt_equip <- idf$to_table(ids_equip, "Branch", wide = TRUE)
+            demand_equip_branch <- setNames(dt_equip$id, dt_equip$name)
+        }
+    }
+
+    # demand branches
+    demand_branches <- c(demand_pipes_branch[1L], demand_equip_branch, demand_pipes_branch[-1L])
+
+    # demand branchlist
+    demand_branchlist <- new_branchlist(idf, sprintf("%s_Demand", name_prefix), demand_branches)
+
+    # demand connectors
+    demand_connectors <- new_connectors(idf, sprintf("%s_Demand", name_prefix), demand_branches)
+
+    # supply pipes
+    supply_bypass <- sprintf("%s_Supply_Bypass_Pipe", name_prefix)
+    supply_outlet <- sprintf("%s_Supply_Outlet_Pipe", name_prefix)
+    supply_pipes <- new_pipe_adiabatic(idf, c(supply_bypass, supply_outlet))
+    supply_pipes_branch <- new_branch(idf, supply_pipes, NULL, "water", node_dict)
+
+    # supply pump
+    supply_pump_branch <- new_branch(idf, obj_pump$id(), NULL, "water", node_dict)
+
+    # supply boiler
+    supply_boiler_branch <- new_branch(idf, obj_boiler$id(), NULL, "water",
+        node_dict[class == obj_boiler$class_name()])
+
+    # supply branches
+    supply_branches <- c(supply_pump_branch, supply_boiler_branch, supply_pipes_branch)
+
+    # supply branchlist
+    supply_branchlist <- new_branchlist(idf, sprintf("%s_Supply", name_prefix), supply_branches)
+
+    # supply connectors
+    supply_connectors <- new_connectors(idf, sprintf("%s_Supply", name_prefix), supply_branches)
+
+    # plant equipment operation
+    plant_equiplist <- new_plant_equipment_list(idf, sprintf("%s_Equipment_List", name_prefix), obj_boiler$id())
+    plant_equipopt <- new_plant_equipment_operation(idf, sprintf("%s_Equipment_Operation", name_prefix), "cooling_load", plant_equiplist, 0, 1E9)
+    plant_equipoptsch <- new_plant_equipment_operation_schemes(idf, sprintf("%s_Equipment_Operation_Schemes", name_prefix),
+        plant_equipopt, idf$object("Sch_Always_On")$id())
+
+    # plant nodes
+    supply_inlet <- idf$object(supply_pump_branch)$Component_1_Inlet_Node_Name
+    supply_outlet <- idf$object(supply_pipes_branch[2])$Component_1_Outlet_Node_Name
+    demand_inlet <- idf$object(demand_pipes_branch[1])$Component_1_Inlet_Node_Name
+    demand_outlet <- idf$object(demand_pipes_branch[3])$Component_1_Outlet_Node_Name
+
+    nm_loop <- new_object_name(idf, "PlantLoop", sprintf("%s_Loop", name_prefix))
+
+    obj <- idf$add(
+        # plant loop
+        PlantLoop = list(
+            name = nm_loop,
+            fluid_type = "Water",
+            plant_equipment_operation_scheme_name = names(plant_equipoptsch),
+            loop_temperature_setpoint_node_name = supply_outlet,
+            maximum_loop_temperature = 99,
+            minimum_loop_temperature = 1,
+            maximum_loop_flow_rate = "Autosize",
+            minimum_loop_flow_rate = 0,
+            plant_loop_volume = "Autocalculate",
+            plant_side_inlet_node_name = supply_inlet,
+            plant_side_outlet_node_name = supply_outlet,
+            plant_side_branch_list_name = names(supply_branchlist),
+            plant_side_connector_list_name = names(supply_connectors[3L]),
+            demand_side_inlet_node_name = demand_inlet,
+            demand_side_outlet_node_name = demand_outlet,
+            demand_side_branch_list_name = names(demand_branchlist),
+            demand_side_connector_list_name = names(demand_connectors[3L])
+        ),
+
+        Sizing_Plant = list(nm_loop, "Heating", supply_setpoint, 10)
+    )
+
+    loop <- get_named_id(obj[1L])
+
+    sch <- new_schedule_compact(idf,
+        sprintf("%s_Loop_Supply_Temp", name_prefix),
+        "Temperature", allday = list(..24 = supply_setpoint)
+    )
+
+    nm_spm <- new_object_name(idf, "SetpointManager:Scheduled", sprintf("%s_Loop_SPM_Scheduled", name_prefix))
+    spm <- get_named_id(idf$add(
+        SetpointManager_Scheduled = list(nm_spm, "Temperature", names(sch), supply_outlet)
+    ))
+
+    list(plant_loop = loop,
+         operation_schemes = plant_equipoptsch,
+         setpoint_manager = spm,
+         supply = list(branch_list = supply_branches, splitter = supply_connectors[1], mixer = supply_connectors[2]),
+         demand = list(branch_list = demand_branches, splitter = demand_connectors[1], mixer = demand_connectors[2])
+    )
+}
+# }}}
+
+# new_schedule_compact {{{
+new_schedule_compact <- function(idf, name, type_limits, ...) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_string(name)
+
+    name <- new_object_name(idf, "Schedule:Compact", name)
+
+    sch <- eplusr::schedule_compact(idf, name, new = TRUE)
+    sch$type_limits(type_limits)
+    eplusr:::idfsch_cmpt_set(NULL, sch, eplusr::get_priv_env(sch), ..., .env = parent.frame())
+
+    stats::setNames(sch$id(), sch$name())
+}
+# }}}
+# new_pipe_adiabatic {{{
+new_pipe_adiabatic <- function(idf, names) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_character(names, any.missing = FALSE, unique = TRUE)
+
+    pipe <- idf$to_table(class = rep("Pipe:Adiabatic", length(names)), init = TRUE, wide = TRUE)
+
+    names <- new_object_name(idf, "Pipe:Adiabatic", names)
+
+    pipe[, `:=`(
+        Name = names,
+        `Inlet Node Name` = sprintf("%s_Inlet_Node", names),
+        `Outlet Node Name` = sprintf("%s_Outlet_Node", names)
+    )]
+
+    obj <- idf$load(eplusr::dt_to_load(pipe))
+
+    get_named_id(obj)
+}
+# }}}
+
+# new_branch {{{
+new_branch <- function(idf, ids, name_prefix = NULL, node_type = NULL, node_dict = NULL) {
+    nodes <- get_pair_node(idf, ids, node_type, node_dict)
+
+    checkmate::assert_character(name_prefix, null.ok = TRUE, max.len = length(ids))
+    if (is.null(name_prefix)) {
+        name_prefix <- rep("", length(ids))
+    } else if (length(name_prefix) == 1L) {
+        name_prefix <- rep(paste0("_", name_prefix), length(ids))
+    } else if (length(name_prefix) == length(ids)) {
+        name_prefix <- paste0("_", name_prefix)
     } else {
-        idf$add(
-            # supply outlet setpoint
-            SetpointManager_FollowOutdoorAirTemperature = list(
-                "CndW_Loop_Setpoint_Manager", "Temperature",
-                "OutdoorAirWetBulb", loop_setpoint, 80, 5, "CndW_Supply_Outlet_Node"
-            )
-        )
+        stop("'name_prefix' for branches should be NULL, or have a length of 1 of the same length as 'ids'")
+    }
 
-        idf$add(Sizing_Plant = list("CndW_Loop", "Condenser", 20, 5))
+    bran <- idf$to_table(class = rep("Branch", nrow(nodes)), init = TRUE, wide = TRUE)
+
+    nm <- new_object_name(idf, "Branch", sprintf("%s%s_Branch", nodes$name, name_prefix))
+
+    bran[, `:=`(
+        Name = nm,
+        `Component 1 Object Type` = nodes$class,
+        `Component 1 Name` = nodes$name,
+        `Component 1 Inlet Node Name` = nodes$value_inlet,
+        `Component 1 Outlet Node Name` = nodes$value_outlet
+    )]
+
+    obj <- idf$load(eplusr::dt_to_load(bran))
+
+    get_named_id(obj)
+}
+# }}}
+# new_branchlist {{{
+new_branchlist <- function(idf, name_prefix = "ChW_Demand", ids) {
+    checkmate::assert_string(name_prefix)
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE)
+
+    nm_branlist <- new_object_name(idf, "BranchList", sprintf("%s_Branches", name_prefix))
+
+    dt_obj <- idf$to_table(ids, class = "Branch")[, list(name = name[1]), by = "id"]
+
+    obj <- idf$add(BranchList = as.list(c(nm_branlist, dt_obj$name)))
+
+    get_named_id(obj)
+}
+# }}}
+# new_connectors {{{
+new_connectors <- function(idf, name_prefix = "ChW_Demand", ids) {
+    checkmate::assert_string(name_prefix)
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE)
+
+    dt_obj <- idf$to_table(ids, class = "Branch")[, list(name = name[1]), by = "id"]
+
+    nm_splitter <- new_object_name(idf, "Connector:Splitter", sprintf("%s_Splitter", name_prefix))
+    nm_mixer <- new_object_name(idf, "Connector:Mixer", sprintf("%s_Mixer", name_prefix))
+    nm_conn <- new_object_name(idf, "ConnectorList", sprintf("%s_Connectors", name_prefix))
+
+    obj <- idf$add(
+        # splitter and mixer
+        Connector_Splitter = as.list(c(nm_splitter, dt_obj$name[-length(ids)])),
+        Connector_Mixer = as.list(c(nm_mixer, dt_obj$name[length(ids)], dt_obj$name[-c(1L, length(ids))])),
+        ConnectorList = as.list(c(nm_conn, "Connector:Splitter", nm_splitter, "Connector:Mixer", nm_mixer))
+    )
+
+    get_named_id(obj)
+}
+# }}}
+
+# new_plant_equipment_list {{{
+new_plant_equipment_list <- function(idf, name, ids) {
+    checkmate::assert_string(name)
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE)
+
+    name <- new_object_name(idf, "PlantEquipmentList", name)
+
+    dt_obj <- idf$to_table(ids)[, list(class = class[1L], name = name[1L]), by = "id"]
+
+    val <- data.table::transpose(list(dt_obj$class, dt_obj$name))
+    obj <- idf$add(PlantEquipmentList = as.list(c(name, unlist(val))))
+
+    get_named_id(obj)
+}
+# }}}
+# new_condenser_equipment_list {{{
+new_condenser_equipment_list <- function(idf, name, ids) {
+    checkmate::assert_string(name)
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE)
+
+    name <- new_object_name(idf, "CondenserEquipmentList", name)
+
+    dt_obj <- idf$to_table(ids)[, list(class = class[1L], name = name[1]), by = "id"]
+
+    val <- data.table::transpose(list(dt_obj$class, dt_obj$name))
+    obj <- idf$add(CondenserEquipmentList = as.list(c(name, unlist(val))))
+
+    get_named_id(obj)
+}
+# }}}
+# new_plant_equipment_operation {{{
+new_plant_equipment_operation <- function(idf, name, type, ids, lowers, uppers, ref_node = NULL) {
+    checkmate::assert_string(name)
+
+    cls <- idf$class_name(by_group = TRUE, all = TRUE)[["Plant-Condenser Control"]]
+    cls <- cls[startsWith(cls, "PlantEquipmentOperation:")]
+    cls <- grep("ComponentSetpoint|ThermalEnergyStorage", cls, value = TRUE, invert = TRUE)
+    types <- tolower(gsub("([a-z])([A-Z])", "\\1_\\2", substring(cls, 25L)))
+
+    checkmate::assert_choice(type, types)
+    checkmate::assert_integer(ids, any.missing = FALSE)
+    checkmate::assert_numeric(lowers, finite = TRUE, any.missing = FALSE, len = length(ids), sorted = TRUE)
+    checkmate::assert_numeric(uppers, finite = TRUE, any.missing = FALSE, len = length(ids), sorted = TRUE)
+    checkmate::assert_string(ref_node, null.ok = TRUE)
+
+    dt_obj <- idf$to_table(ids)[, list(name = name[1]), by = "id"]
+
+    val <- unlist(lapply(seq_len(nrow(dt_obj)), function(i) list(lowers[i], uppers[i], dt_obj$name[i])), FALSE)
+
+    if (endsWith(type, "difference")) {
+        if (is.null(ref_node)) {
+            stop(sprintf("'ref_node' should not be empty when 'type' is '%s'.", type))
+        }
+        val <- c(list(ref_node), val)
+    }
+
+    cls <- cls[match(type, types)]
+    name <- new_object_name(idf, cls, name)
+
+    val <- c(list(name), val)
+
+    obj <- idf$add(.(cls) := val)
+
+    get_named_id(obj)
+}
+# }}}
+# new_plant_equipment_operation_schemes {{{
+new_plant_equipment_operation_schemes <- function(idf, name, ids_opt, ids_sch) {
+    checkmate::assert_string(name)
+    checkmate::assert_integer(ids_opt, any.missing = FALSE, unique = TRUE)
+    checkmate::assert_integer(ids_sch, any.missing = FALSE)
+
+    dt_opt <- idf$to_table(ids_opt)[, list(class = class[1L], name = name[1L]), by = "id"]
+    dt_sch <- idf$to_table(ids_sch)[, list(name = name[1L]), by = "id"]
+
+    val <- unlist(data.table::transpose(list(dt_opt$class, dt_opt$name, dt_sch$name)))
+
+    name <- new_object_name(idf, "PlantEquipmentOperationSchemes", name)
+
+    val <- c(name, val)
+
+    obj <- idf$add(PlantEquipmentOperationSchemes = as.list(val))
+
+    get_named_id(obj)
+}
+# }}}
+# new_condenser_equipment_operation_schemes {{{
+new_condenser_equipment_operation_schemes <- function(idf, name, ids_opt, ids_sch) {
+    checkmate::assert_string(name)
+    checkmate::assert_integer(ids_opt, any.missing = FALSE, unique = TRUE)
+    checkmate::assert_integer(ids_sch, any.missing = FALSE)
+
+    dt_opt <- idf$to_table(ids_opt)[, list(class = class[1L], name = name[1]), by = "id"]
+    dt_sch <- idf$to_table(ids_sch)[, list(name = name[1]), by = "id"]
+
+    val <- unlist(data.table::transpose(list(dt_opt$class, dt_opt$name, dt_sch$name)))
+
+    name <- new_object_name(idf, "CondenserEquipmentOperationSchemes", name)
+
+    val <- c(name, val)
+
+    obj <- idf$add(CondenserEquipmentOperationSchemes = as.list(val))
+
+    get_named_id(obj)
+}
+# }}}
+
+# new_object_name {{{
+new_object_name <- function(idf, class, names) {
+    checkmate::assert_string(class)
+
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    cls <- eplusr::get_idd_class(idd_env, class)
+
+    if (!cls$class_id %in% idf_env$object$class_id) return(names)
+
+    dict <- idf_env$object[J(cls$class_id), on = "class_id", object_name]
+
+    make_unique(names, dict)
+}
+# }}}
+# new_node_name {{{
+new_node_name <- function(idf, nodes) {
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    dict <- eplusr::get_idf_value(idd_env, idf_env, property = "type")[
+        type == "node" & !is.na(value_chr), tolower(value_chr)]
+
+    make_unique(nodes, dict)
+}
+# }}}
+# make_unique {{{
+make_unique <- function(x, dict) {
+    lower <- stringi::stri_trans_tolower(x)
+    res <- make.unique(c(stringi::stri_trans_tolower(dict), lower), "_")[-(1:length(dict))]
+    changed <- lower != res
+    x[changed] <- paste0(
+        x[changed],
+        stringi::stri_sub(res[changed], stringi::stri_length(x[changed]) + 1L)
+    )
+
+    x
+}
+# }}}
+
+# get_named_id {{{
+get_named_id <- function(objs) vapply(objs, function(x) x$id(), integer(1L))
+# }}}
+# get_pair_node_dict {{{
+get_pair_node_dict <- function(idf) {
+    # get supported classes in Branch
+    all_cls <- idf$definition("Branch")$field_relation("Component 1 Name", "ref_to")$ref_to$src_class_name
+
+    # extract all fields
+    fld <- idf$definition()$to_table(class = all_cls)
+
+    # get inlet nodes
+    nodes_inlet <- fld[grepl("Inlet Node", field, fixed = TRUE), list(class, inlet = field)]
+    nodes_inlet[, outlet := gsub("Inlet", "Outlet", inlet, fixed = TRUE)]
+    nodes_outlet <- fld[grepl("Outlet Node", field, fixed = TRUE), list(class, outlet = field)]
+    nodes_outlet[, inlet := gsub("Outlet", "Inlet", outlet, fixed = TRUE)]
+
+    nodes <- nodes_inlet[nodes_outlet, on = c("class", "inlet", "outlet"), nomatch = NULL]
+
+    nodes[, type := data.table::fcase(
+        grepl("Air", inlet, fixed = TRUE), "air",
+        grepl("Water", inlet, fixed = TRUE), "water"
+    )]
+    nodes[is.na(type) & class %in% c("Duct", "TemperingValve"), type := "air"]
+    nodes[is.na(type) & class %in% c("TemperingValve", "LoadProfile:Plant", "HeatExchanger:FluidToFluid", "ZoneHVAC:Baseboard:RadiantConvective:Steam"), type := "water"]
+    nodes[is.na(type) & grepl("Water|Pump|Pipe|DX|Generator|HeatExchanger|Plant|Chiller|ThermalStorage|SolarCollector", class), type := "water"]
+    nodes[is.na(type) & grepl("Plant", inlet, fixed = TRUE), type := "water"]
+
+    nodes
+}
+# }}}
+# get_pair_node {{{
+get_pair_node <- function(idf, ids, node_type = NULL, dict = NULL) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE)
+    checkmate::assert_choice(node_type, c("air", "water"), null.ok = TRUE)
+    checkmate::assert_data_table(dict, null.ok = TRUE)
+
+    obj <- idf$to_table(ids)
+
+    if (is.null(dict)) dict <- get_pair_node_dict(idf)
+
+    inlet <- dict[, list(class, inlet, type)][obj, on = c("class", "inlet" = "field"), nomatch = NULL]
+    inlet <- inlet[J(ids), on = "id"]
+    outlet <- dict[, list(class, outlet, type)][obj, on = c("class", "outlet" = "field"), nomatch = NULL]
+    outlet <- outlet[J(ids), on = "id"]
+
+    if (any(invld <- !obj$class %in% dict$class)) {
+        stop("Invalid component type for 'Branch': ", paste(unique(obj$class[invld]), collapse = ", "))
+    }
+
+    # check node
+    if (is.null(node_type)) {
+        if (length(id_mult <- inlet[, by = "id", .N][N > 1, id])) {
+            stop(inlet[J(id_mult[1L]), on = "id", sprintf(
+                "Please specify type of nodes to locate. Multiple inlet nodes found for %s '%s': %s",
+                class[1], name[1], paste(value, collapse = ", "))]
+            )
+        }
+        if (length(id_mult <- outlet[, by = "id", .N][N > 1, id])) {
+            stop(outlet[J(id_mult[1L]), on = "id", sprintf(
+                "Please specify type of nodes to locate. Multiple outlet nodes found for %s '%s': %s",
+                class[1], name[1], paste(value, collapse = ", "))]
+            )
+        }
+    } else {
+        inlet <- inlet[J(ids, node_type), on = c("id", "type")]
+        if (anyNA(inlet$inlet)) {
+            invld <- obj[J(inlet[is.na(inlet), id]), on = "id", mult = "first"]
+            stop(sprintf("Failed to find %s inlet node for objects below:\n%s",
+                node_type,
+                invld[, paste(sprintf("[%i] '%s' [ID:%i] in class '%s'",
+                    .I, name, id, class), collapse = "\n")]
+            ))
+        }
+        outlet <- outlet[J(ids, node_type), on = c("id", "type")]
+        if (anyNA(outlet$outlet)) {
+            invld <- obj[J(outlet[is.na(outlet), id]), on = "id", mult = "first"]
+            stop(sprintf("Failed to find %s outlet node for objects below:\n%s",
+                node_type,
+                invld[, paste(sprintf("[%i] '%s' [ID:%i] in class '%s'",
+                    .I, name, id, class), collapse = "\n")]
+            ))
+        }
+    }
+
+    inlet[, outlet := gsub("Inlet", "Outlet", inlet, fixed = TRUE)]
+    inlet[outlet, on = c("id", "outlet"), `:=`(index_outlet = i.index, value_outlet = i.value)]
+
+    data.table::setnames(inlet, c("index", "value", "inlet", "outlet"),
+        c("index_inlet", "value_inlet", "field_inlet", "field_outlet"))
+    data.table::setcolorder(inlet,
+        c("id", "name", "class", "type",
+          "index_inlet", "field_inlet", "value_inlet",
+          "index_outlet", "field_outlet", "value_outlet"))
+
+    if (anyNA(inlet$value_outlet)) {
+        stop(inlet[is.na(value_outlet)][1 , sprintf(
+            "Failed to find outlet node '%s' for %s '%s'",
+            outlet, class[1], name[1])]
+        )
+        stop(sprintf("Failed to find corresponding outlet node for object inlet node below:\n%s",
+            inlet[is.na(value_outlet)][, paste(sprintf(
+                "[%i] '%s' [ID:%i] in class '%s' (Inlet node: '%s')",
+                .I, name, id, class, value_inlet), collapse = "\n")]
+        ))
+    }
+
+    inlet
+}
+# }}}
+
+# del_all_water_loops {{{
+del_all_water_loops <- function(idf, keep_component = FALSE) {
+    checkmate::assert_r6(idf, "Idf")
+
+    ids <- idf$object_id()[c("CondenserLoop", "PlantLoop")]
+
+    if (!is.null(ids[[1L]])) {
+        for (id in ids[[1L]]){
+            del_condenser_loop(idf, id, keep_component = keep_component)
+        }
+    }
+
+    if (!is.null(ids[[2L]])) {
+        for (id in ids[[2L]]){
+            del_plant_loop(idf, id, keep_component = keep_component)
+        }
     }
 
     idf
 }
 # }}}
+# del_water_loop {{{
+del_water_loop <- function(idf, id_loop, type = "plant", keep_branch = FALSE, keep_component = FALSE) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_int(id_loop)
+    checkmate::assert_choice(type, c("plant", "condenser"))
+    checkmate::assert_flag(keep_branch)
+    checkmate::assert_flag(keep_component)
 
-# create_hot_water_loop {{{
-create_hot_water_loop <- function(idf, loop_setpoint = 40, demand_branches = NULL) {
-    checkmate::assert_number(loop_setpoint)
-    checkmate::assert_character(demand_branches, any.missing = FALSE, unique = TRUE,
-        null.ok = TRUE)
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
 
-    idf$add(
-        # demand inlet pipe
-        Pipe_Adiabatic = list("HW_Demand_Inlet_Pipe", "HW_Demand_Inlet_Node", "HW_Demand_Inlet_Pipe_Outlet_Node"),
-        Branch = list("HW_Demand_Inlet_Branch", NULL, "Pipe:Adiabatic",
-            "HW_Demand_Inlet_Pipe", "HW_Demand_Inlet_Node", "HW_Demand_Inlet_Pipe_Outlet_Node"
-        ),
+    if (type == "plant") {
+        cls <- "PlantLoop"
+        fld <- c(
+            "Name",                                  # 1
+            "Availability Manager List Name",        # 2
+            "Plant Equipment Operation Scheme Name", # 3
+            "Plant Side Branch List Name",           # 4
+            "Demand Side Branch List Name",          # 5
+            "Plant Side Connector List Name",        # 6
+            "Demand Side Connector List Name"        # 7
+        )
+    } else {
+        cls <- "CondenserLoop"
+        fld <- c(
+            "Name",                                      # 1
+            "Fluid Type",                                # 2 just a placeholder
+            "Condenser Equipment Operation Scheme Name", # 3
+            "Condenser Side Branch List Name",           # 4
+            "Condenser Demand Side Branch List Name",    # 5
+            "Condenser Side Connector List Name",        # 6
+            "Condenser Demand Side Connector List Name"  # 7
+        )
+    }
 
-        # demand bypass pipe
-        Pipe_Adiabatic = list("HW_Demand_Bypass_Pipe", "HW_Demand_Bypass_Pipe_Inlet_Node", "HW_Demand_Bypass_Pipe_Outlet_Node"),
-        Branch = list("HW_Demand_Bypass_Branch", NULL, "Pipe:Adiabatic",
-            "HW_Demand_Bypass_Pipe", "HW_Demand_Bypass_Pipe_Inlet_Node", "HW_Demand_Bypass_Pipe_Outlet_Node"
-        ),
+    dt_obj <- eplusr::get_idf_object(idd_env, idf_env, cls, id_loop)
+    dt_val <- eplusr::get_idf_value(idd_env, idf_env, cls, id_loop, fld)
 
-        # demand outlet pipe
-        Pipe_Adiabatic = list("HW_Demand_Outlet_Pipe", "HW_Demand_Outlet_Pipe_Inlet_Node", "HW_Demand_Outlet_Node"),
-        Branch = list("HW_Demand_Outlet_Branch", NULL, "Pipe:Adiabatic",
-            "HW_Demand_Outlet_Pipe", "HW_Demand_Outlet_Pipe_Inlet_Node", "HW_Demand_Outlet_Node"
-        ),
+    # setpoint manager for this airloop
+    del_setpoint_managers(idf, id_loop)
 
-        # branch list
-        BranchList = as.list(c("HW_Demand_Branches",
-            "HW_Demand_Inlet_Branch",
-            demand_branches,
-            "HW_Demand_Bypass_Branch",
-            "HW_Demand_Outlet_Branch"
-        )),
+    # sizing plant
+    rel <- eplusr::get_idf_relation(idd_env, idf_env, NULL, dt_val$value_id[1], "ref_by", 0L,
+        class_ref = "none")
+    del_if_exist(idf, rel$object_id)
 
-        # splitter and mixer
-        Connector_Splitter = as.list(c("HW_Demand_Splitter",
-            "HW_Demand_Inlet_Branch",
-            demand_branches,
-            "HW_Demand_Bypass_Branch"
-        )),
-        Connector_Mixer = as.list(c("HW_Demand_Mixer",
-            "HW_Demand_Outlet_Branch",
-            demand_branches,
-            "HW_Demand_Bypass_Branch"
-        )),
-        ConnectorList = list("HW_Demand_Connectors",
-            "Connector:Splitter", "HW_Demand_Splitter",
-            "Connector:Mixer", "HW_Demand_Mixer"
-        ),
+    rel <- eplusr::get_idf_relation(idd_env, idf_env, NULL, dt_val$value_id, "ref_to", 2L, TRUE,
+        class_ref = "none", match_all = TRUE)
 
-        # supply inlet pump
-        Pump_VariableSpeed = list("HW_Pump", "HW_Supply_Inlet_Node", "HW_Pump_Outlet_Node",
-            "Autosize", 2E5, 30000, 0.9, 0,
-            0, 1, 0, 0, 0, "Intermittent"
-        ),
-        Branch = list("HW_Supply_Inlet_Branch", NULL, "Pump:VariableSpeed",
-            "HW_Pump", "HW_Supply_Inlet_Node", "HW_Pump_Outlet_Node"
-        ),
+    # skip any schedules
+    ids_sch <- eplusr:::get_idf_object_multi_scope(idd_env, idf_env, group = "Schedules")$object_id
+    rel <- rel[!J(ids_sch), on = "object_id"][!J(ids_sch), on = "src_object_id"]
 
-        # supply heating equipment
-        DistrictHeating = list("Purchased_Heating", "Purchased_Heating_Inlet_Node", "Purchased_Heating_Outlet_Node", 1E6),
-        Branch = list("HW_Supply_Equipment_Branch", NULL, "DistrictHeating",
-            "Purchased_Heating", "Purchased_Heating_Inlet_Node", "Purchased_Heating_Outlet_Node"
-        ),
+    # availability
+    ids_avail <- get_ids_from_rel(rel, dt_val$value_id[2L], NULL, "source")
 
-        # supply bypass pipe
-        Pipe_Adiabatic = list("HW_Supply_Bypass_Pipe", "HW_Supply_Bypass_Pipe_Inlet_Node", "HW_Supply_Bypass_Pipe_Outlet_Node"),
-        Branch = list("HW_Supply_Bypass_Branch", NULL, "Pipe:Adiabatic",
-            "HW_Supply_Bypass_Pipe", "HW_Supply_Bypass_Pipe_Inlet_Node", "HW_Supply_Bypass_Pipe_Outlet_Node"
-        ),
+    # operation scheme
+    ids_optsch <- get_ids_from_rel(rel, dt_val$value_id[3L], NULL, "source")
 
-        # supply outlet pipe
-        Pipe_Adiabatic = list("HW_Supply_Outlet_Pipe", "HW_Supply_Outlet_Pipe_Inlet_Node", "HW_Supply_Outlet_Node"),
-        Branch = list("HW_Supply_Outlet_Branch", NULL, "Pipe:Adiabatic",
-            "HW_Supply_Outlet_Pipe", "HW_Supply_Outlet_Pipe_Inlet_Node", "HW_Supply_Outlet_Node"
-        ),
+    # connectors
+    ids_conn <- get_ids_from_rel(rel, dt_val$value_id[6:7], 1L, "source")
 
-        # branch list
-        BranchList = list("HW_Supply_Branches",
-            "HW_Supply_Inlet_Branch",
-            "HW_Supply_Equipment_Branch", "HW_Supply_Bypass_Branch",
-            "HW_Supply_Outlet_Branch"
-        ),
+    del_if_exist(idf, c(id_loop, ids_avail, ids_optsch, ids_conn))
 
-        # splitter and mixer
-        Connector_Splitter = list("HW_Supply_Splitter",
-            "HW_Supply_Inlet_Branch",
-            "HW_Supply_Equipment_Branch", "HW_Supply_Bypass_Branch"
-        ),
-        Connector_Mixer = list("HW_Supply_Mixer",
-            "HW_Supply_Outlet_Branch",
-            "HW_Supply_Equipment_Branch", "HW_Supply_Bypass_Branch"
-        ),
-        ConnectorList = list("HW_Supply_Connectors",
-            "Connector:Splitter", "HW_Supply_Splitter",
-            "Connector:Mixer", "HW_Supply_Mixer"
-        ),
+    # branches
+    rel_bran <- get_leaf_from_rel(rel, dt_val$value_id[4:5], NULL, "source")
+    disconnect_branch(idf, rel_bran[dep == 2L, unique(object_id)])
+    del_if_exist(idf, rel_bran[dep == 0L, src_object_id])
 
-        # plant equipment list
-        PlantEquipmentList = list("HW_Equipment_List", "DistrictHeating", "Purchased_Heating"),
+    if (!keep_branch) {
+        ids_bran <- rel_bran[dep == 2L, unique(object_id)]
+        del_if_exist(idf, ids_bran)
+    }
+    if (!keep_component) {
+        ids_comp <- rel_bran[dep == 2L, unique(src_object_id)]
+        ids_bran <- rel_bran[dep == 2L, unique(object_id)]
 
-        # plant equipment operation
-        PlantEquipmentOperation_HeatingLoad = list("HW_Operation_Scheme", 0, 1E6, "HW_Equipment_List"),
-        PlantEquipmentOperationSchemes = list("HW_Loop_Operation_Scheme_List", "PlantEquipmentOperation:HeatingLoad",
-            "HW_Operation_Scheme", "Sch_Always_On"
-        ),
+        disconnect_component(idf, ids_comp, ids_bran)
 
-        # plant loop
-        PlantLoop = list("HW_Loop", "Water", NULL,
-            "HW_Loop_Operation_Scheme_List", "HW_Supply_Outlet_Node",
-            100, 10, "Autosize", 0, "Autocalculate",
-            "HW_Supply_Inlet_Node", "HW_Supply_Outlet_Node",
-            "HW_Supply_Branches", "HW_Supply_Connectors",
-            "HW_Demand_Inlet_Node", "HW_Demand_Outlet_Node",
-            "HW_Demand_Branches", "HW_Demand_Connectors"
-        ),
+        # keep the component if it is still referred in another branch
+        rel_comp_keep <- eplusr::get_idf_relation(idd_env, idf_env, ids_comp, NULL,
+            "ref_by", class = "Branch", class_ref = "none")
 
-        # supply outlet setpoint
-        Schedule_Compact = list("Sch_HW_Loop_Temp", "Temperature",
-            "Through: 12/31", "For: AllDays", "Until: 24:00", as.character(loop_setpoint)
-        ),
-        SetpointManager_Scheduled = list("HW_Loop_Setpoint_Manager", "Temperature",
-            "Sch_HW_Loop_Temp", "HW_Supply_Outlet_Node"
-        ),
+        if (nrow(rel_comp_keep)) {
+            obj_keep <- eplusr::get_idf_object(idd_env, idf_env, NULL, rel_comp_keep$src_object_id)
+            obj_bran <- eplusr::get_idf_object(idd_env, idf_env, NULL, rel_comp_keep$object_id)
+            message(sprintf("Components below are used in branches not belong to this loop and will be kept:\n%s",
+                paste(sprintf("[%i] '%s' object '%s' [ID:%i] in Branch %s [ID:%i]",
+                    seq_len(nrow(rel_comp_keep)),
+                    obj_keep$class_name, obj_keep$object_name, obj_keep$object_id,
+                    obj_bran$object_name, obj_bran$object_id
+                ), collapse = "\n")
+            ))
+            ids_comp <- setdiff(ids_comp, obj_keep$object_id)
+        }
 
-        # sizing plant
-        Sizing_Plant = list("HW_Loop", "Heating", loop_setpoint, 10)
-    )
+        del_setpoint_managers(idf, ids_comp)
+        del_if_exist(idf, ids_comp, ref_to = TRUE)
+    }
 
     idf
+}
+# }}}
+# del_plant_loop {{{
+del_plant_loop <- function(idf, id_loop, keep_branch = FALSE, keep_component = TRUE) {
+    del_water_loop(idf, id_loop, "plant", keep_branch, keep_component)
+}
+# }}}
+# del_condenser_loop {{{
+del_condenser_loop <- function(idf, id_loop, keep_branch = FALSE, keep_component = TRUE) {
+    del_water_loop(idf, id_loop, "condenser", keep_branch, keep_component)
+}
+# }}}
+# del_setpoint_managers {{{
+del_setpoint_managers <- function(idf, ids) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE)
+
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    val <- eplusr::get_idf_value(idd_env, idf_env, object = ids, property = "type")[
+        J("node"), on = "type", nomatch = NULL]
+
+    if (!nrow(val)) return(idf)
+
+    rel <- eplusr::get_idf_node_relation(idd_env, idf_env,
+        val$object_id, val$value_id, class = get_setpoint_manager_classes(idf),
+        name = TRUE
+    )
+
+    del_if_exist(idf, rel$object_id)
+}
+# }}}
+# get_setpoint_manager_classes {{{
+get_setpoint_manager_classes <- function(idf) {
+    idf$class_name(by_group = TRUE)[["Setpoint Managers"]]
+}
+# }}}
+
+# disconnect_equipment {{{
+disconnect_equipment <- function(idf, ids, ids_zone = NULL) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE)
+    checkmate::assert_integer(ids_zone, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    dt_obj <- eplusr::get_idf_object(idd_env, idf_env, object = ids)
+
+    rel_obj <- eplusr::get_idf_relation(idd_env, idf_env, dt_obj$object_id, NULL,
+        "ref_by", class = "Branch", class_ref = "none")
+    if (!is.null(ids_branch)) rel_obj <- rel_obj[object_id %in% ids_branch]
+
+    del_idf_value_by_relation(idf, rel_obj)
+}
+# }}}
+# disconnect_component {{{
+disconnect_component <- function(idf, ids, ids_branch = NULL) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE)
+    checkmate::assert_integer(ids_branch, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    dt_obj <- eplusr::get_idf_object(idd_env, idf_env, object = ids)
+
+    rel_obj <- eplusr::get_idf_relation(idd_env, idf_env, dt_obj$object_id, NULL,
+        "ref_by", class = "Branch", class_ref = "none")
+    if (!is.null(ids_branch)) rel_obj <- rel_obj[object_id %in% ids_branch]
+
+    del_idf_value_by_relation(idf, rel_obj)
+}
+# }}}
+# disconnect_branch {{{
+disconnect_branch <- function(idf, ids) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_integer(ids, any.missing = FALSE, unique = TRUE)
+
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    dt_obj <- eplusr::get_idf_object(idd_env, idf_env, "Branch", ids)
+
+    rel_obj <- eplusr::get_idf_relation(idd_env, idf_env, dt_obj$object_id, NULL,
+        "ref_by", class_ref = "none")
+
+    del_idf_value_by_relation(idf, rel_obj)
+}
+# }}}
+# del_idf_value_by_relation {{{
+del_idf_value_by_relation <- function(idf, relation) {
+    checkmate::assert_r6(idf, "Idf")
+    checkmate::assert_data_table(relation)
+
+    if (!nrow(relation)) return(idf)
+
+    idd_env <- eplusr::get_priv_env(idf)$idd_env()
+    idf_env <- eplusr::get_priv_env(idf)$idf_env()
+
+    ids <- unique(relation$object_id)
+    dt_obj <- eplusr::get_idf_object(idd_env, idf_env, object = ids)
+    dt_val <- eplusr::get_idf_value(idd_env, idf_env, object = ids, property = "extensible_group")
+
+    dt_val[relation, on = "value_id", value_id_del := i.value_id]
+
+    # if extensibile field, remove the whole extensible group
+    ext <- dt_val[!is.na(value_id_del) & extensible_group > 0L, list(object_id, extensible_group)]
+    dt_val[ext, on = c("object_id", "extensible_group"), `:=`(value_chr = NA_character_, value_num = NA_real_, value_id_del = value_id)]
+    # directly remove otherwise
+    dt_val[!is.na(value_id_del) & extensible_group == 0L, `:=`(value_chr = NA_character_, value_num = NA_real_)]
+
+    dt_val[, by = "object_id", `:=`(
+        value_chr = c(value_chr[is.na(value_id_del)], value_chr[!is.na(value_id_del)]),
+        value_num = c(value_num[is.na(value_id_del)], value_num[!is.na(value_id_del)])
+    )]
+    dt_val[, c("value_id_del", "extensible_group") := NULL]
+
+    chk <- eplusr::level_checks()
+    chk$required_field <- FALSE
+    set <- eplusr::set_idf_object(idd_env, idf_env, dt_obj, dt_val, replace = TRUE, level = chk)
+    eplusr::get_priv_env(idf)$log_add_order(c(set$changed, set$updated))
+    eplusr::get_priv_env(idf)$log_unsaved()
+    eplusr::get_priv_env(idf)$log_new_uuid()
+    eplusr::get_priv_env(idf)$update_idf_env(set)
+
+    idf
+}
+# }}}
+
+# get_ids_from_rel {{{
+get_ids_from_rel <- function(rel, init_value_id, depth = 0L, type) {
+    checkmate::assert_int(depth, null.ok = TRUE)
+    checkmate::assert_choice(type, c("source", "target"))
+
+    if (is.null(depth) || depth > max(rel$dep)) depth <- max(rel$dep)
+
+    cur_depth <- 0L
+
+    if (type == "source") {
+        col_init <- "value_id"
+        col_on <- "object_id"
+        col_id <- "src_object_id"
+
+    } else {
+        col_init <- "src_value_id"
+        col_on <- "src_object_id"
+        col_id <- "object_id"
+    }
+
+    id <- unique(rel[J(cur_depth, init_value_id), on = c("dep", col_init),
+        .SD, .SDcols = col_id, nomatch = NULL][[1L]])
+
+    ids <- id
+
+    if (!length(id)) return(ids)
+
+    cur_depth <- cur_depth + 1L
+    while (cur_depth <= depth) {
+        id <- unique(rel[J(cur_depth, id), on = c("dep", col_on),
+            .SD, .SDcols = col_id, nomatch = NULL][[1L]])
+
+        if (!length(id)) break
+
+        ids <- c(ids, id)
+        cur_depth <- cur_depth + 1L
+    }
+
+    unique(ids)
+}
+# }}}
+# get_leaf_from_rel {{{
+get_leaf_from_rel <- function(rel, init_value_id, depth = 0L, type) {
+    checkmate::assert_int(depth, null.ok = TRUE)
+    checkmate::assert_choice(type, c("source", "target"))
+
+    if (is.null(depth) || depth > max(rel$dep)) depth <- max(rel$dep)
+
+    ids <- c()
+
+    cur_depth <- 0L
+
+    if (type == "source") {
+        col_init <- "value_id"
+        col_on <- "object_id"
+        col_id <- "src_object_id"
+
+    } else {
+        col_init <- "src_value_id"
+        col_on <- "src_object_id"
+        col_id <- "object_id"
+    }
+
+    cur_leaf <- rel[J(cur_depth, init_value_id), on = c("dep", col_init), nomatch = NULL]
+
+    if (!nrow(cur_leaf)) return(cur_leaf)
+
+    leaf <- cur_leaf
+
+    cur_depth <- cur_depth + 1L
+    while (cur_depth <= depth) {
+        cur_leaf <- rel[J(cur_depth, unique(cur_leaf[[col_id]])),
+            on = c("dep", col_on), nomatch = NULL]
+
+        leaf <- data.table::rbindlist(list(leaf, cur_leaf))
+
+        if (!nrow(cur_leaf)) break
+
+        cur_depth <- cur_depth + 1L
+    }
+
+    leaf
 }
 # }}}
 
@@ -900,354 +1820,6 @@ add_natural_ventilation <- function(idf, ach = 5, max_oa_temp = 30) {
         air_changes_per_hour = ach,
         ventilation_type = "natural",
         maximum_outdoor_temperature = max_oa_temp
-    ))
-
-    idf
-}
-# }}}
-
-# add_doas {{{
-add_doas <- function(idf, sat = 20) {
-    # get conditioned zones
-    zones <- idf$to_table(class = "ZoneControl:Thermostat")[
-        field == "Zone or ZoneList Name", value]
-
-    doas_meta <- data.table::data.table(
-        zone = zones,
-        zone_inlet = sprintf("%s_Air_Inlet_Node", zones),
-        zone_equiplist = sprintf("%s_Equipment", zones),
-        vavbox = sprintf("%s_DOAS_VAV_Box", zones),
-        vavbox_inlet = sprintf("%s_DOAS_VAV_Box_Inlet_Node", zones),
-        vavbox_outlet = sprintf("%s_DOAS_VAV_Box_Outlet_Node", zones),
-        adu = sprintf("%s_DOAS_ADU", zones),
-        level = data.table::fcase(
-            grepl("Top", zones), "Top",
-            grepl("Mid", zones), "Mid",
-            grepl("Bot", zones), "Bot"
-        )
-    )
-
-    # add air terminal
-    idf$add(
-        # air terminal sizing
-        DesignSpecification_AirTerminal_Sizing = list(
-            "DOAS_ADU_Sizing",
-            fraction_of_design_cooling_load = 0,
-            cooling_design_supply_air_temperature_difference_ratio = 1,
-            fraction_of_design_heating_load = 0,
-            heating_design_supply_air_temperature_difference_ratio = 1,
-            fraction_of_minimum_outdoor_air_flow = 1
-        ),
-        # vav box
-        AirTerminal_SingleDuct_VAV_NoReheat := list(
-            name = doas_meta$vavbox,
-            air_outlet_node_name = doas_meta$vavbox_outlet,
-            air_inlet_node_name = doas_meta$vavbox_inlet,
-            maximum_air_flow_rate = "Autosize",
-            constant_minimum_air_flow_fraction = 1
-        ),
-        # air distribution unit
-        ZoneHVAC_AirDistributionUnit := list(
-            name = doas_meta$adu,
-            air_distribution_unit_outlet_node_name = doas_meta$vavbox_outlet,
-            air_terminal_object_type = "AirTerminal:SingleDuct:VAV:NoReheat",
-            air_terminal_name = doas_meta$vavbox,
-            design_specification_air_terminal_sizing_object_name = "DOAS_ADU_Sizing"
-        )
-    )
-
-    # update zone equipment list
-    equiplist <- idf$to_table(class = "ZoneHVAC:EquipmentList")[
-        J(doas_meta$zone_equiplist), on = "name"]
-    equiplist <- equiplist[doas_meta, on = c("name" = "zone_equiplist"), by = .EACHI, {
-        # empty
-        if (anyNA(value[c(.N-5, .N-6)])) {
-            sq <- (.N - 2) / 6
-            value <- c(value[-c((.N-5):.N)],
-                "ZoneHVAC:AirDistributionUnit",
-                i.adu, sq, sq, NA, NA
-            )
-        } else {
-            sq <- (.N - 2) / 6 + 1
-            value <- c(value,
-                "ZoneHVAC:AirDistributionUnit",
-                i.adu, sq, sq, NA, NA
-            )
-        }
-        list(id = id[1], class = class[1], index = seq_along(value), value = value)
-    }]
-    eplusr::without_checking(idf$update(equiplist))
-
-    # update zone equipment connection
-    equipconn <- idf$to_table(class = "ZoneHVAC:EquipmentConnections", wide = TRUE)[
-        J(doas_meta$zone), on = "Zone Name"]
-    equipconn[doas_meta, on = c("Zone Name" = "zone"), `:=`(
-        "Zone Conditioning Equipment List Name" = i.zone_equiplist,
-        "Zone Air Inlet Node or NodeList Name" = i.vavbox_outlet
-    )]
-    idf$update(eplusr::dt_to_load(equipconn))
-
-    doas_meta_loop <- doas_meta[, by = "level", list(
-        fan = sprintf("%s_DOAS_Fan", .BY$level),
-        fan_inlet = sprintf("%s_DOAS_Inlet_Node", .BY$level),
-        fan_outlet = sprintf("%s_DOAS_Fan_Outlet_Node", .BY$level),
-        dx = sprintf("%s_DOAS_DX", .BY$level),
-        dxsys = sprintf("%s_DOAS_DX_System", .BY$level),
-        dx_inlet = sprintf("%s_DOAS_Fan_Outlet_Node", .BY$level),
-        dx_outlet = sprintf("%s_DOAS_DX_Outlet_Node", .BY$level),
-        reheat = sprintf("%s_DOAS_Reheat", .BY$level),
-        reheat_inlet = sprintf("%s_DOAS_DX_Outlet_Node", .BY$level),
-        reheat_outlet = sprintf("%s_DOAS_Reheat_Outlet_Node", .BY$level),
-        airloop = sprintf("%s_DOAS", level),
-        airloop_supply_inlet = sprintf("%s_DOAS_Inlet_Node", .BY$level),
-        airloop_supply_outlet = sprintf("%s_DOAS_Reheat_Outlet_Node", .BY$level),
-        airloop_demand_inlet = sprintf("%s_DOAS_Demand_Inlet_Node", .BY$level),
-        vavbox_inlet = list(vavbox_inlet)
-    )]
-
-    # add equipment
-    # add fan
-    idf$add(
-        Fan_VariableVolume := list(
-            doas_meta_loop$fan,
-            "Sch_Occupancy",
-            fan_total_efficiency = 0.7,
-            pressure_rise = 1000,
-            maximum_flow_rate = "Autosize",
-            fan_power_minimum_flow_rate_input_method = "Fraction",
-            motor_efficiency = 0.91,
-            motor_in_airstream_fraction = 1,
-            fan_power_coefficient_1 = 0.0013,
-            fan_power_coefficient_2 = 0.147,
-            fan_power_coefficient_3 = 0.9506,
-            fan_power_coefficient_4 = 0.0998,
-            air_inlet_node_name = doas_meta_loop$fan_inlet,
-            air_outlet_node_name = doas_meta_loop$fan_outlet,
-            end_use_subcategory = "DOAS Fan"
-        )
-    )
-
-    # DX coil
-    # Ref: Carrier Weathermaster 50HJ006 in EnergyPlus Dataset DXCoolingCoil.idf
-    idf$load("
-        ! Manufacturer = Carrier, Model Line = Weathermaster (Electric/Electric -- 50HJ006)
-        ! Reference point = 95F OAT, 67F EWBT, 2000 cfm
-        ! Reference Capacity = 18687 W (5.32 tons)
-        ! Compressor Type = Scroll
-        ! Refrigerant = R-22
-        ! Expansion Valve Type = Thermostatic Expansion Valve
-        ! Curve set (5 Curves):
-        ! Cooling Capacity Function of Temperature Curve
-        ! x = Entering Wet-bulb Temp and y = Outdoor Dry-bulb Temp
-        Curve:Biquadratic,
-          DOAS_DX_Coil_CapFT,      !- Name
-          0.3116765,               !- Coefficient1 Constant
-          0.0622847,               !- Coefficient2 x
-          -0.0008633,              !- Coefficient3 x**2
-          -0.0066556,              !- Coefficient4 y
-          -0.0000462,              !- Coefficient5 y**2
-          0.0001349,               !- Coefficient6 x*y
-          16.67,                   !- Minimum Value of x
-          22.22,                   !- Maximum Value of x
-          23.89,                   !- Minimum Value of y
-          51.67,                   !- Maximum Value of y
-          ,                        !- Minimum Curve Output
-          ,                        !- Maximum Curve Output
-          Temperature,             !- Input Unit Type for X
-          Temperature,             !- Input Unit Type for Y
-          Dimensionless;           !- Output Unit Type
-
-        ! EIR Function of Temperature Curve
-        ! x = Entering Wet-bulb Temp and y = Outdoor Dry-bulb Temp
-        Curve:Biquadratic,
-          DOAS_DX_Coil_EIRFT,      !- Name
-          1.0505234,               !- Coefficient1 Constant
-          -0.0653230,              !- Coefficient2 x
-          0.0021068,               !- Coefficient3 x**2
-          0.0235557,               !- Coefficient4 y
-          0.0004542,               !- Coefficient5 y**2
-          -0.0014092,              !- Coefficient6 x*y
-          16.67,                   !- Minimum Value of x
-          22.22,                   !- Maximum Value of x
-          23.89,                   !- Minimum Value of y
-          51.67,                   !- Maximum Value of y
-          ,                        !- Minimum Curve Output
-          ,                        !- Maximum Curve Output
-          Temperature,             !- Input Unit Type for X
-          Temperature,             !- Input Unit Type for Y
-          Dimensionless;           !- Output Unit Type
-
-        ! Cooling Capacity Function of Flow Fraction Curve
-        ! x = Flow Fraction
-        Curve:Quadratic,
-          DOAS_DX_Coil_CapFFF,     !- Name
-          0.6583072,               !- Coefficient1 Constant
-          0.5294956,               !- Coefficient2 x
-          -0.1869478,              !- Coefficient3 x**2
-          0.75,                    !- Minimum Value of x
-          1.25;                    !- Maximum Value of x
-
-        ! EIR Function of Flow Fraction Curve
-        ! x = Flow Fraction
-        Curve:Quadratic,
-          DOAS_DX_Coil_EIRFFF,     !- Name
-          1.3293472,               !- Coefficient1 Constant
-          -0.5218591,              !- Coefficient2 x
-          0.1918220,               !- Coefficient3 x**2
-          0.75,                    !- Minimum Value of x
-          1.25;                    !- Maximum Value of x
-
-        ! Part Load Fraction Function of Part Load Ratio Curve
-        ! (Generic curve used and not derived from manufacturer's data)
-        ! x = Part Load Ratio
-        Curve:Quadratic,
-          DOAS_DX_Coil_PLRFFEIR,   !- Name
-          0.85,                    !- Coefficient1 Constant
-          0.15,                    !- Coefficient2 x
-          0.0,                     !- Coefficient3 x**2
-          0.0,                     !- Minimum Value of x
-          1.0;                     !- Maximum Value of x
-        "
-    )
-    idf$add(
-        # DX coils
-        Coil_Cooling_DX_SingleSpeed := list(
-            name = doas_meta_loop$dx,
-            gross_rated_total_cooling_capacity = "Autosize",
-            gross_rated_sensible_heat_ratio = "Autosize",
-            gross_rated_cooling_cop = 4.15,
-            rated_air_flow_rate = "Autosize",
-            air_inlet_node_name = doas_meta_loop$dx_inlet,
-            air_outlet_node_name = doas_meta_loop$dx_outlet,
-            total_cooling_capacity_function_of_temperature_curve_name = "DOAS_DX_Coil_CapFT",
-            total_cooling_capacity_function_of_flow_fraction_curve_name = "DOAS_DX_Coil_CapFFF",
-            energy_input_ratio_function_of_temperature_curve_name = "DOAS_DX_Coil_EIRFT",
-            energy_input_ratio_function_of_flow_fraction_curve_name = "DOAS_DX_Coil_EIRFFF",
-            part_load_fraction_correlation_curve_name = "DOAS_DX_Coil_PLRFFEIR"
-        ),
-        CoilSystem_Cooling_DX := list(
-            name = doas_meta_loop$dxsys,
-            dx_cooling_coil_system_inlet_node_name = doas_meta_loop$dx_inlet,
-            dx_cooling_coil_system_outlet_node_name = doas_meta_loop$dx_outlet,
-            dx_cooling_coil_system_sensor_node_name = doas_meta_loop$dx_outlet,
-            cooling_coil_object_type = "Coil:Cooling:DX:SingleSpeed",
-            cooling_coil_name = doas_meta_loop$dx,
-            dehumidification_control_type = "Multimode",
-            run_on_sensible_load = "No",
-            run_on_latent_load = "Yes"
-        ),
-        Schedule_Compact = list(
-            "Sch_DOAS_DX_SAT",
-            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
-            as.character(sat - 0.1)
-        ),
-        SetpointManager_Scheduled := list(
-            name = sprintf("%s_DX_SAT_Setpoint_Manager", doas_meta_loop$dxsys),
-            control_variable = "Temperature",
-            schedule_name = "Sch_DOAS_DX_SAT",
-            setpoint_node_or_nodelist_name = doas_meta_loop$dx_outlet
-        ),
-        Schedule_Compact = list(
-            "Sch_DOAS_DX_Hum",
-            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
-            "0.00924"
-        ),
-        SetpointManager_Scheduled := list(
-            name = sprintf("%s_DX_Hum_Setpoint_Manager", doas_meta_loop$dxsys),
-            control_variable = "MaximumHumidityRatio",
-            schedule_name = "Sch_DOAS_DX_Hum",
-            setpoint_node_or_nodelist_name = doas_meta_loop$dx_outlet
-        ),
-
-        # reheat coil
-        Coil_Heating_Electric := list(
-            name = doas_meta_loop$reheat,
-            air_inlet_node_name = doas_meta_loop$reheat_inlet,
-            air_outlet_node_name = doas_meta_loop$reheat_outlet,
-            temperature_setpoint_node_name = doas_meta_loop$reheat_outlet
-        ),
-        Schedule_Compact = list(
-            "Sch_DOAS_Reheat_SAT",
-            "Temperature", "Through: 12/31", "For: AllDays", "Until: 24:00",
-            as.character(sat)
-        ),
-        SetpointManager_Scheduled := list(
-            name = sprintf("%s_REHEAT_Setpoint_Manager", doas_meta_loop$dxsys),
-            control_variable = "Temperature",
-            schedule_name = "Sch_DOAS_Reheat_SAT",
-            setpoint_node_or_nodelist_name = doas_meta_loop$reheat_outlet
-        )
-    )
-
-    doas_meta_loop[, by = "airloop", `:=`(
-        branch = list(c(
-            sprintf("%s_Main_Branch", .BY$airloop), "",
-            "Fan:VariableVolume", fan, fan_inlet, fan_outlet,
-            "CoilSystem:Cooling:DX", dxsys, dx_inlet, dx_outlet,
-            "Coil:Heating:Electric", reheat, reheat_inlet, reheat_outlet
-        )),
-        branchlist = list(c(
-            sprintf("%s_Branches", .BY$airloop),
-            sprintf("%s_Main_Branch", .BY$airloop)
-        )),
-        splitter = list(c(
-            sprintf("%s_Splitter", .BY$airloop),
-            airloop_demand_inlet, vavbox_inlet[[1]]
-        )),
-        supplypath = list(c(
-            sprintf("%s_Supply_Path", .BY$airloop),
-            airloop_demand_inlet,
-            "AirLoopHVAC:ZoneSplitter", sprintf("%s_Splitter", .BY$airloop)
-        ))
-    )]
-
-    # add airloop
-    lapply(doas_meta_loop$branch, function(...) idf$add(Branch = as.list(...)))
-    lapply(doas_meta_loop$branchlist, function(...) idf$add(BranchList = as.list(...)))
-    lapply(doas_meta_loop$splitter, function(...) idf$add(AirLoopHVAC_ZoneSplitter = as.list(...)))
-    lapply(doas_meta_loop$supplypath, function(...) idf$add(AirLoopHVAC_SupplyPath = as.list(...)))
-    lapply(doas_meta_loop$fan_inlet, function(...) idf$add(OutdoorAir_NodeList = as.list(...)))
-
-    idf$add(
-        # availability
-        AvailabilityManager_Scheduled = list(
-            "DOAS_Availability_Manager",
-            "Sch_Occupancy"
-        ),
-        AvailabilityManagerAssignmentList = list(
-            "DOAS_Availability_Manager_List",
-            "AvailabilityManager:Scheduled",
-            "DOAS_Availability_Manager"
-        ),
-        AirLoopHVAC := list(
-            name = doas_meta_loop$airloop,
-            availability_manager_list_name = "DOAS_Availability_Manager_List",
-            design_supply_air_flow_rate = "Autosize",
-            branch_list_name = sprintf("%s_Branches", doas_meta_loop$airloop),
-            supply_side_inlet_node_name = doas_meta_loop$airloop_supply_inlet,
-            demand_side_inlet_node_names = doas_meta_loop$airloop_demand_inlet,
-            supply_side_outlet_node_names = doas_meta_loop$airloop_supply_outlet
-        ),
-        Sizing_System := list(
-            airloop_name = doas_meta_loop$airloop,
-            type_of_load_to_size_on = "VentilationRequirement",
-            design_outdoor_air_flow_rate = "Autosize",
-            central_heating_maximum_system_air_flow_ratio = "Autosize",
-            preheat_design_temperature = 2,
-            preheat_design_humidity_ratio = 0.008,
-            precool_design_temperature = 11,
-            precool_design_humidity_ratio = 0.008,
-            central_cooling_design_supply_air_temperature = 19,
-            central_heating_design_supply_air_temperature = 20
-        )
-    )
-
-    # update zong sizing
-    idf$set(Sizing_Zone := list(
-        account_for_dedicated_outdoor_air_system = "Yes",
-        dedicated_outdoor_air_system_control_strategy = "ColdSupplyAir",
-        dedicated_outdoor_air_low_setpoint_temperature_for_design = sat - 0.5,
-        dedicated_outdoor_air_high_setpoint_temperature_for_design = sat
     ))
 
     idf
@@ -1444,394 +2016,11 @@ tidy_names <- function(dt) {
 }
 # }}}
 
-# remove_all_vavbox {{{
-remove_all_vavbox <- function(idf) {
-    checkmate::assert_r6(idf, "Idf")
-
-    terminals <- idf$ZoneHVAC_AirDistributionUnit
-    if (!is.null(terminals)) for (term in terminals) remove_airterminal(term)
-
-    idf
-}
-# }}}
-
-# remove_all_waterloop {{{
-remove_all_waterloop <- function(idf) {
-    checkmate::assert_r6(idf, "Idf")
-
-    loops <- idf$PlantLoop
-    if (!is.null(loops)) for (loop in loops) remove_waterloop(loop)
-
-    loops <- idf$CondenserLoop
-    if (!is.null(loops)) for (loop in loops) remove_waterloop(loop)
-
-    idf
-}
-# }}}
-
-# remove_all_airloop {{{
-remove_all_airloop <- function(idf) {
-    checkmate::assert_r6(idf, "Idf")
-
-    loops <- idf$AirLoopHVAC
-    if (!is.null(loops)) for (loop in loops) remove_airloop(loop)
-
-    idf
-}
-# }}}
-
-# remove_airterminal {{{
-remove_airterminal <- function(airterminal) {
-    checkmate::assert_r6(airterminal, "IdfObject")
-    # checkmate::assert_choice(airterminal$class_name(), c("ZoneHVAC:AirDistributionUnit"))
-
-    # get parent idf
-    idf <- airterminal$parent()
-
-    refs <- airterminal$ref_by_object(depth = 1L, class = "ZoneHVAC:EquipmentConnections")
-
-    for (obj in refs) {
-        if (obj$class_name() == "ZoneHVAC:EquipmentConnections") {
-            eplusr::without_checking(
-                obj$set(
-                    zone_conditioning_equipment_list_name = NULL,
-                    zone_air_inlet_node_or_nodelist_name = NULL
-                )
-            )
-        } else if (obj$class_name() == "ZoneHVAC:EquipmentList") {
-            eplusr::without_checking(
-                idf$update(obj$to_table()[index > 2L, value := NA_character_])
-            )
-        }
-    }
-
-    idf$del(airterminal$id(), .ref_to = TRUE)
-
-    idf
-}
-# }}}
-
-# remove_waterloop {{{
-remove_waterloop <- function(waterloop, equip = TRUE) {
-    checkmate::assert_r6(waterloop, "IdfObject")
-    cls_loop <- checkmate::assert_choice(waterloop$class_name(), c("PlantLoop", "CondenserLoop"))
-
-    # get parent idf
-    idf <- waterloop$parent()
-
-    # sizing plant
-    sizing <- waterloop$value_relation("Name", "ref_by", class = "Sizing:Plant")$ref_by
-    del_if_exist(idf, sizing$object_id)
-
-    prefix <- if (cls_loop == "PlantLoop") "Plant" else "Condenser"
-
-    # setpoint manager for this airloop
-    if (length(cls_spm <- get_setpoint_manager_classes(idf))) {
-        # all node relations in airloop
-        rel_nodes <- waterloop$value_relation(
-            c(paste(prefix, "Side Inlet Node Name"),
-              paste(prefix, "Side Outlet Node Name"),
-              "Demand Side Inlet Node Name",
-              "Demand Side Outlet Node Name"),
-            "node", class = cls_spm
-        )$node
-        del_if_exist(idf, rel_nodes$object_id)
-    }
-
-    # availability
-    if (cls_loop == "PlantLoop") {
-        avail <- waterloop$value_relation("Availability Manager List Name", "ref_to", depth = 1L, class_ref = "none")$ref_to
-        nm_branlst_demand <- "Demand Side Branch List Name"
-        nm_connlst_demand <- "Demand Side Connector List Name"
-    } else {
-        avail <- sizing[0L]
-        nm_branlst_demand <- "Condenser Demand Side Branch List Name"
-        nm_connlst_demand <- "Condenser Demand Side Connector List Name"
-    }
-
-    # operation scheme
-    optsch <- waterloop$value_relation(paste(prefix, "Equipment Operation Scheme Name"), "ref_to", depth = 2L, class_ref = "none")$ref_to
-
-    # branches
-    bran_supply <- waterloop$value_relation(paste(prefix, "Side Branch List Name"), "ref_to", depth = 2L, class_ref = "none")$ref_to
-    bran_demand <- waterloop$value_relation(nm_branlst_demand, "ref_to", depth = 2L, class_ref = "none")$ref_to
-
-    # connectors
-    conn_supply <- waterloop$value_relation(paste(prefix, "Side Connector List Name"), "ref_to", depth = 1L, class_ref = "none")$ref_to
-    conn_demand <- waterloop$value_relation(nm_connlst_demand, "ref_to", depth = 1L, class_ref = "none")$ref_to
-
-    # remove water loop
-    idf$del(waterloop$id())
-
-    # skip any schedules before removing operation scheme and availability
-    cls_sch <- idf$class_name(by_group = TRUE)[["Schedules"]]
-    optsch <- optsch[!J(cls_sch), on = "src_class_name"]
-    avail <- avail[!J(cls_sch), on = "src_class_name"]
-
-    # remove operation scheme
-    del_if_exist(idf, optsch[, c(src_object_id, object_id)])
-    # remove availability
-    del_if_exist(idf, avail[, c(src_object_id, object_id)])
-
-    # remove connectors
-    del_if_exist(idf, conn_supply[, c(src_object_id, object_id)])
-    del_if_exist(idf, conn_demand[, c(src_object_id, object_id)])
-
-    # remove any setpoint manager
-    for (bran in idf$objects(bran_supply[dep == 2, src_object_id])) {
-        remove_setpoint_managers_for_branch(bran)
-    }
-    for (bran in idf$objects(bran_demand[dep == 2, src_object_id])) {
-        remove_setpoint_managers_for_branch(bran)
-    }
-
-    # remove branches and branchlists
-    del_if_exist(idf, bran_supply[dep < 2, c(src_object_id, object_id)])
-    del_if_exist(idf, bran_demand[dep < 2, c(src_object_id, object_id)])
-
-    # if the equipment is also used in a branch/branchlist in another loop,
-    # remove it
-    for (obj in idf$objects(bran_supply[dep == 2, src_object_id])) {
-        remove_equipment_from_loop(obj)
-    }
-    for (obj in idf$objects(bran_demand[dep == 2, src_object_id])) {
-        remove_equipment_from_loop(obj)
-    }
-
-    idf
-}
-# }}}
-
-# remove_airloop {{{
-remove_airloop <- function(airloop, oa_system = TRUE) {
-    checkmate::assert_r6(airloop, "IdfObject")
-    checkmate::assert_string(airloop$class_name(), "AirLoopHVAC")
-
-    # get parent idf
-    idf <- airloop$parent()
-
-    # sizing system
-    sizing <- airloop$value_relation("Name", "ref_by", class = "Sizing:System")$ref_by
-    del_if_exist(idf, sizing$object_id)
-
-    # setpoint manager for this airloop
-    if (length(cls_spm <- get_setpoint_manager_classes(idf))) {
-        # all node relations in airloop
-        rel_nodes <- airloop$value_relation(
-            c("Supply Side Inlet Node Name", "Supply Side Outlet Node Names",
-              "Demand Side Inlet Node Names", "Demand Side Outlet Node Name"),
-            "node", class = cls_spm
-        )$node
-        del_if_exist(idf, rel_nodes$object_id)
-    }
-
-    # availability
-    avail <- airloop$value_relation("Availability Manager List Name", "ref_to", depth = 1L, class_ref = "none")$ref_to
-    # controllers
-    ctrl <- airloop$value_relation("Controller List Name", "ref_to", depth = 1L, class_ref = "none")$ref_to
-    # branches
-    bran <- airloop$value_relation("Branch List Name", "ref_to", depth = 2L, class_ref = "none")$ref_to
-    # connectors
-    conn <- airloop$value_relation("Connector List Name", "ref_to", depth = 1L, class_ref = "none")$ref_to
-    # supply path
-    supply <- airloop$value_relation("Demand Side Inlet Node Names", "node", class = "AirLoopHVAC:SupplyPath")$node
-    # return path
-    return <- airloop$value_relation("Demand Side Outlet Node Name", "node", class = "AirLoopHVAC:ReturnPath")$node
-    # splitter
-    if (nrow(supply)) {
-        splitter <- idf$object(supply$object_id)$value_relation(NULL, "ref_to",
-            class = c("AirLoopHVAC:ZoneSplitter", "AirLoopHVAC:SupplyPlenum"))$ref_to
-    } else {
-        splitter <- supply[0L]
-    }
-    # mixer
-    if (nrow(return)) {
-        mixer <- idf$object(return$object_id)$value_relation(NULL, "ref_to",
-            class = c("AirLoopHVAC:ZoneMixer", "AirLoopHVAC:ReturnPlenum"))$ref_to
-    } else {
-        mixer <- return[0L]
-    }
-
-    # remove airloop
-    idf$del(airloop$id())
-
-    # skip any schedules
-    cls_sch <- idf$class_name(by_group = TRUE)[["Schedules"]]
-    avail <- avail[!J(cls_sch), on = "src_class_name"]
-
-    # remove availability
-    del_if_exist(idf, avail[, c(src_object_id, object_id)])
-
-    # remove controller
-    del_if_exist(idf, ctrl[, c(src_object_id, object_id)])
-
-    # remove connectors
-    del_if_exist(idf, conn[, c(src_object_id, object_id)])
-
-    # remove paths
-    del_if_exist(idf, supply[, c(src_object_id, object_id)])
-    del_if_exist(idf, return[, c(src_object_id, object_id)])
-    del_if_exist(idf, splitter[, c(src_object_id, object_id)])
-    del_if_exist(idf, mixer[, c(src_object_id, object_id)])
-
-    # handle outdoor air system
-    if (!length(id_oa_system <- bran[src_class_name == "AirLoopHVAC:OutdoorAirSystem" & dep == 2L, src_object_id])) {
-        # remove branches but keep equipments
-        del_if_exist(idf, bran[dep < 2L, c(src_object_id, object_id)])
-    } else {
-        # remove branches but keep equipments
-        del_if_exist(idf, setdiff(bran[dep < 2L, c(src_object_id, object_id)], id_oa_system))
-
-        oa_systems <- idf$objects(id_oa_system)
-        for (oa_sys in oa_systems) remove_oa_system(oa_sys)
-    }
-
-    # if the equipment is also used in a branch/branchlist in another loop,
-    # remove it
-    # exclude OA system
-    ids <- bran[dep == 2L & src_class_name != "AirLoopHVAC:OutdoorAirSystem", src_object_id]
-    for (obj in idf$objects(ids)) {
-        remove_equipment_from_loop(obj)
-    }
-
-    idf
-}
-# }}}
-
-# remove_oa_system {{{
-remove_oa_system <- function(oa_system) {
-    checkmate::assert_r6(oa_system, "IdfObject")
-    checkmate::assert_string(oa_system$class_name(), "AirLoopHVAC:OutdoorAirSystem")
-
-    # get parent idf
-    idf <- oa_system$parent()
-
-    # controllers
-    ctrl <- oa_system$value_relation("Controller List Name", "ref_to", depth = 2L, class_ref = "none")$ref_to
-    # branches
-    bran <- oa_system$value_relation("Outdoor Air Equipment List Name", "ref_to", depth = 2L, class_ref = "none")$ref_to
-    # availability
-    avail <- oa_system$value_relation("Availability Manager List Name", "ref_to", depth = 1L, class_ref = "none")$ref_to
-
-    # remove branch
-    del_if_exist(idf, bran[, c(src_object_id, object_id)])
-    # remove availability
-    del_if_exist(idf, avail[, c(src_object_id, object_id)])
-
-    # skip any schedules
-    cls_sch <- idf$class_name(by_group = TRUE)[["Schedules"]]
-    ctrl <- ctrl[!J(cls_sch), on = "src_class_name"]
-
-    if (nrow(ctrl)) {
-        # remove mechanical ventilation if exists
-        if (nrow(mv <- ctrl[src_class_name == "Controller:MechanicalVentilation"])) {
-            # delete mechanical ventilation if not referred by others
-            rel <- idf$object(mv$src_object_id, mv$src_class_name)$value_relation(NULL, "ref_by")$ref_by
-
-            if (length(setdiff(rel$object_id, ctrl$src_object_id))) {
-                ctrl <- ctrl[!J(rel$src_object_id), on = "src_object_id"]
-            }
-        }
-
-        # remove controller itself and skip schedules
-        del_if_exist(idf, ctrl[, c(src_object_id, object_id)])
-    }
-
-    idf
-}
-# }}}
-
-# remove_equipment_from_loop {{{
-remove_equipment_from_loop <- function(equipment, ref_to = TRUE) {
-    checkmate::assert_r6(equipment, "IdfObject")
-
-    idf <- equipment$parent()
-
-    ref_by <- equipment$value_relation(NULL, "ref_by", depth = 1L,
-        class_ref = "none",
-        class = c("BranchList", "Connector:Splitter", "Connector:Mixer"))$ref_by
-
-    if (!nrow(ref_by)) return(idf$del(equipment$id()))
-
-    # if this equipment is also refered in an airloop, this should be an
-    # equipment with both air nodes and water nodes
-    # in this case, remove the equipment from the branch
-    equipment$value_relation(1L, "ref_by", depth = NULL, class_ref = "none",
-        class = "AirLoopHVAC"
-    )
-
-    id <- ref_by[dep == 1L, object_id]
-
-    # if current equipment is used in a branch that contains multiple equipment,
-    # only remove it from that branch and keep the branch list and connectors
-    # untouched
-    dt_bran <- idf$to_table(ref_by[dep == 0L & class_name == "Branch", object_id])
-    id_bran_mult <- dt_bran[, list(mult = "Component 2 Object Type" %in% field), by = "id"][
-        mult == TRUE, id]
-    if (length(id_bran_mult)) {
-        id <- setdiff(id, ref_by[dep == 1L & src_object_id %in% id_bran_mult, object_id])
-
-        dt_bran_mult <- dt_bran[J(id_bran_mult), on = "id"]
-        dt_bran_mult_del_idx <- dt_bran_mult[value == equipment$name(),
-            list(index = c(index - 1L, index, index + 1L, index + 2L)), by = "id"]
-        dt_bran_mult_pre <- dt_bran_mult[!dt_bran_mult_del_idx, on = c("id", "index")][
-            , list(index = seq_len(.N), class, value), by = "id"]
-        dt_bran_mult_emp <- dt_bran_mult[dt_bran_mult_del_idx, on = c("id", "index")][
-            dt_bran_mult_pre[, by = "id", list(index = max(index))], on = "id",
-            index := seq_len(.N) + i.index, by = .EACHI][
-            , `:=`(name = NULL, field = NULL, value = NA_character_)]
-        dt_bran_mult <- data.table::rbindlist(list(dt_bran_mult_pre, dt_bran_mult_emp), use.names = TRUE)
-
-        idf$update(dt_bran_mult)
-    }
-
-    # remove current branch from branch list and connectors if the branch
-    # contains only the equipment and nothing else
-    if (length(id)) {
-        # get branch name
-        bran <- ref_by[dep == 0L & class_name == "Branch", object_name]
-
-        dt <- idf$to_table(id)
-
-        dt_pre <- dt[!J(bran), on = "value"][, by = c("id", "class"), list(value, index = seq_len(.N))]
-        dt_emp <- dt[J(bran), on = "value"][, value := NA_character_]
-        dt_emp[dt_pre[, by = "id", list(index = max(index))], on = "id", index := seq_len(.N) + i.index, by = .EACHI]
-        dt_emp[, `:=`(name = NULL, field = NULL)]
-        dt <- data.table::rbindlist(list(dt_pre, dt_emp), use.names = TRUE)
-
-        idf$update(dt)
-    }
-
-    del_if_exist(idf, c(equipment$id(), setdiff(dt_bran$id, id_bran_mult)), ref_to = ref_to)
-
-    idf
-}
-# }}}
-
-# remove_setpoint_managers_for_branch {{{
-remove_setpoint_managers_for_branch <- function(branch, class = NULL) {
-    idf <- branch$parent()
-
-    if (is.null(class)) class <- get_setpoint_manager_classes(idf)
-
-    rel <- branch$value_relation(NULL, "node", class = class)$node
-
-    if (!nrow(rel)) return(idf)
-
-    del_if_exist(idf, rel[class_name %in% class, object_id])
-}
-# }}}
-
-# get_setpoint_manager_classes {{{
-get_setpoint_manager_classes <- function(idf) {
-    idf$class_name(by_group = TRUE)[["Setpoint Managers"]]
-}
-# }}}
-
 # del_if_exist {{{
 del_if_exist <- function(idf, id, ref_to = FALSE) {
     if (!length(id)) return(idf)
-    id <- unique(id[idf$is_valid_id(id)])
+    id <- unique(id)
+    id <- id[idf$is_valid_id(id)]
     if (!length(id)) return(idf)
     idf$del(id, .ref_to = ref_to)
 }

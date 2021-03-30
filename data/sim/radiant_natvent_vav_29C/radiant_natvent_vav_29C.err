@@ -1,0 +1,465 @@
+Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.30 17:01,
+   ************* Beginning Zone Sizing Calculations
+   ** Warning ** Site:GroundTemperature:BuildingSurface: Some values fall outside the range of 15-25C.
+   **   ~~~   ** These values may be inappropriate.  Please consult the Input Output Reference for more details.
+   ** Warning ** GetSurfaceData: Entered Zone Floor Areas differ from calculated Zone Floor Area(s).
+   **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual zones.
+   ** Warning ** CalculateZoneVolume: 6 zones are not fully enclosed. For more details use:  Output:Diagnostics,DisplayExtrawarnings; 
+   ** Warning ** CheckUsedConstructions: There are 2 nominally unused constructions in input.
+   **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;
+   ** Severe  ** InitConductionTransferFunctions: Found Material that is too thin and/or too highly conductive, material name = METAL_PANEL
+   **   ~~~   ** High conductivity Material layers are not well supported for internal source constructions, material conductivity = 62.000 [W/m-K]
+   **   ~~~   ** Material thermal diffusivity = 1.686E-005 [m2/s]
+   **   ~~~   ** Material with this thermal diffusivity should have thickness > 0.17423 [m]
+   ** Warning ** GetPlant/CondenserLoopData: PlantLoop="RADCOOLING_LOOP", Invalid choice.
+   **   ~~~   ** ...Load Distribution Scheme="".
+   **   ~~~   ** Will default to SequentialLoad.
+   ** Warning ** GetPlant/CondenserLoopData: PlantLoop="HW_LOOP", Invalid choice.
+   **   ~~~   ** ...Load Distribution Scheme="".
+   **   ~~~   ** Will default to SequentialLoad.
+   ** Warning ** Chiller:ConstantCOP, Adding OutdoorAir:DataLoopNode::Node=RADIANT_CHILLER CONDENSER INLET NODE
+   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="BOT_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
+   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="MID_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
+   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="TOP_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
+   ** Warning ** Calculated design heating load for zone=CORE_BOT is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=CORE_MID is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=CORE_TOP is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_BOT_N is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_BOT_E is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_BOT_S is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_BOT_W is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_MID_N is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_MID_E is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_MID_S is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_MID_W is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_TOP_N is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_TOP_E is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_TOP_S is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=ZONE_TOP_W is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design cooling load for zone=BOT_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=BOT_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design cooling load for zone=MID_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=MID_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design cooling load for zone=TOP_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=TOP_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ************* Beginning System Sizing Calculations
+   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_BOT is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_MID is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_TOP is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ************* Beginning Plant Sizing Calculations
+   ** Warning ** SizePlantLoop: Calculated Plant Sizing Design Volume Flow Rate=[0.00] is too small. Set to 0.0
+   **   ~~~   ** ..occurs for PlantLoop=HW_LOOP
+   ** Warning ** SizePump: Calculated Pump Nominal Volume Flow Rate=[0.00] is too small. Set to 0.0
+   **   ~~~   ** ..occurs for Pump=HW_PUMP
+   ** Warning ** Check input. Calculated Pump Efficiency=0.00% which is less than 50%, for pump=HW_PUMP
+   **   ~~~   ** Calculated Pump_Efficiency % =Total_Efficiency % [0.0] / Motor_Efficiency % [90.0]
+   **   ~~~   ** Total_Efficiency % =(Rated_Volume_Flow_Rate [0.0] * Rated_Pump_Head [200000.0] / Rated_Power_Use [30000.0]) * 100.
+   ** Warning ** Check input. Pump nominal flow rate is set or calculated = 0, for pump=HW_PUMP
+   ** Warning ** FuelFactors: PROPANE already entered. Previous entry will be used.
+   ** Warning ** FuelFactors: PROPANE already entered. Previous entry will be used.
+   ** Warning ** FuelFactors: PROPANE already entered. Previous entry will be used.
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ************* No node connection errors were found.
+   ************* Beginning Simulation
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="CORE_BOT" did not converge after 40 warmup days.
+   **   ~~~   ** See Warmup Convergence Information in .eio file for details.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_FEB"
+   **   ~~~   ** ..Max Temp Comparison = 4.12E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 3.01E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1062 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_FEB"
+   **   ~~~   ** ..Max Temp Comparison = 3.28E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.13E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.2323 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_FEB"
+   **   ~~~   ** ..Max Temp Comparison = 0.28 vs Temperature Convergence Tolerance=0.20 - Fail Convergence
+   **   ~~~   ** ..Min Temp Comparison = 1.74E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1070 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_S" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_FEB"
+   **   ~~~   ** ..Max Temp Comparison = 1.68E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 4.26E-005 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.3018 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_FEB"
+   **   ~~~   ** ..Max Temp Comparison = 2.40E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.02E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.6429 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_FEB"
+   **   ~~~   ** ..Max Temp Comparison = 1.57E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 9.81E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1111 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_W" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_FEB"
+   **   ~~~   ** ..Max Temp Comparison = 2.28E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.39E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 6.2179E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="BOT_PLENUM" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_FEB"
+   **   ~~~   ** ..Max Temp Comparison = 7.73E-004 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 1.42E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.8236 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 6.4669E-005 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="MID_PLENUM" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_FEB"
+   **   ~~~   ** ..Max Temp Comparison = 1.03E-005 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.22E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 4.8692E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evaporator outlet temperature (10.00 C) is outside the range of evaporator outlet temperatures (X var) given in Cooling Capacity Function of Temperature biquadratic curve = WC_CENT_2010_PB_CAPFT
+   **   ~~~   ** The range specified = 5.00 C to 10.00 C. Environment=SGP_DESIGN_DAY_FEB, at Simulation time=02/21 07:00 - 07:10
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evaporator outlet temperature (10.00 C) is outside the range of evaporator outlet temperatures (X var) given in Electric Input to Cooling Output Ratio Function of Temperature biquadratic curve = WC_CENT_2010_PB_EIRFT
+   **   ~~~   ** The range specified = 5.00 C to 10.00 C. Environment=SGP_DESIGN_DAY_FEB, at Simulation time=02/21 07:00 - 07:10
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="CORE_BOT" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_APR"
+   **   ~~~   ** ..Max Temp Comparison = 1.16E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.50E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1729 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="CORE_TOP" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_APR"
+   **   ~~~   ** ..Max Temp Comparison = 1.30E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 8.89E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 9.0999E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_APR"
+   **   ~~~   ** ..Max Temp Comparison = 4.03E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 4.39E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.7401 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_APR"
+   **   ~~~   ** ..Max Temp Comparison = 0.20 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 5.21E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1473 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_S" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_APR"
+   **   ~~~   ** ..Max Temp Comparison = 1.79E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 3.06E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.8390 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_APR"
+   **   ~~~   ** ..Max Temp Comparison = 4.60E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 4.76E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1761 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_APR"
+   **   ~~~   ** ..Max Temp Comparison = 0.25 vs Temperature Convergence Tolerance=0.20 - Fail Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.30E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1300 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="BOT_PLENUM" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_APR"
+   **   ~~~   ** ..Max Temp Comparison = 1.66E-005 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 1.15E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.2580 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 5.4847E-003 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="CORE_BOT" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_JUN"
+   **   ~~~   ** ..Max Temp Comparison = 6.01E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 1.25E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 5.8619E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="CORE_TOP" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_JUN"
+   **   ~~~   ** ..Max Temp Comparison = 3.82E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 7.80E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 4.9150E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_JUN"
+   **   ~~~   ** ..Max Temp Comparison = 2.17E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 0.20 vs Temperature Convergence Tolerance=0.20 - Fail Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1464 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_JUN"
+   **   ~~~   ** ..Max Temp Comparison = 0.27 vs Temperature Convergence Tolerance=0.20 - Fail Convergence
+   **   ~~~   ** ..Min Temp Comparison = 8.49E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1593 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_S" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_JUN"
+   **   ~~~   ** ..Max Temp Comparison = 2.77E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.46E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.2826 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_MID_S" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_JUN"
+   **   ~~~   ** ..Max Temp Comparison = 2.31E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.77E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1294 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_S" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_JUN"
+   **   ~~~   ** ..Max Temp Comparison = 3.38E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 3.41E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 8.2965E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="BOT_PLENUM" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_JUN"
+   **   ~~~   ** ..Max Temp Comparison = 1.51E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 8.52E-004 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.2649 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.2694 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="CORE_MID" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_AUG"
+   **   ~~~   ** ..Max Temp Comparison = 1.67E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 4.70E-004 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 6.4833E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_AUG"
+   **   ~~~   ** ..Max Temp Comparison = 1.18E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 9.18E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.3698 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_AUG"
+   **   ~~~   ** ..Max Temp Comparison = 0.26 vs Temperature Convergence Tolerance=0.20 - Fail Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.99E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1469 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_S" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_AUG"
+   **   ~~~   ** ..Max Temp Comparison = 4.25E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 4.03E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1177 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_AUG"
+   **   ~~~   ** ..Max Temp Comparison = 3.29E-004 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 5.68E-004 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.4048 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_AUG"
+   **   ~~~   ** ..Max Temp Comparison = 0.16 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 1.07E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1327 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_S" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_AUG"
+   **   ~~~   ** ..Max Temp Comparison = 4.54E-004 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 4.79E-005 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1042 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_W" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_AUG"
+   **   ~~~   ** ..Max Temp Comparison = 3.95E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 8.66E-004 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1432 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="BOT_PLENUM" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_AUG"
+   **   ~~~   ** ..Max Temp Comparison = 2.13E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.29E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.8884 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 2.8087E-004 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_OCT"
+   **   ~~~   ** ..Max Temp Comparison = 2.19E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 1.37E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 5.4039E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_OCT"
+   **   ~~~   ** ..Max Temp Comparison = 0.23 vs Temperature Convergence Tolerance=0.20 - Fail Convergence
+   **   ~~~   ** ..Min Temp Comparison = 3.43E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 4.8963E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_OCT"
+   **   ~~~   ** ..Max Temp Comparison = 6.67E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 5.58E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.2857 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_OCT"
+   **   ~~~   ** ..Max Temp Comparison = 0.20 vs Temperature Convergence Tolerance=0.20 - Fail Convergence
+   **   ~~~   ** ..Min Temp Comparison = 3.57E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1800 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_S" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_OCT"
+   **   ~~~   ** ..Max Temp Comparison = 8.14E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 1.20E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1833 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_W" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_OCT"
+   **   ~~~   ** ..Max Temp Comparison = 2.60E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 1.08E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 8.4383E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="BOT_PLENUM" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_OCT"
+   **   ~~~   ** ..Max Temp Comparison = 3.49E-004 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 3.62E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 5.2744E-003 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1592 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="TOP_PLENUM" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_OCT"
+   **   ~~~   ** ..Max Temp Comparison = 5.02E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 5.08E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 12.9937 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 9.2323E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="CORE_BOT" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_DEC"
+   **   ~~~   ** ..Max Temp Comparison = 2.36E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 5.72E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1354 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_DEC"
+   **   ~~~   ** ..Max Temp Comparison = 2.00E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.53E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 9.1777E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_BOT_S" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_DEC"
+   **   ~~~   ** ..Max Temp Comparison = 8.77E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 0.73 vs Temperature Convergence Tolerance=0.20 - Fail Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 5.0752E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_MID_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_DEC"
+   **   ~~~   ** ..Max Temp Comparison = 2.72E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 4.52E-004 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 8.1161E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_N" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_DEC"
+   **   ~~~   ** ..Max Temp Comparison = 6.33E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 3.87E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1661 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_E" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_DEC"
+   **   ~~~   ** ..Max Temp Comparison = 7.24E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 4.93E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 4.6317E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_S" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_DEC"
+   **   ~~~   ** ..Max Temp Comparison = 3.63E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 0.90 vs Temperature Convergence Tolerance=0.20 - Fail Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 8.2510E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="ZONE_TOP_W" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_DEC"
+   **   ~~~   ** ..Max Temp Comparison = 2.00E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 5.80E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.2304 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="BOT_PLENUM" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_DEC"
+   **   ~~~   ** ..Max Temp Comparison = 2.41E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 1.28E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.8372 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 6.6252E-003 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="TOP_PLENUM" did not converge after 40 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SGP_DESIGN_DAY_DEC"
+   **   ~~~   ** ..Max Temp Comparison = 2.92E-003 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.24E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 3.1576 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 6.7905E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The condenser outlet temperature (31.11 C) is outside the range of condenser outlet temperatures (X var) given in Electric Input to Cooling Output Ratio Function of Part-load Ratio bicubic curve = WC_CENT_GT600_2010_PA_EIRFPLR
+   **   ~~~   ** The range specified = 31.13 C to 36.52 C. Environment=RUNPERIOD 1, at Simulation time=01/02 07:43 - 07:47
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The part-load ratio (0.188) is outside the range of part-load ratios (Y var) given in Electric Input to Cooling Output Ratio Function of Part-load Ratio bicubic curve = WC_CENT_GT600_2010_PA_EIRFPLR
+   **   ~~~   ** The range specified = 0.190 to 1.030. Environment=RUNPERIOD 1, at Simulation time=01/07 07:00 - 07:10
+   ************* Simulation Error Summary *************
+   ************* There are 1 unused objects in input.
+   ************* Use Output:Diagnostics,DisplayUnusedObjects; to see them.
+   *************
+   ************* ===== Recurring Error Summary =====
+   ************* The following recurring error messages occurred.
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evap outlet temp range in Cooling Capacity Function of Temp curve error continues.
+   *************  **   ~~~   **   This error occurred 11986 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=10.  Min=10.
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The evap outlet temp range in Electric Input to Cooling Output Ratio Function of Temp curve error continues.
+   *************  **   ~~~   **   This error occurred 11986 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=10.  Min=10.
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The cond outlet temp range in Electric Input to Cooling Output Ratio Function of PLR curve error continues.
+   *************  **   ~~~   **   This error occurred 26200 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=31.129985  Min=30.276146
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "SG_CHILLER_1": The part-load ratio range in Electric Input to Cooling Output Ratio Function of PLRatio curve error continues.
+   *************  **   ~~~   **   This error occurred 278 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=0.189979  Min=0.119782
+   *************
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Loads Initialization did not Converge
+   ************* ..1) very high thermal mass such as very thick concrete (solution: increase max number of warmup
+   ************* ..   days in the BUILDING object);
+   ************* ..2) moderate mass and inadequate space conditioning such that the building keeps getting warmer
+   ************* ..   and warmer on successive days (solution: add HVAC, check building thermal properties,
+   ************* ..   check if infiltration is included, make sure HVAC properly controlled);
+   ************* ..3) a soil layer modeled below the concrete slab - (solution remove this layer and read about
+   ************* ..   ground temperatures in the Auxiliary Programs document).
+   ************* ..4) unreasonable (too small) limits in the BUILDING object for temperature (.4 default) or
+   ************* ..   loads tolerances (.04 default)
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 52 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 34 Warning; 1 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 50495 Warning; 53 Severe Errors; Elapsed Time=00hr 07min 43.99sec

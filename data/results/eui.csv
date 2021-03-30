@@ -1,9 +1,7 @@
 case,eui,savings
 baseline,142.89,0
 fans,129.28,0.095
-radiant_28C_chiller_nonv,107.64,0.247
-radiant_28C_chiller_nv,105.87,0.259
-radiant_28C_chiller_doas,113.54,0.205
-radiant_28C_tower_nonv,88.04,0.384
-radiant_28C_tower_nv,87.79,0.386
-radiant_28C_tower_doas,93.48,0.346
+radiant_natvent_28C,101.93,0.287
+radiant_natvent_vav_28C,131.29,0.081
+radiant_natvent_29C,100.86,0.294
+radiant_natvent_vav_29C,128.26,0.102

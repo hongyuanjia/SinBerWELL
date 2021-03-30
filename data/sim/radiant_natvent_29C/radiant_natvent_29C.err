@@ -1,18 +1,26 @@
-Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.24 15:01,
+Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.30 17:01,
    ************* Beginning Zone Sizing Calculations
    ** Warning ** Site:GroundTemperature:BuildingSurface: Some values fall outside the range of 15-25C.
    **   ~~~   ** These values may be inappropriate.  Please consult the Input Output Reference for more details.
    ** Warning ** GetSurfaceData: Entered Zone Floor Areas differ from calculated Zone Floor Area(s).
    **   ~~~   ** ...use Output:Diagnostics,DisplayExtraWarnings; to show more details on individual zones.
    ** Warning ** CalculateZoneVolume: 6 zones are not fully enclosed. For more details use:  Output:Diagnostics,DisplayExtrawarnings; 
-   ** Warning ** CheckUsedConstructions: There are 1 nominally unused constructions in input.
+   ** Warning ** CheckUsedConstructions: There are 2 nominally unused constructions in input.
    **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;
+   ** Severe  ** InitConductionTransferFunctions: Found Material that is too thin and/or too highly conductive, material name = METAL_PANEL
+   **   ~~~   ** High conductivity Material layers are not well supported for internal source constructions, material conductivity = 62.000 [W/m-K]
+   **   ~~~   ** Material thermal diffusivity = 1.686E-005 [m2/s]
+   **   ~~~   ** Material with this thermal diffusivity should have thickness > 0.17423 [m]
+   ** Warning ** GetPlant/CondenserLoopData: PlantLoop="RADCOOLING_LOOP", Invalid choice.
+   **   ~~~   ** ...Load Distribution Scheme="".
+   **   ~~~   ** Will default to SequentialLoad.
    ** Warning ** GetPlant/CondenserLoopData: PlantLoop="HW_LOOP", Invalid choice.
    **   ~~~   ** ...Load Distribution Scheme="".
    **   ~~~   ** Will default to SequentialLoad.
-   ** Warning ** GetPlant/CondenserLoopData: CondenserLoop="CNDW_LOOP", Invalid choice.
-   **   ~~~   ** ...Load Distribution Scheme="".
-   **   ~~~   ** Will default to SequentialLoad.
+   ** Warning ** Chiller:ConstantCOP, Adding OutdoorAir:DataLoopNode::Node=RADIANT_CHILLER CONDENSER INLET NODE
+   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="BOT_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
+   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="MID_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
+   ** Warning ** SetUpZoneSizingArrays: Sizing for Zone="TOP_TOILET" will use Sizing:Zone specifications listed for Zone="CORE_BOT".
    ** Warning ** Calculated design heating load for zone=CORE_BOT is zero.
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ** Warning ** Calculated design heating load for zone=CORE_MID is zero.
@@ -43,6 +51,25 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.24 15:01,
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ** Warning ** Calculated design heating load for zone=ZONE_TOP_W is zero.
    **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design cooling load for zone=BOT_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=BOT_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design cooling load for zone=MID_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=MID_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design cooling load for zone=TOP_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** Calculated design heating load for zone=TOP_TOILET is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ************* Beginning System Sizing Calculations
+   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_BOT is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_MID is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
+   ** Warning ** ManageSizing: Calculated Heating Design Air Flow Rate for System=VAV_TOP is zero.
+   **   ~~~   ** Check Sizing:Zone and ZoneControl:Thermostat inputs.
    ************* Beginning Plant Sizing Calculations
    ** Warning ** SizePlantLoop: Calculated Plant Sizing Design Volume Flow Rate=[0.00] is too small. Set to 0.0
    **   ~~~   ** ..occurs for PlantLoop=HW_LOOP
@@ -64,22 +91,8 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.24 15:01,
    ************* No node connection errors were found.
    ************* Beginning Simulation
    ************* Simulation Error Summary *************
-   ** Warning ** The following Report Variables were requested but not generated -- check.rdd file
-   **   ~~~   ** Either the IDF did not contain these elements, the variable name is misspelled,
-   **   ~~~   ** or the requested variable is an advanced output which requires Output : Diagnostics, DisplayAdvancedReportVariables;
-   ************* Key=*, VarName=CHILLER PART LOAD RATIO, Frequency=Hourly
-   ************* Key=*, VarName=CHILLER COP, Frequency=Hourly
-   ************* Key=*, VarName=CHILLER ELECTRICITY RATE, Frequency=Hourly
-   ************* Key=*, VarName=CHILLER EVAPORATOR COOLING RATE, Frequency=Hourly
-   ************* Key=*, VarName=CHILLER EVAPORATOR INLET TEMPERATURE, Frequency=Hourly
-   ************* Key=*, VarName=CHILLER EVAPORATOR OUTLET TEMPERATURE, Frequency=Hourly
-   ************* Key=*, VarName=CHILLER EVAPORATOR MASS FLOW RATE, Frequency=Hourly
    ************* There are 1 unused objects in input.
    ************* Use Output:Diagnostics,DisplayUnusedObjects; to see them.
-   ************* There are 40 unused schedules in input.
-   ************* There are 36 unused week schedules in input.
-   ************* There are 36 unused day schedules in input.
-   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.
    *************
    ************* ===== Final Error Summary =====
    ************* The following error categories occurred.  Consider correcting or noting.
@@ -89,5 +102,5 @@ Program Version,EnergyPlus, Version 9.4.0-998c4b761e, YMD=2021.03.24 15:01,
    ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
-   ************* EnergyPlus Sizing Error Summary. During Sizing: 21 Warning; 0 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 29 Warning; 0 Severe Errors; Elapsed Time=00hr 03min 31.28sec
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 34 Warning; 1 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 41 Warning; 1 Severe Errors; Elapsed Time=00hr 03min 35.41sec
