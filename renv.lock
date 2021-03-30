@@ -214,7 +214,8 @@
       "RemoteUsername": "hongyuanjia",
       "RemoteRepo": "eplusr",
       "RemoteRef": "master",
-      "RemoteSha": "1f69066efa5745564030c02007ca502c94de6023"
+      "RemoteSha": "1f69066efa5745564030c02007ca502c94de6023",
+      "Hash": "fe8a1978eb8be1ac2ab3719f7e78bcfa"
     },
     "evaluate": {
       "Package": "evaluate",
