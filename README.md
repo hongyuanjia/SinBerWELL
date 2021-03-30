@@ -48,7 +48,7 @@ The main files are:
 
 ## Scenarios investigated
 
-This project investigated 8 different scenarios using the Singapore large office
+This project investigated 10 different scenarios using the Singapore large office
 reference building, including:
 
 * Baseline (data/idf/baseline.idf): Business-as-usual scenario with indoor air temperature setpoint at
