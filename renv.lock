@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.0.4",
+    "Version": "4.1.0",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -19,8 +19,14 @@
     "DBI": {
       "Package": "DBI",
       "Version": "1.1.1",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "DBI",
+      "RemoteRef": "DBI",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.1.1",
       "Hash": "030aaec5bc6553f35347cbb1e70b1a17"
     },
     "MASS": {
@@ -40,8 +46,14 @@
     "R6": {
       "Package": "R6",
       "Version": "2.5.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "R6",
+      "RemoteRef": "R6",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "2.5.0",
       "Hash": "b203113193e70978a696b2809525649d"
     },
     "RApiSerialize": {
@@ -54,8 +66,14 @@
     "RColorBrewer": {
       "Package": "RColorBrewer",
       "Version": "1.1-2",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "RColorBrewer",
+      "RemoteRef": "RColorBrewer",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.1-2",
       "Hash": "e031418365a7f7a766181ab5a41a5716"
     },
     "RSQLite": {
@@ -68,8 +86,14 @@
     "Rcpp": {
       "Package": "Rcpp",
       "Version": "1.0.6",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "Rcpp",
+      "RemoteRef": "Rcpp",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.0.6",
       "Hash": "dbb5e436998a7eba5a9d682060533338"
     },
     "RcppParallel": {
@@ -82,36 +106,66 @@
     "assertthat": {
       "Package": "assertthat",
       "Version": "0.2.1",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "assertthat",
+      "RemoteRef": "assertthat",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.2.1",
       "Hash": "50c838a310445e954bc13f26f26a6ecf"
     },
     "backports": {
       "Package": "backports",
       "Version": "1.2.1",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "backports",
+      "RemoteRef": "backports",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.2.1",
       "Hash": "644043219fc24e190c2f620c1a380a69"
     },
     "bit": {
       "Package": "bit",
       "Version": "4.0.4",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "bit",
+      "RemoteRef": "bit",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "4.0.4",
       "Hash": "f36715f14d94678eea9933af927bc15d"
     },
     "bit64": {
       "Package": "bit64",
       "Version": "4.0.5",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "bit64",
+      "RemoteRef": "bit64",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "4.0.5",
       "Hash": "9fe98599ca456d6552421db0d6772d8f"
     },
     "blob": {
       "Package": "blob",
       "Version": "1.2.1",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "blob",
+      "RemoteRef": "blob",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.2.1",
       "Hash": "9addc7e2c5954eca5719928131fed98c"
     },
     "brio": {
@@ -138,8 +192,14 @@
     "checkmate": {
       "Package": "checkmate",
       "Version": "2.0.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "checkmate",
+      "RemoteRef": "checkmate",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "2.0.0",
       "Hash": "a667800d5f0350371bedeb8b8b950289"
     },
     "cli": {
@@ -166,15 +226,27 @@
     "crayon": {
       "Package": "crayon",
       "Version": "1.4.1",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "crayon",
+      "RemoteRef": "crayon",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.4.1",
       "Hash": "e75525c55c70e5f4f78c9960a4b402e9"
     },
     "data.table": {
       "Package": "data.table",
       "Version": "1.14.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "data.table",
+      "RemoteRef": "data.table",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.14.0",
       "Hash": "d1b8b1a821ee564a3515fa6c6d5c52dc"
     },
     "desc": {
@@ -194,8 +266,14 @@
     "digest": {
       "Package": "digest",
       "Version": "0.6.27",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "digest",
+      "RemoteRef": "digest",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.6.27",
       "Hash": "a0cbe758a531d054b537d16dff4d58a1"
     },
     "ellipsis": {
@@ -207,28 +285,41 @@
     },
     "eplusr": {
       "Package": "eplusr",
-      "Version": "0.14.1.9004",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "hongyuanjia",
-      "RemoteRepo": "eplusr",
-      "RemoteRef": "master",
-      "RemoteSha": "1f69066efa5745564030c02007ca502c94de6023",
-      "Hash": "fe8a1978eb8be1ac2ab3719f7e78bcfa"
+      "Version": "0.14.2",
+      "Source": "CRAN",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "eplusr",
+      "RemoteRef": "eplusr",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "source",
+      "RemoteSha": "0.14.2",
+      "Hash": "13c590b88c72a7ae99e89ecb875ebdbe"
     },
     "evaluate": {
       "Package": "evaluate",
       "Version": "0.14",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
-      "Hash": "ec8ca05cffcc70569eaaad8469d2a3a7"
+      "RemoteType": "standard",
+      "RemotePkgRef": "evaluate",
+      "RemoteRef": "evaluate",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.14",
+      "Hash": "27a3e935fed8a91f5b8ec05083e7bcee"
     },
     "fansi": {
       "Package": "fansi",
       "Version": "0.4.2",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "fansi",
+      "RemoteRef": "fansi",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.4.2",
       "Hash": "fea074fb67fe4c25d47ad09087da847d"
     },
     "farver": {
@@ -241,36 +332,79 @@
     "fastmap": {
       "Package": "fastmap",
       "Version": "1.1.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "fastmap",
+      "RemoteRef": "fastmap",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.1.0",
       "Hash": "77bd60a6157420d4ffa93b27cf6a58b8"
+    },
+    "forcats": {
+      "Package": "forcats",
+      "Version": "0.5.1",
+      "Source": "CRAN",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "forcats",
+      "RemoteRef": "forcats",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.5.1",
+      "Hash": "81c3244cab67468aac4c60550832655d"
     },
     "generics": {
       "Package": "generics",
       "Version": "0.1.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "generics",
+      "RemoteRef": "generics",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.1.0",
       "Hash": "4d243a9c10b00589889fe32314ffd902"
     },
     "ggplot2": {
       "Package": "ggplot2",
       "Version": "3.3.3",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "ggplot2",
+      "RemoteRef": "ggplot2",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "3.3.3",
       "Hash": "3eb6477d01eb5bbdc03f7d5f70f2733e"
     },
     "glue": {
       "Package": "glue",
       "Version": "1.4.2",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "glue",
+      "RemoteRef": "glue",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.4.2",
       "Hash": "6efd734b14c6471cfe443345f3e35e29"
     },
     "gtable": {
       "Package": "gtable",
       "Version": "0.3.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "gtable",
+      "RemoteRef": "gtable",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.3.0",
       "Hash": "ac5c6baf7822ce8732b343f14c072c4d"
     },
     "hms": {
@@ -297,15 +431,27 @@
     "jsonlite": {
       "Package": "jsonlite",
       "Version": "1.7.2",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "jsonlite",
+      "RemoteRef": "jsonlite",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.7.2",
       "Hash": "98138e0994d41508c7a6b84a0600cfcb"
     },
     "labeling": {
       "Package": "labeling",
       "Version": "0.4.2",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "labeling",
+      "RemoteRef": "labeling",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.4.2",
       "Hash": "3d5108641f47470611a32d0bdf357a72"
     },
     "lattice": {
@@ -318,29 +464,53 @@
     "lifecycle": {
       "Package": "lifecycle",
       "Version": "1.0.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "lifecycle",
+      "RemoteRef": "lifecycle",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.0.0",
       "Hash": "3471fb65971f1a7b2d4ae7848cf2db8d"
     },
     "lubridate": {
       "Package": "lubridate",
       "Version": "1.7.10",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "lubridate",
+      "RemoteRef": "lubridate",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.7.10",
       "Hash": "1ebfdc8a3cfe8fe19184f5481972b092"
     },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.1",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "magrittr",
+      "RemoteRef": "magrittr",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "2.0.1",
       "Hash": "41287f1ac7d28a92f0a286ed507928d3"
     },
     "memoise": {
       "Package": "memoise",
       "Version": "2.0.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "memoise",
+      "RemoteRef": "memoise",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "2.0.0",
       "Hash": "a0bc51650201a56d00a4798523cc91b3"
     },
     "mgcv": {
@@ -353,8 +523,14 @@
     "munsell": {
       "Package": "munsell",
       "Version": "0.5.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "munsell",
+      "RemoteRef": "munsell",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.5.0",
       "Hash": "6dfe8bf774944bd5595785e3229d8771"
     },
     "nlme": {
@@ -381,15 +557,27 @@
     "pkgbuild": {
       "Package": "pkgbuild",
       "Version": "1.2.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "pkgbuild",
+      "RemoteRef": "pkgbuild",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.2.0",
       "Hash": "725fcc30222d4d11ec68efb8ff11a9af"
     },
     "pkgconfig": {
       "Package": "pkgconfig",
       "Version": "2.0.3",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "pkgconfig",
+      "RemoteRef": "pkgconfig",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "2.0.3",
       "Hash": "01f28d4278f15c76cddbea05899c5d6f"
     },
     "pkgload": {
@@ -409,15 +597,27 @@
     "praise": {
       "Package": "praise",
       "Version": "1.0.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "praise",
+      "RemoteRef": "praise",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.0.0",
       "Hash": "a555924add98c99d2f411e37e7d25e9f"
     },
     "prettyunits": {
       "Package": "prettyunits",
       "Version": "1.1.1",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "prettyunits",
+      "RemoteRef": "prettyunits",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.1.1",
       "Hash": "95ef9167b75dde9d2ccc3c7528393e7e"
     },
     "prismatic": {
@@ -437,22 +637,40 @@
     "progress": {
       "Package": "progress",
       "Version": "1.2.2",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "progress",
+      "RemoteRef": "progress",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.2.2",
       "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
     },
     "ps": {
       "Package": "ps",
       "Version": "1.6.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "ps",
+      "RemoteRef": "ps",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.6.0",
       "Hash": "32620e2001c1dce1af49c49dccbb9420"
     },
     "purrr": {
       "Package": "purrr",
       "Version": "0.3.4",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "purrr",
+      "RemoteRef": "purrr",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.3.4",
       "Hash": "97def703420c8ab10d8f0e6c72101e02"
     },
     "qs": {
@@ -465,16 +683,22 @@
     "rematch2": {
       "Package": "rematch2",
       "Version": "2.1.2",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "rematch2",
+      "RemoteRef": "rematch2",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "2.1.2",
       "Hash": "76c9e04c712a05848ae7a23d2f170a40"
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.13.0",
+      "Version": "0.13.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "9f10d9db5b50400c348920c5c603385e"
+      "Hash": "079cb1f03ff972b30401ed05623cbe92"
     },
     "rlang": {
       "Package": "rlang",
@@ -486,22 +710,40 @@
     "rprojroot": {
       "Package": "rprojroot",
       "Version": "2.0.2",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "rprojroot",
+      "RemoteRef": "rprojroot",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "2.0.2",
       "Hash": "249d8cd1e74a8f6a26194a91b47f21d1"
     },
     "rstudioapi": {
       "Package": "rstudioapi",
       "Version": "0.13",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "rstudioapi",
+      "RemoteRef": "rstudioapi",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.13",
       "Hash": "06c85365a03fdaf699966cc1d3cf53ea"
     },
     "scales": {
       "Package": "scales",
       "Version": "1.1.1",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "scales",
+      "RemoteRef": "scales",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "1.1.1",
       "Hash": "6f76f71042411426ec8df6c54f34e6dd"
     },
     "stringfish": {
@@ -520,16 +762,22 @@
     },
     "targets": {
       "Package": "targets",
-      "Version": "0.2.0",
+      "Version": "0.4.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "c893326d7a0f169964e16c94edfba375"
+      "Hash": "a46df8ab3d40fd1627deeca2783df151"
     },
     "testthat": {
       "Package": "testthat",
       "Version": "3.0.2",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "testthat",
+      "RemoteRef": "testthat",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "3.0.2",
       "Hash": "495e0434d9305716b6a87031570ce109"
     },
     "tibble": {
@@ -549,8 +797,14 @@
     "units": {
       "Package": "units",
       "Version": "0.7-1",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "units",
+      "RemoteRef": "units",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "0.7-1",
       "Hash": "1eb71bc3895bf5a047485c16758c4862"
     },
     "utf8": {
@@ -587,6 +841,19 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "caf4781c674ffa549a4676d2d77b13cc"
+    },
+    "yaml": {
+      "Package": "yaml",
+      "Version": "2.2.1",
+      "Source": "CRAN",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "yaml",
+      "RemoteRef": "yaml",
+      "RemoteRepos": "https://cloud.r-project.org/",
+      "RemotePkgPlatform": "windows",
+      "RemoteSha": "2.2.1",
+      "Hash": "2826c5d9efb0a88f657c7a679c7106db"
     }
   }
 }
